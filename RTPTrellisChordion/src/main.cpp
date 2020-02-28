@@ -13,7 +13,6 @@ void actOnPeriodicUpdate(String callbackString){
 
 void setup() {
   mUnit.begin();
-  Serial.println("Starting!");
 }
 
 void loop() {
