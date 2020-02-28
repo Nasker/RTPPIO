@@ -1,0 +1,44 @@
+{
+    "name": "RTPLibrary", 
+    "keywords": [
+        "rtplibrary", 
+        "rockin", 
+        "tech", 
+        "projects", 
+        "music"
+    ], 
+    "description": "Collection of libraries ofr RTP projects", 
+    "repository": {
+        "type": "git", 
+        "url": "https://github.com/Nasker/RTPLib.git"
+    }, 
+    "authors": [
+        {
+            "email": "xamps23@gmail.com", 
+            "url": "http://nasker.portfoliobox.me", 
+            "maintainer": true, 
+            "name": "Oscar Martinez Carmona"
+        }
+    ], 
+    "version": "0.0.1", 
+    "frameworks": [
+        "arduino"
+    ], 
+    "platforms": [
+        "atmelavr", 
+        "atmelsam", 
+        "espressif32", 
+        "espressif8266", 
+        "infineonxmc", 
+        "intel_arc32", 
+        "kendryte210", 
+        "microchippic32", 
+        "nordicnrf51", 
+        "nordicnrf52", 
+        "ststm32", 
+        "ststm8", 
+        "teensy", 
+        "timsp430"
+    ], 
+    "id": 6446
+}

@@ -1,0 +1,190 @@
+RTPMusicController	KEYWORD1
+setCurrentNote	KEYWORD2
+setLastNote	KEYWORD2
+setCurrentRootNote	KEYWORD2
+setCurrentOctave	KEYWORD2 
+setCurrentStep	KEYWORD2
+setCurrentScale	KEYWORD2
+setCurrentChord	KEYWORD2
+setVelocity	KEYWORD2
+setVoices	KEYWORD2
+setNumberOctaves	KEYWORD2
+setMidiChannel	KEYWORD2  
+upOctave	KEYWORD2
+downOctave	KEYWORD2
+getCurrentNote	KEYWORD2
+getCurrentMidiNote	KEYWORD2
+getCurrentOctave	KEYWORD2
+getLastNote	KEYWORD2
+getCurrentRootNote	KEYWORD2
+getCurrentScale	KEYWORD2
+getCurrentChord	KEYWORD2
+getLastChord KEYWORD2
+getVoices KEYWORD2
+getVelocity	KEYWORD2
+getNumberOctaves	KEYWORD2
+getMidiChannel	KEYWORD2
+getCurrentRootNoteName	KEYWORD2
+
+
+RTPSoftPot	KEYWORD1
+pressed	KEYWORD2
+getCurrentValue	KEYWORD2
+callbackPress	KEYWORD2
+
+RTPDeltaMix	KEYWORD1
+calculate	KEYWORD2
+getFirst	KEYWORD2
+getSecond	KEYWORD2
+getThird	KEYWORD2
+
+RTPLedArray	KEYWORD1
+update	KEYWORD2
+
+RTPDiatonicMatrix	KEYWORD1
+getSteps	KEYWORD2
+getScaleStep	KEYWORD2
+setTonality	KEYWORD2
+getTonality	KEYWORD2
+getNumberScales	KEYWORD2
+getScaleName	KEYWORD2
+
+RTPChordMatrix	KEYWORD1
+setChordType	KEYWORD2
+getChordSteps	KEYWORD2
+getChordType	KEYWORD2
+
+RTPPeriodicBang	KEYWORD1
+setFigurePeriod	KEYWORD2
+getFigurePeriod	KEYWORD2
+callbackPeriodBang	KEYWORD2
+callbackIddleCounter	KEYWORD2
+resetIddleCounter	KEYWORD2
+
+RTPSmartRange	KEYWORD1
+setNumberZones	KEYWORD2
+setNumberStepsInZone	KEYWORD2
+getCurrentZone	KEYWORD2
+getCurrentStepInZone	KEYWORD2
+getCurrentStep	KEYWORD2
+stepChanged	KEYWORD2
+rectFretBoardRead	KEYWORD2
+setBoundaries	KEYWORD2
+
+
+RTPPiezoTrigger	KEYWORD1
+RTPTouchTrigger	KEYWORD1
+callibrate	KEYWORD2
+readnShoot	KEYWORD2
+
+RTPGameTrackTrigger	KEYWORD1
+callibrate	KEYWORD2
+readnShoot	KEYWORD2
+
+RTPButton	KEYWORD1
+read	KEYWORD2
+pressed	KEYWORD2
+clicked	KEYWORD2
+declicked	KEYWORD2
+callbackClick	KEYWORD2
+callback	KEYWORD2
+callbackHold	KEYWORD2
+
+NORMAL	KEYWORD3
+PULLUP	KEYWORD3
+
+
+RTPPitchControl	KEYWORD1
+getPitchBend	KEYWORD2
+
+RTPUltraSonic	KEYWORD1
+timing	KEYWORD2
+ranging	KEYWORD2
+inRange	KEYWORD2
+
+RTPMidi2Freq	KEYWORD1
+getFreq	KEYWORD2
+
+RTPNkButton	KEYWORD1
+initializeButton	KEYWORD2
+setCountGuard	KEYWORD2
+setRedLight	KEYWORD2
+setYellowLight	KEYWORD2
+setGreenLight	KEYWORD2
+setNoLight	KEYWORD2
+buttonCallback	KEYWORD2
+setDefaultColor	KEYWORD2
+setColor	KEYWORD2
+RED	KEYWORD3
+GREEN	KEYWORD3
+YELLOW	KEYWORD3
+NO	KEYWORD3
+
+RTPEventNote	KEYWORD1
+eventState	KEYWORD2
+getEventNote	KEYWORD2
+getEventRead	KEYWORD2
+setEventRead	KEYWORD2
+switchState	KEYWORD2
+getEventVelocity	KEYWORD2
+setEventState	KEYWORD2
+setEventNote	KEYWORD2
+setEventVelocity	KEYWORD2
+
+RTPSmooth	KEYWORD1
+smooth	KEYWORD2
+
+RTPTriggerMessage	KEYWORD1
+read	KEYWORD2
+write	KEYWORD2
+setOutputHigh	KEYWORD2
+setOutputLow	KEYWORD2
+pressed	KEYWORD2
+setCountGuard	KEYWORD2
+callbackStateChange	KEYWORD2
+getFileName	KEYWORD2
+
+RTPClickButton	KEYWORD1
+Update	KEYWORD2
+callbackOnClicks	KEYWORD2
+clicks	KEYWORD2
+CLICKBTN_PULLUP	KEYWORD3
+
+RTPRotaryClick	KEYWORD1
+callbackOnRotation	KEYWORD2
+RTPRotary	KEYWORD1
+
+RTPBatteryControl	KEYWORD1
+setBatteryLowLevelThreshold	KEYWORD2
+setPowerSupplyThreshold	KEYWORD2
+monitorBatteryCallbacks	KEYWORD2
+getVoltageLevel	KEYWORD2
+getVoltageLevelFast	KEYWORD2
+calcVoltageLevel	KEYWORD2
+getHueLevel	KEYWORD2
+
+RTPPsyPixel	KEYWORD1
+beginStrip	KEYWORD2
+psyColorStrip	KEYWORD2
+blackenStrip	KEYWORD2
+redStrip	KEYWORD2
+greenStrip	KEYWORD2
+blueStrip	KEYWORD2
+whiteStrip	KEYWORD2
+
+RTPRelay	KEYWORD1
+isCoilActive	KEYWORD2
+setState	KEYWORD2
+switchState	KEYWORD2
+
+RTPPhotoDiodeTrigger	KEYWORD1
+callibrate	KEYWORD2
+setThreshold	KEYWORD2
+setCountGuard	KEYWORD2
+readnShoot	KEYWORD2	
+overThreshold	KEYWORD2
+printReading	KEYWORD2
+
+RTPTeensyWatchDog	KEYWORD1
+init	KEYWORD2
+kick	KEYWORD2
