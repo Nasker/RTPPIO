@@ -1,6 +1,0 @@
-{
-    "terminal.integrated.env.osx": {
-        "PATH": "/Users/xmp/.platformio/penv/bin:/Users/xmp/.platformio/penv:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/carlson-minot/crosscompilers/bin:/opt/X11/bin:/Applications/Wireshark.app/Contents/MacOS:/Applications/Zerynth Studio.app/Contents/Resources/app.nw/ztc/mac:/Applications/Zerynth Studio.app/Contents/Resources/app.nw/ztc/mac:/Applications/Zerynth Studio.app/Contents/Resources/app.nw/ztc/mac:/Applications/Zerynth Studio.app/Contents/Resources/app.nw/ztc/mac",
-        "PLATFORMIO_CALLER": "vscode"
-    }
-}
