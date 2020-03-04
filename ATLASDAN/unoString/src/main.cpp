@@ -59,9 +59,9 @@ RTPMusicController       mControl;
 RTPSmartRange            fretBoardRange(FRETBOARD_RANGE, 4, 12, 0, 1023/2);
 
 RTPSmartRange knobsRange[4]{
-  RTPSmartRange(CUTOFF_RANGE, 1, 1023, 0, 1023),
-  RTPSmartRange(RESO_RANGE, 1, 1023, 0, 1023),
   RTPSmartRange(MORPH_RANGE, 1, 1023, 0, 1023),
+  RTPSmartRange(RESO_RANGE, 1, 1023, 0, 1023),
+  RTPSmartRange(CUTOFF_RANGE, 1, 1023, 0, 1023),
   RTPSmartRange(BEND_RANGE, 1, 1023, 0, 1023)
 };
 
