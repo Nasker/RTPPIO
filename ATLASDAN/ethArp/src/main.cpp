@@ -1,5 +1,14 @@
 #include <Arduino.h>
 #include "functionsHeaders.h"
+#include <RTPMusicController.h>
+#include <RTPPeriodicBang.h>
+#include <RTPRotaryClick.h>
+#include <RTPSmartRange.h>
+
+#include <NewPing.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
 /*
   "The ethArp"
   Sketch for programming the firmware of the ethArp.
@@ -19,25 +28,18 @@ float Tempo = 80.0;
 #define MIN_DISTANCE 5
 #define SONAR_NUM    2
 
-#include <RTPMusicController.h>
-#include <RTPPeriodicBang.h>
-#include <RTPRotaryClick.h>
-#include <RTPSmartRange.h>
-
-#include <NewPing.h>
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+#define CLOCK 248
+#define START 250
+#define CONTINUE 251
+#define STOP 252 
 
 RTPMusicController mControl;
 RTPSmartRange xRange(1, 7, 1000.0), yRange(6, 12, 1000.0);
 RTPSmartRange xControlRange(1, 127, 1000.0), yControlRange(1, 127, 1000.0);
 
-//RTPButton scalesButton(7,NORMAL), rootButton(4,NORMAL);
 RTPRotaryClick scalesButton(0,0,7,HIGH,false), rootButton(0,0,4,HIGH,false);
 RTPPeriodicBang periodicRefresh(20);
 RTPPeriodicBang periodicBang(((60.0 / Tempo) / 24.0) * 1000);
-//NewPing ultraX(2, 3, 50);
-//NewPing ultraY(0, 1, 50);
 
 NewPing sonar[SONAR_NUM] = {
   NewPing(2, 3, MAX_DISTANCE),
@@ -58,10 +60,6 @@ String pastPrintRoot = "ojete!";
 String pastPrintScale = "calor!";
 
 int counter = 0;
-byte CLOCK = 248;
-byte START = 250;
-byte CONTINUE = 251;
-byte STOP = 252; 
 
 void setup() {
   Serial.begin(9600);
@@ -185,6 +183,7 @@ void noticeBang(String bang) {
 void midiSend(int channel, int midiNote, int velocity) {
   if (velocity != 0)  usbMIDI.sendNoteOn(midiNote, velocity, channel);
   else  usbMIDI.sendNoteOff(midiNote, velocity, channel);
+  //usbMIDI.
 }
 
 void printToScreen(String firstLine, String secondLine, boolean salute) {

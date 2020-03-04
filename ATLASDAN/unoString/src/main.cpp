@@ -11,6 +11,7 @@ byte scaleNumber = 8;  //1-Ionian/2-Dorian/3-Phrygian/4-Lydian/5-Mixolydian
 #include <SD.h>
 #include <SerialFlash.h>
 #include "mixingArrays.h"
+#include "constants.h"
 
 #include <RTPMusicController.h>
 #include <RTPSmartRange.h>
@@ -18,7 +19,6 @@ byte scaleNumber = 8;  //1-Ionian/2-Dorian/3-Phrygian/4-Lydian/5-Mixolydian
 #include <RTPButton.h>
 #include <RTPPitchControl.h>
 #include <RTPLedArray.h>
-#include <RTPSmooth.h>
 #include <RTPDeltaMix.h>
 
 AudioInputI2S            i2s1;
@@ -54,33 +54,28 @@ AudioConnection          patchCord14(mixer2, 0, usbOut, 1);
 AudioConnection          patchCord15(mixer2, 0, rms1, 0);
 
 AudioControlSGTL5000     sgtl5000_1;
-const int myInput = AUDIO_INPUT_LINEIN;
-
-const byte fretBoardIn = 1;
-const byte morphIn = 2;
-const byte resoIn = 3;
-const byte cutoffIn = 6;
-const byte bendIn = 7;
-
-const byte octUp = 0;
-const byte octDown = 1;
-const byte rootButton = 2;
-const byte scaleButton = 3;
 
 RTPMusicController       mControl;
-RTPSmartRange            fretBoardRange(4, 12);
+RTPSmartRange            fretBoardRange(FRETBOARD_RANGE, 4, 12, 0, 1023/2);
+
+RTPSmartRange knobsRange[4]{
+  RTPSmartRange(CUTOFF_RANGE, 1, 1023, 0, 1023),
+  RTPSmartRange(RESO_RANGE, 1, 1023, 0, 1023),
+  RTPSmartRange(MORPH_RANGE, 1, 1023, 0, 1023),
+  RTPSmartRange(BEND_RANGE, 1, 1023, 0, 1023)
+};
+
 RTPSmartRange            scalesRange(1, 24);
 RTPSmartRange            rootNoteRange(2, 12);
-//
-RTPButton                switchTonality(rootButton, PULLUP);
-RTPButton                switchScale(scaleButton, PULLUP);
-RTPButton                downOctaveSwitch(octDown, PULLUP);
-RTPButton                upOctaveSwitch(octUp, PULLUP);
+
+RTPButton                switchTonality(ROOT_SW_PIN, PULLUP);
+RTPButton                switchScale(SCALE_SW_PIN, PULLUP);
+RTPButton                downOctaveSwitch(OCT_DWN_PIN, PULLUP);
+RTPButton                upOctaveSwitch(OCT_UP_PIN, PULLUP);
 
 RTPPitchControl          pitchBend;
 RTPLedArray              leds(5, 4);
 RTPMidi2Freq             midi2freq;
-RTPSmooth                smoothie;
 RTPDeltaMix              deltaMix;
 
 const byte ledArray[] = {0, 3, 1, 2};
@@ -123,12 +118,50 @@ void octaveUp(int ID, String callbackString) {
   }
 }
 
+void actOnKnobRangeChange(int ID, String callbackString, int step, int zone){
+  Serial.printf("%d CHANGED value: %d\n", ID, step);
+  switch(ID){
+    case FRETBOARD_RANGE:{
+      mControl.setCurrentOctave(zone);
+      mControl.setCurrentStep(step);
+      float freq = midi2freq.getFreq(mControl.getCurrentMidiNote());
+      freq *= pitchBend.getPitchBend(1023 - analogRead(BEND_IN_PIN));
+      waveform1.frequency(freq/2);
+      waveform2.frequency(freq/2);
+      waveform3.frequency(freq/2);
+      waveform4.frequency(freq/2);
+      break;
+    }
+    case RESO_RANGE:{
+      filter2.resonance(map(step, 0, 1023, 3, 7));
+      filter2.octaveControl(map(step, 0, 1023, 0, 5));
+      break;
+    }
+    case MORPH_RANGE:{
+      waveform2.amplitude( arrayJ[analogRead(MORPH_IN_PIN)] );
+      waveform3.amplitude( arrayK[analogRead(MORPH_IN_PIN)] );
+      waveform4.amplitude( arrayL[analogRead(MORPH_IN_PIN)] );
+      break;
+    }
+    case BEND_RANGE:{
+      break;
+    }
+    case CUTOFF_RANGE:{
+      float cutoff = 16000 * pow(step/ 1023.0, 4)  + midi2freq.getFreq(mControl.getCurrentMidiNote()) / 2.0;
+      if (cutoff >= 16000) 
+        cutoff = 16000;
+      filter2.frequency(cutoff);
+      break;
+    }
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Start setup!");
   AudioMemory(12);
   sgtl5000_1.enable();
-  sgtl5000_1.inputSelect(myInput);
+  sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
   sgtl5000_1.micGain(10);
   sgtl5000_1.lineOutLevel(17);
   sgtl5000_1.volume(0.6);
@@ -139,12 +172,13 @@ void setup() {
   filter2.resonance(0.0);
   filter2.octaveControl(5.0);
 
-  waveform1.begin(1.0, 55.0, WAVEFORM_SINE);
-  waveform2.begin(1.0, 55.0, WAVEFORM_TRIANGLE);
+  waveform1.begin(0.0, 55.0, WAVEFORM_SINE);
+  waveform2.begin(1.0, 55.0, WAVEFORM_PULSE);
   waveform3.begin(1.0, 55.0, WAVEFORM_SAWTOOTH);
   waveform4.begin(1.0, 55.0, WAVEFORM_SQUARE);
 
-  for (int i = 0; i < 4; i++) mixer1.gain(i, 0.25);
+  for (int i = 0; i < 4; i++) 
+    mixer1.gain(i, 0.25);
 
   mixer2.gain(0, 3.0);
 
@@ -154,10 +188,6 @@ void setup() {
 
   leds.update(ledArray[mControl.getOctaveOffset()]);
 
-  //attachInterrupt(octUp, octaveUp, RISING);
-  //attachInterrupt(octDown, octaveDown, RISING);
-  //attachInterrupt(rootButton, tonalityChange, RISING);
-  //attachInterrupt(scaleButton, scaleChange, RISING);
   Serial.println("Finish Setup!");
 }
 
@@ -168,27 +198,35 @@ void loop() {
   upOctaveSwitch.callback(octaveUp);
   downOctaveSwitch.callback(octaveDown);
 
-  fretBoardRead = analogRead(fretBoardIn) * 2;
+  fretBoardRange.getCurrentStep(analogRead(FRETBOARD_IN_PIN));
+  fretBoardRange.stepChanged(actOnKnobRangeChange);
 
-  mControl.setCurrentOctave(fretBoardRange.getCurrentZone(fretBoardRead));
-  mControl.setCurrentStep(fretBoardRange.getCurrentStepInZone(fretBoardRead));
+  for(int i=0; i<N_KNOBS; i++){
+    knobsRange[i].getCurrentStep(analogRead(knobsInputs[i]));
+    knobsRange[i].stepChanged(actOnKnobRangeChange);
+  }
+}
+  //fretBoardRead = analogRead(FRETBOARD_IN_PIN) * 2;
 
+  //mControl.setCurrentOctave(fretBoardRange.getCurrentZone(fretBoardRead));
+  //mControl.setCurrentStep(fretBoardRange.getCurrentStepInZone(fretBoardRead));
+/*
   float freq = midi2freq.getFreq(mControl.getCurrentMidiNote());
-  freq *= pitchBend.getPitchBend(1023 - analogRead(bendIn));
+  freq *= pitchBend.getPitchBend(1023 - analogRead(BEND_IN_PIN));
 
-  waveform1.frequency(freq / 2);
-  waveform2.frequency(freq);
-  waveform3.frequency(freq);
-  waveform4.frequency(freq);
+  waveform1.frequency(freq/2);
+  waveform2.frequency(freq/2);
+  waveform3.frequency(freq/2);
+  waveform4.frequency(freq/2);*/
+/*
+  waveform2.amplitude( arrayJ[analogRead(MORPH_IN_PIN)] );
+  waveform3.amplitude( arrayK[analogRead(MORPH_IN_PIN)] );
+  waveform4.amplitude( arrayL[analogRead(MORPH_IN_PIN)] );*/
 
-  waveform2.amplitude( arrayJ[analogRead(morphIn)] );
-  waveform3.amplitude( arrayK[analogRead(morphIn)] );
-  waveform4.amplitude( arrayL[analogRead(morphIn)] );
-
-  int smoothRead = smoothie.smooth(analogRead(cutoffIn));
+  /*int smoothRead = analogRead(CUTOFF_IN_PIN);
   float cutoff = 16000 * pow(smoothRead / 1023.0, 4)  + freq / 2;
   if (cutoff >= 16000) cutoff = 16000;
-  filter2.frequency(cutoff);
-  filter2.resonance(map(analogRead(resoIn), 0, 1023, 3, 7));
-  filter2.octaveControl(map(analogRead(resoIn), 0, 1023, 0, 5));
-}
+  filter2.frequency(cutoff);*/
+  /*filter2.resonance(map(analogRead(RESO_IN_PIN), 0, 1023, 3, 7));
+  filter2.octaveControl(map(analogRead(RESO_IN_PIN), 0, 1023, 0, 5));*/
+//}

@@ -8,6 +8,7 @@
 #include "RTPRotaryClickChordion.hpp"
 #include "ThreeAxisRange.hpp"
 #include "ChordionKeys.hpp"
+#include "Adafruit_NeoTrellis.h"
 
 //extern RTPScreen* rtpScreen;
   
