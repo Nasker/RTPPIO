@@ -1,11 +1,13 @@
  #include <Arduino.h>
 
+#define DRUM 0
+#define SYNTH 1
+#define CHORD 2
+
 #define NPOSITIONS 256
 #define MAX_DISTANCE 50
 #define MIN_DISTANCE 10
 #define SONAR_NUM     3
-#define DRUM 0
-#define SYNTH 1
 #define INTPIN A2
 #define NLayers 18
 #define SEQUENCED_LAYERS 16

@@ -9,56 +9,24 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI2);
 VoidState* initState;
 VoidStateMachine voidStateMachine(initState);
 
-Adafruit_NeoTrellis myTrellis;
-
 RTPMainUnit::RTPMainUnit(){
-}
-
-
-TrellisCallback blink(keyEvent evt){  
-  String evtString;
-  if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING){
-    myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
-    usbMIDI.sendNoteOn(64+evt.bit.NUM, 100, 1);
-    Serial.printf("KEY #%d RISES\n", evt.bit.NUM);
-  }
-    
-  else if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_FALLING){
-    myTrellis.pixels.setPixelColor(evt.bit.NUM, 0); //off falling
-    usbMIDI.sendNoteOff(64+evt.bit.NUM, 0, 1);
-    Serial.printf("KEY #%d FALLS\n", evt.bit.NUM);
-  }
-  myTrellis.pixels.show();
-  
-  return 0;
 }
 
 void RTPMainUnit::begin(){
   Serial.begin(115200);
-  rtpTrellis = new RTPTrellis();
-  rtpTrellis->begin();
+  /*rtpTrellis = new RTPTrellis();
+  rtpTrellis->begin();*/
   
-  //rtpNeotrellis->begin();
   rtpRotary = new RTPRotaryClickChordion(ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true);
   threeAxisRange = new ThreeAxisRange();
-  rtpScreen = new RTPScreen();
 
+  rtpScreen = new RTPScreen();
   rtpScreen->begin();
   rtpScreen->print("   Hey There!   ", "  I'm a Test!!  ");
   chordionKeys.initSetup();
 
-  if(!myTrellis.begin()){
-    Serial.println("could not start trellis");
-    while(1);
-  }
-  else
-    Serial.println("trellis started");
-
-  for(int i=0; i<NEO_TRELLIS_NUM_KEYS; i++){
-    myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_RISING);
-    myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_FALLING);
-    myTrellis.registerCallback(i, blink);
-  }
+  rtpNeotrellis = new RTPNeoTrellis();
+  rtpNeotrellis->begin(this);
 }
 
 void RTPMainUnit::update(){
@@ -68,7 +36,7 @@ void RTPMainUnit::update(){
 
 void RTPMainUnit::updatePeriodically(){
   threeAxisRange->callbackFromThreeAxis(this);
-  rtpTrellis->callbackFromTrellis(this);
+  rtpNeotrellis->read();
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){

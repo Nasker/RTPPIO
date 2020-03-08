@@ -3,8 +3,8 @@
 #include "Arduino.h"
 #include "MIDI.h"
 #include "RTPScreen.hpp"
-#include "RTPTrellis.hpp"
-//#include "RTPNeoTrellis.hpp"
+//#include "RTPTrellis.hpp"
+#include "RTPNeoTrellis.hpp"
 #include "RTPRotaryClickChordion.hpp"
 #include "ThreeAxisRange.hpp"
 #include "ChordionKeys.hpp"
@@ -13,8 +13,8 @@
 //extern RTPScreen* rtpScreen;
   
 class RTPMainUnit{
-  RTPTrellis* rtpTrellis;
-  //RTPNeoTrellis* rtpNeotrellis;
+  //RTPTrellis* rtpTrellis;
+  RTPNeoTrellis* rtpNeotrellis;
   RTPRotaryClickChordion* rtpRotary;
   RTPScreen* rtpScreen;
   ThreeAxisRange* threeAxisRange;

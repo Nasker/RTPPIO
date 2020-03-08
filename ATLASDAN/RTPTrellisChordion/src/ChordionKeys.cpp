@@ -1,4 +1,5 @@
 #include "ChordionKeys.hpp"
+#include "constants.h"
 #include "MIDI.h"
 #include "Audio.h"
 
@@ -38,6 +39,8 @@ PlayedChord ChordionKeys::playChord(int rootNote){
     }
     mController.chords.setChordType(playedChord.chordType);
     ringingChordsList.add(playedChord);
+    usbMIDI.sendControlChange(rootNote - BASE_NOTE - N_NOTES, playedChord.chordType, 1);
+    //usbMIDI.sendProgramChange(playedChord.chordType,2);
     for(int j=0; j<N_CHANNELS; j++){
         for(int i=0; i< mController.chords.getChordSteps();i++){
             if(instChannel[j].voices == -1 && mController.chords.getChordStep(i) < 0){

@@ -4,6 +4,9 @@ int rootNoteNumber = 6; //C=0,D=2;E=4;F=5;G=7;A=9;B=11; (sostinguts +1..)
 int scaleNumber = 8;   //1-Ionian/2-Dorian/3-Phrygian/4-Lydian/5-Mixolydian
 //6-Aeolian/7-Locrian/8-Harmonic Minor/9-Spanish Gipsy
 //10-Hawaian/11-Blues/12-Japanese
+
+int chordNumber = 4; //minor as default
+
 float Tempo = 120.0;
 
 #include <Wire.h>
@@ -17,6 +20,7 @@ float Tempo = 120.0;
 #include <Encoder.h>
 #include <EEPROM.h>
 #include <MIDI.h>
+#include "LinkedList.h"
 
 #include "ThreeAxisPing.h"
 #include "functions.h"
@@ -59,6 +63,7 @@ struct Matrix {
   byte midiChannel;
   int midiNote;
   int lastMidiNote;
+  LinkedList<int> lastChordNotes;
 };
 
 Matrix sequenceMatrix[NLayers];
@@ -83,10 +88,12 @@ void setup() {
   printToScreen("   Hey There!   ", "VOID IN DA HOUSE");
   mControl.setCurrentRootNote(rootNoteNumber);
   mControl.setCurrentScale(scaleNumber);
+  mControl.setCurrentChord(chordNumber);
   leftRange.setNumberStepsInZone(mControl.scales.getSteps());
   MIDI.begin(MIDI_CHANNEL_OMNI);
   usbMIDI.setHandleRealTimeSystem(RealTimeSystem);
   usbMIDI.setHandleProgramChange(OnProgramChange);
+  usbMIDI.setHandleControlChange(OnControlChange);
   // periodicBang.begin(internalClock, ((60.0 / Tempo) / 24.0) * 1000000);
   pinMode(INTPIN, INPUT);
   digitalWrite(INTPIN, HIGH);
@@ -220,9 +227,26 @@ void noticeBang(String callbackString) {
         midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastMidiNote, 0);
         mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
         mControl.setCurrentStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentMidiNote(), 100);
-        sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentMidiNote();
+        //mControl.setCurrentScaleStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+        mControl.setCurrentChordStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+        //midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentScaleMidiNote(), 100);
+        midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
+        //sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentScaleMidiNote();
+        sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentChordMidiNote();
       }
+      else if (sequenceMatrix[currentLayer].noteMode == CHORD) {
+        mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+        for(int i=0; i< sequenceMatrix[currentLayer].lastChordNotes.size(); i++){
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastChordNotes.get(i), 0);
+          sequenceMatrix[currentLayer].lastChordNotes.remove(i);
+        }
+        for(int i=0; i<mControl.chords.getChordSteps(); i++){
+          mControl.setCurrentChordStep(i);
+          midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
+          sequenceMatrix[currentLayer].lastChordNotes.add(mControl.getCurrentChordMidiNote());
+        } 
+      }
+
     }
     else if (sequenceMatrix[currentLayer].matrix[currentRow][currentCol].eventState() && !layerIsNotMute(currentLayer)) {
       midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastMidiNote, 0);
@@ -239,7 +263,7 @@ void fordwardSequencer() {
     if (currentCol > 3) currentCol = 0;
   }
   refreshKeypad();
-  if (activeLayer != NLayers - 1) {
+  if (activeLayer < ENABLE_PART_LAYER) {
     trellis.setLED(currentRow * cols + currentCol);
     trellis.clrLED(lastPosition);
     trellis.writeDisplay();
@@ -319,8 +343,12 @@ void loadEprom() {
   for (int l = 0; l < NLayers; l++) {
     sequenceMatrix[l].midiChannel = midiChannels[l];
     sequenceMatrix[l].midiNote = midiNotes[l];
-    if (midiChannels[l] == 10) sequenceMatrix[l].noteMode = DRUM;
-    else sequenceMatrix[l].noteMode = SYNTH;
+    if (midiChannels[l] == 10) 
+      sequenceMatrix[l].noteMode = DRUM;
+    else if (midiChannels[l] == 4) 
+      sequenceMatrix[l].noteMode = CHORD;
+    else 
+      sequenceMatrix[l].noteMode = SYNTH;
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         int readValue = EEPROM.read(address);
@@ -331,7 +359,7 @@ void loadEprom() {
     }
   }
 }
-
+ 
 void saveOnEprom() {
   Serial.println("Saving on EEPROM");
     int address = 0;
@@ -358,12 +386,12 @@ void switchInternalClockState() {
 }
 
 void OnProgramChange(byte channel, byte program) {
-  //  Serial.print("Program Change, ch=");
-  //  Serial.print(channel, DEC);
-  //  Serial.print(", program=");
-  //  Serial.print(program, DEC);
-  //  Serial.println();
-  switch (channel) {
+    Serial.print("Program Change, ch=");
+    Serial.print(channel, DEC);
+    Serial.print(", program=");
+    Serial.print(program, DEC);
+    Serial.println();
+  /*switch (channel) {
     case 1:
       mControl.setCurrentScale(program);
       Serial.print("Scale Change: ");
@@ -375,13 +403,31 @@ void OnProgramChange(byte channel, byte program) {
       Serial.print("Root Change: ");
       Serial.println(program);
       break;
+  }*/
+}
+void OnControlChange(byte channel, byte control, byte value) {
+  Serial.print("Control Change, ch=");
+  Serial.print(channel, DEC);
+  Serial.print(", control=");
+  Serial.print(control, DEC);
+  Serial.print(", value=");
+  Serial.print(value, DEC);
+  Serial.println();
+  if(channel == 1 && control>=0 && control<=15 && value>=0 && value<=15){ 
+    mControl.setCurrentRootNote(control);
+    mControl.setCurrentScale(value);
+    mControl.setCurrentChord(value);
+    leftRange.setNumberStepsInZone(mControl.chords.getChordSteps());
+    Serial.print(mControl.getCurrentRootNoteName());
+    Serial.print("\t");
+    Serial.println(mControl.getChordName());
   }
 }
 
 bool layerIsNotMute(int layerNumber) {
   int col = layerNumber / 4;
   int row = layerNumber % 4;
-  bool state = sequenceMatrix[NLayers - 1].matrix[row][col].eventState();
+  bool state = sequenceMatrix[ENABLE_PART_LAYER].matrix[row][col].eventState();
   //Serial.println(state);
   return state;
 }

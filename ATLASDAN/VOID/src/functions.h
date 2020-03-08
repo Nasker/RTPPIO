@@ -34,6 +34,8 @@ void switchInternalClockState();
 
 void OnProgramChange(byte channel, byte program);
 
+void OnControlChange(byte channel, byte control, byte value);
+
 bool layerIsNotMute(int layerNumber);
 
 /*

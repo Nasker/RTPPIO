@@ -5,13 +5,14 @@
 #include "constants.h"
 
 class RTPMainUnit;
-Adafruit_NeoTrellis myTrellis;
 class RTPNeoTrellis{
-    
+    static Adafruit_NeoTrellis myTrellis;
+    static RTPMainUnit* mainUnit;
  public:
     RTPNeoTrellis();
-    void begin();
-    //TrellisCallback blink(keyEvent evt);
-    void callbackFromTrellis(void(*userFunc)(String,int));
-    void callbackFromNeoTrellis(RTPMainUnit*);
+    void begin(RTPMainUnit* _mainUnit);
+    static TrellisCallback blink(keyEvent evt);
+    void read();
+    //void callbackFromTrellis(void(*userFunc)(String,int));
+    //void callbackFromNeoTrellis(RTPMainUnit*);
 };
