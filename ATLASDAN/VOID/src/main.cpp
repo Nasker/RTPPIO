@@ -62,8 +62,8 @@ struct Matrix {
   byte noteMode;
   byte midiChannel;
   int midiNote;
-  int lastMidiNote;
-  LinkedList<int> lastChordNotes;
+  //int lastMidiNote;
+  LinkedList<int> lastPlayedNotes;
 };
 
 Matrix sequenceMatrix[NLayers];
@@ -91,6 +91,9 @@ void setup() {
   mControl.setCurrentChord(chordNumber);
   leftRange.setNumberStepsInZone(mControl.scales.getSteps());
   MIDI.begin(MIDI_CHANNEL_OMNI);
+  //MIDI.setHandleRealTimeSystem(RealTimeSystem);
+  MIDI.setHandleProgramChange(OnProgramChange);
+  MIDI.setHandleControlChange(OnControlChange);
   usbMIDI.setHandleRealTimeSystem(RealTimeSystem);
   usbMIDI.setHandleProgramChange(OnProgramChange);
   usbMIDI.setHandleControlChange(OnControlChange);
@@ -177,14 +180,11 @@ void RealTimeSystem(byte realtimebyte) {
   if (realtimebyte == CLOCK) counter++;
   //Serial.println(counter);
   if (counter == 96) counter = 0;
-  int mod = counter % clockGrid;
-  if (mod == 0) {
-    noticeBang("Bang");
-    //Serial.println("BANG");
-  }
+  if (counter % clockGrid == 0)
+    actOnClockGridTick("TICK");
   if (counter % 12   == 0) {
   }
-  int index=0; 
+  int index = 0; 
   int rollerValues[4] = {1,2,3,6};
   if(threeAxis.overRight()){
     index = map(constrain(threeAxis.pingRight(),0,500),0,500,0,3);
@@ -206,7 +206,7 @@ void RealTimeSystem(byte realtimebyte) {
     currentCol = 0;
   }
 }
-void noticeBang(String callbackString) {
+void actOnClockGridTick(String callbackString) {
   if(activeLayer != pastLayer){
        //printToScreen(layerNames[activeLayer], "Roll   CC0   CC1");
     pastLayer = activeLayer;
@@ -224,7 +224,10 @@ void noticeBang(String callbackString) {
         midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 0);
       }
       else if (sequenceMatrix[currentLayer].noteMode == SYNTH) {
-        midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastMidiNote, 0);
+        for(int i=0; i<sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
+          sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
+        }
         mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
         mControl.setCurrentStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
         //mControl.setCurrentScaleStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
@@ -232,24 +235,27 @@ void noticeBang(String callbackString) {
         //midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentScaleMidiNote(), 100);
         midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
         //sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentScaleMidiNote();
-        sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentChordMidiNote();
+        sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
       }
       else if (sequenceMatrix[currentLayer].noteMode == CHORD) {
         mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        for(int i=0; i< sequenceMatrix[currentLayer].lastChordNotes.size(); i++){
-          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastChordNotes.get(i), 0);
-          sequenceMatrix[currentLayer].lastChordNotes.remove(i);
+        for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
+          sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
         }
         for(int i=0; i<mControl.chords.getChordSteps(); i++){
           mControl.setCurrentChordStep(i);
           midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
-          sequenceMatrix[currentLayer].lastChordNotes.add(mControl.getCurrentChordMidiNote());
+          sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
         } 
       }
 
     }
     else if (sequenceMatrix[currentLayer].matrix[currentRow][currentCol].eventState() && !layerIsNotMute(currentLayer)) {
-      midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastMidiNote, 0);
+      for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
+          sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
+      }
     }
   }
   fordwardSequencer();

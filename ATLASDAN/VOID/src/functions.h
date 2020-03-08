@@ -8,7 +8,7 @@ void actOnRotCallback(String callbackString, int newPosition);
 
 void RealTimeSystem(byte realtimebyte);
 
-void noticeBang(String callbackString);
+void actOnClockGridTick(String callbackString);
 
 void fordwardSequencer();
 
