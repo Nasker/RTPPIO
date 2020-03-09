@@ -1,4 +1,3 @@
-
 #include <Bounce.h>
 #include <Audio.h>
 #include <Wire.h>
@@ -66,7 +65,7 @@ void setup() {
 void actOnKnobRangeChange(int ID, String callbackString, uint16_t step, int zone){
   switch(ID){
     case RESO_RANGE:{
-      Serial.printf("%d CHANGED step:%d  zone:%d\n", ID, step, zone);
+      //Serial.printf("%d CHANGED step:%d  zone:%d\n", ID, step, zone);
       mControl.setCurrentOctave(zone);
       mControl.setCurrentStep(step);
       freq = midi2freq.getFreq(mControl.getCurrentMidiNote());
@@ -80,7 +79,7 @@ void actOnKnobRangeChange(int ID, String callbackString, uint16_t step, int zone
       break;
     }
     case CUTOFF_RANGE:{
-      Serial.printf("%d CHANGED step:%d  zone:%d\n", ID, step, zone);
+      //Serial.printf("%d CHANGED step:%d  zone:%d\n", ID, step, zone);
       float cutoff = 16000 * pow(step/ 1023.0, 4);
       if (cutoff >= 16000) 
         cutoff = 16000;

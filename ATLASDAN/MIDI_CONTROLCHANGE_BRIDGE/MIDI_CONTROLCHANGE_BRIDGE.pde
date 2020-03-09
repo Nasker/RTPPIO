@@ -1,12 +1,14 @@
 import themidibus.*; //Import the library
 
 MidiBus myBus; // The MidiBus
+MidiBus myBus2;
 
 void setup() {
   size(100,100);
   background(0,255,0);
   MidiBus.list(); 
   myBus = new MidiBus(this, "CHORDION_MIDI", "VOID_MIDI"); 
+  myBus = new MidiBus(this, null, "etharp_MIDI"); 
 }
 
 void draw() {
@@ -29,4 +31,5 @@ void controllerChange(int channel, int number, int value) {
   println("Number:"+number);
   println("Value:"+value);
   myBus.sendControllerChange(channel, number, value);
+  myBus2.sendControllerChange(channel, number, value);
 }

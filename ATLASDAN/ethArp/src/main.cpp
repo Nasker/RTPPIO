@@ -23,6 +23,8 @@ int scaleNumber =11;   //1-Ionian/2-Dorian/3-Phrygian/4-Lydian/5-Mixolydian
 //6-Aeolian/7-Locrian/8-Harmonic Minor/9-Spanish Gipsy
 //10-Hawaian/11-Blues/12-Japanese
 
+int chordNumber = 4; //minor as default
+
 float Tempo = 80.0;
 #define MAX_DISTANCE 50
 #define MIN_DISTANCE 5
@@ -69,8 +71,10 @@ void setup() {
   mControl.setMidiChannel(1);
   mControl.setCurrentRootNote(rootNoteNumber);
   mControl.setCurrentScale(scaleNumber);
+  mControl.setCurrentChord(chordNumber);
   yRange.setNumberStepsInZone(mControl.scales.getSteps());
   usbMIDI.setHandleRealTimeSystem(RealTimeSystem);
+  usbMIDI.setHandleControlChange(OnControlChange);
   printToScreen(" Hey There!", " I'm the Etharp", true);
   delay(2000);
   printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
@@ -163,10 +167,30 @@ void RealTimeSystem(byte realtimebyte) {
   }
 }
 
+void OnControlChange(byte channel, byte control, byte value) {
+  Serial.print("Control Change, ch=");
+  Serial.print(channel, DEC);
+  Serial.print(", control=");
+  Serial.print(control, DEC);
+  Serial.print(", value=");
+  Serial.print(value, DEC);
+  Serial.println();
+  if(channel == 1 && control>=0 && control<=15 && value>=0 && value<=15){ 
+    mControl.setCurrentRootNote(control);
+    mControl.setCurrentScale(value);
+    mControl.setCurrentChord(value);
+    yRange.setNumberStepsInZone(mControl.chords.getChordSteps());
+    Serial.print(mControl.getCurrentRootNoteName());
+    Serial.print("\t");
+    Serial.println(mControl.getChordName());
+  }
+}
+
 void ultraCalc(int counter) {
   if (over[0] && over[1]) { //
     mControl.setCurrentOctave(yRange.getCurrentZone(ultraReading[1]));
     mControl.setCurrentStep(yRange.getCurrentStepInZone(ultraReading[1]));
+    //mControl.setCurrentChordStep(yRange.getCurrentStepInZone(ultraReading[1]));
     figure = xRange.getCurrentStepInZone(ultraReading[0]);
     int mod = (96 - counter) % round(pow(2, figure - 1) * 3);
     if (mod == 0) noticeBang("Bang");
