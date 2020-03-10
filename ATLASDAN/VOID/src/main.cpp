@@ -219,37 +219,38 @@ void actOnClockGridTick(String callbackString) {
   }
   for (int currentLayer = 0; currentLayer < SEQUENCED_LAYERS; currentLayer++) {
     if (sequenceMatrix[currentLayer].matrix[currentRow][currentCol].eventState() && layerIsNotMute(currentLayer)) {
-      if (sequenceMatrix[currentLayer].noteMode == DRUM) {
-        midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 127);
-        midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 0);
-      }
-      else if (sequenceMatrix[currentLayer].noteMode == SYNTH) {
-        for(int i=0; i<sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
-          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
-          sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
+      switch(sequenceMatrix[currentLayer].noteMode){
+        case DRUM:{
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 127);
+          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 0);
         }
-        mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        mControl.setCurrentStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        //mControl.setCurrentScaleStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        mControl.setCurrentChordStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        //midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentScaleMidiNote(), 100);
-        midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
-        //sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentScaleMidiNote();
-        sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
-      }
-      else if (sequenceMatrix[currentLayer].noteMode == CHORD) {
-        mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
-        for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
-          midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
-          sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
-        }
-        for(int i=0; i<mControl.chords.getChordSteps(); i++){
-          mControl.setCurrentChordStep(i);
+        case SYNTH: {
+          for(int i=0; i<sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
+            midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
+            sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
+          }
+          mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+          mControl.setCurrentStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+          //mControl.setCurrentScaleStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+          mControl.setCurrentChordStep(leftRange.getCurrentStepInZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+          //midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentScaleMidiNote(), 100);
           midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
+          //sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentScaleMidiNote();
           sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
-        } 
+        }
+        case CHORD:{
+          mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
+          for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
+            midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
+            sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
+          }
+          for(int i=0; i<mControl.chords.getChordSteps(); i++){
+            mControl.setCurrentChordStep(i);
+            midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
+            sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
+          } 
+        }
       }
-
     }
     else if (sequenceMatrix[currentLayer].matrix[currentRow][currentCol].eventState() && !layerIsNotMute(currentLayer)) {
       for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
@@ -346,7 +347,7 @@ void linkReadPingArrayCallback(String callbackString) {
 
 void loadEprom() {
   int address = 0;
-  for (int l = 0; l < NLayers; l++) {
+  for (int l = 0; l < NLayers-2; l++) {
     sequenceMatrix[l].midiChannel = midiChannels[l];
     sequenceMatrix[l].midiNote = midiNotes[l];
     if (midiChannels[l] == 10) 
@@ -355,6 +356,8 @@ void loadEprom() {
       sequenceMatrix[l].noteMode = CHORD;
     else 
       sequenceMatrix[l].noteMode = SYNTH;
+  }
+  for (int l = 0; l < NLayers; l++) {
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         int readValue = EEPROM.read(address);
