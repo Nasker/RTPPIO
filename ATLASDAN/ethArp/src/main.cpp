@@ -48,7 +48,7 @@ NewPing sonar[SONAR_NUM] = {
   NewPing(0, 1, MAX_DISTANCE)
 };
 
-int xUltraPast, yUltraPast;
+uint_fast16_t xUltraPast, yUltraPast;
 boolean lightOn = true;
 
 unsigned int sonarReadings[SONAR_NUM]; 
@@ -58,10 +58,10 @@ boolean over[SONAR_NUM] = {false,false};
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 int figure = 0;
-String pastPrintRoot = "ojete!";
-String pastPrintScale = "calor!";
 
 int counter = 0;
+
+int arpMode=0;
 
 void setup() {
   Serial.begin(9600);
@@ -119,11 +119,18 @@ void rootChange(String callbackString) {
   if (callbackString == "SINGLE click") {
     int currentRoot = mControl.getCurrentRootNote();
     currentRoot++;
-    if (currentRoot > 11) currentRoot = 0;
+    if (currentRoot > 11) 
+      currentRoot = 0;
     mControl.setCurrentRootNote(currentRoot);
     printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
   }
   if (callbackString == "DOUBLE click") {
+    arpMode++;
+    if(arpMode > ARP_CHORD)
+      arpMode = SCALE;
+    printToScreen(mControl.getChordName(), mControl.getCurrentRootNoteName(), false);
+  }
+  if (callbackString == "LONG click") {
     internalClockState = !internalClockState;
     lcd.backlight(); 
   }
@@ -191,7 +198,7 @@ void ultraCalc(int counter) {
   if (over[0] && over[1]) { //
     mControl.setCurrentOctave(yRange.getCurrentZone(ultraReading[1]));
     mControl.setCurrentStep(yRange.getCurrentStepInZone(ultraReading[1]));
-    //mControl.setCurrentChordStep(yRange.getCurrentStepInZone(ultraReading[1]));
+    mControl.setCurrentChordStep(yRange.getCurrentStepInZone(ultraReading[1]));
     mControl.setCurrentArpChordStep(ultraReading[1]);
     figure = xRange.getCurrentStepInZone(ultraReading[0]);
     int mod = (96 - counter) % round(pow(2, figure - 1) * 3);
@@ -203,14 +210,29 @@ void ultraCalc(int counter) {
 void noticeBang(String bang) {
   midiSend(mControl.getMidiChannel(), mControl.getLastNote(), 0);
   //midiSend(mControl.getMidiChannel(), mControl.getCurrentMidiNote(), mControl.getVelocity());
-  midiSend(mControl.getMidiChannel(), mControl.getCurrentArpChordMidiNote(), mControl.getVelocity());
-  mControl.setLastNote(mControl.getCurrentMidiNote());
+  switch(arpMode){
+    case SCALE:{
+      midiSend(mControl.getMidiChannel(), mControl.getCurrentScaleMidiNote(), mControl.getVelocity());
+      mControl.setLastNote(mControl.getCurrentScaleMidiNote());
+      break;
+    }
+    case ARP_CHORD:{
+      midiSend(mControl.getMidiChannel(), mControl.getCurrentArpChordMidiNote(), mControl.getVelocity());
+      mControl.setLastNote(mControl.getCurrentArpChordMidiNote());
+      break;
+    }
+    case FULL_CHORD:{
+      midiSend(mControl.getMidiChannel(), mControl.getCurrentChordMidiNote(), mControl.getVelocity());
+      mControl.setLastNote(mControl.getCurrentChordMidiNote());
+      break;
+    }
+  }
+  
 }
 
 void midiSend(int channel, int midiNote, int velocity) {
   if (velocity != 0)  usbMIDI.sendNoteOn(midiNote, velocity, channel);
   else  usbMIDI.sendNoteOff(midiNote, velocity, channel);
-  //usbMIDI.
 }
 
 void printToScreen(String firstLine, String secondLine, boolean salute) {
