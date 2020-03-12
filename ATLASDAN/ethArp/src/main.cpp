@@ -179,7 +179,8 @@ void OnControlChange(byte channel, byte control, byte value) {
     mControl.setCurrentRootNote(control);
     mControl.setCurrentScale(value);
     mControl.setCurrentChord(value);
-    yRange.setNumberStepsInZone(mControl.chords.getChordSteps());
+    //yRange.setNumberStepsInZone(mControl.chords.getChordSteps());
+    yRange.setNumberStepsInZone(mControl.chords.getArpChordSteps());
     Serial.print(mControl.getCurrentRootNoteName());
     Serial.print("\t");
     Serial.println(mControl.getChordName());
@@ -191,6 +192,7 @@ void ultraCalc(int counter) {
     mControl.setCurrentOctave(yRange.getCurrentZone(ultraReading[1]));
     mControl.setCurrentStep(yRange.getCurrentStepInZone(ultraReading[1]));
     //mControl.setCurrentChordStep(yRange.getCurrentStepInZone(ultraReading[1]));
+    mControl.setCurrentArpChordStep(ultraReading[1]);
     figure = xRange.getCurrentStepInZone(ultraReading[0]);
     int mod = (96 - counter) % round(pow(2, figure - 1) * 3);
     if (mod == 0) noticeBang("Bang");
@@ -200,7 +202,8 @@ void ultraCalc(int counter) {
 
 void noticeBang(String bang) {
   midiSend(mControl.getMidiChannel(), mControl.getLastNote(), 0);
-  midiSend(mControl.getMidiChannel(), mControl.getCurrentMidiNote(), mControl.getVelocity());
+  //midiSend(mControl.getMidiChannel(), mControl.getCurrentMidiNote(), mControl.getVelocity());
+  midiSend(mControl.getMidiChannel(), mControl.getCurrentArpChordMidiNote(), mControl.getVelocity());
   mControl.setLastNote(mControl.getCurrentMidiNote());
 }
 
