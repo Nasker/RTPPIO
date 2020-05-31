@@ -244,12 +244,12 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=40201",
+                "PLATFORMIO=40304",
                 "__MK20DX256__",
-                "TEENSY31",
+                "ARDUINO_TEENSY31",
                 "USB_MIDI_AUDIO_SERIAL",
                 "ARDUINO=10805",
-                "TEENSYDUINO=149",
+                "TEENSYDUINO=151",
                 "CORE_TEENSY",
                 "F_CPU=72000000L",
                 "LAYOUT_US_ENGLISH",

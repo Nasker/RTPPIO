@@ -110,8 +110,14 @@ void scalesChange(String callbackString) {
     printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
   }
   if (callbackString == "DOUBLE click") {
+    arpMode++;
+    if(arpMode > ARP_CHORD)
+      arpMode = SCALE;
+      printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
+  }
+  if (callbackString == "LONG click") {
     internalClockState = !internalClockState;
-    lcd.backlight();
+    lcd.backlight(); 
   }
 }
 
@@ -128,7 +134,7 @@ void rootChange(String callbackString) {
     arpMode++;
     if(arpMode > ARP_CHORD)
       arpMode = SCALE;
-    printToScreen(mControl.getChordName(), mControl.getCurrentRootNoteName(), false);
+      printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
   }
   if (callbackString == "LONG click") {
     internalClockState = !internalClockState;
@@ -192,6 +198,8 @@ void OnControlChange(byte channel, byte control, byte value) {
     Serial.print("\t");
     Serial.println(mControl.getChordName());
   }
+  arpMode = ARP_CHORD;
+  printToScreen(mControl.getScaleName(), mControl.getCurrentRootNoteName(), false);
 }
 
 void ultraCalc(int counter) {
@@ -237,8 +245,24 @@ void midiSend(int channel, int midiNote, int velocity) {
 
 void printToScreen(String firstLine, String secondLine, boolean salute) {
   lcd.clear();
-  if (!salute) lcd.print("Scale:");
-  lcd.print(firstLine);
+  if (!salute){
+  switch(arpMode){
+    case SCALE:
+        lcd.print("Scale:");
+        lcd.print(mControl.getScaleName());
+      break;
+    case ARP_CHORD:
+        lcd.print("AChord:");
+        lcd.print(mControl.getChordName());
+      break;
+    case FULL_CHORD:
+        lcd.print("FChord:");
+        lcd.print(mControl.getChordName());
+      break;
+  }
+  }
+  else
+    lcd.print(firstLine);
   lcd.setCursor(0, 1);
   if (!salute) lcd.print("Root:");
   lcd.print(secondLine);

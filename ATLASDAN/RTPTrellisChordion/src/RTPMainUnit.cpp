@@ -14,19 +14,22 @@ RTPMainUnit::RTPMainUnit(){
 
 void RTPMainUnit::begin(){
   Serial.begin(115200);
-  /*rtpTrellis = new RTPTrellis();
-  rtpTrellis->begin();*/
+  
   
   rtpRotary = new RTPRotaryClickChordion(ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true);
   threeAxisRange = new ThreeAxisRange();
 
   rtpScreen = new RTPScreen();
   rtpScreen->begin();
-  rtpScreen->print("   Hey There!   ", "  I'm a Test!!  ");
+  rtpScreen->print("   Hey There!   ", " I'm Chordion!! ");
   chordionKeys.initSetup();
-
-  rtpNeotrellis = new RTPNeoTrellis();
-  rtpNeotrellis->begin(this);
+  #ifdef NEO_TRELLIS
+    rtpTrellis = new RTPNeoTrellis();
+    rtpTrellis->begin(this);
+  #else 
+    rtpTrellis = new RTPTrellis();
+    rtpTrellis->begin();
+  #endif
 }
 
 void RTPMainUnit::update(){
@@ -36,7 +39,11 @@ void RTPMainUnit::update(){
 
 void RTPMainUnit::updatePeriodically(){
   threeAxisRange->callbackFromThreeAxis(this);
-  rtpNeotrellis->read();
+  #ifdef NEO_TRELLIS
+    rtpTrellis->read();
+  #else 
+    rtpTrellis->callbackFromTrellis(this);
+  #endif
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){

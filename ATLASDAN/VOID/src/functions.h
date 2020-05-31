@@ -4,6 +4,8 @@ void manageButtonClicks(String callbackString);
 
 void internalClock(String callbackString);
 
+void internalClockTimer();
+
 void actOnRotCallback(String callbackString, int newPosition);
 
 void RealTimeSystem(byte realtimebyte);

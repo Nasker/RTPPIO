@@ -13,6 +13,7 @@ float Tempo = 120.0;
 #include <LiquidCrystal_I2C.h>
 #include "Adafruit_Trellis.h"
 #include <RTPPeriodicBang.h>
+// #include "TeensyTimerTool.h"
 #include <RTPEventNote.h>
 #include <RTPMusicController.h>
 #include <RTPSmartRange.h>
@@ -44,7 +45,7 @@ Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 RTPPeriodicBang periodicBang(((60.0 / Tempo) / 24.0) * 1000);
-//IntervalTimer periodicBang;
+// IntervalTimer periodicBang;
 RTPPeriodicBang periodicRefresh(20), periodicRefresh2(20);// periodicRefresh3(100);
 RTPMusicController mControl;
 RTPSmartRange leftRange(4, 12, 1000.0), centerRange(1, 1, 127, 0, 1000.0), rightRange(0, 1, 127, 0, 1000.0), drumRollRange(1, 11 , 1000.0);
@@ -80,6 +81,8 @@ byte currentRow = 0;
 byte currentCol = 0;
 byte lastPosition = 0;
 
+//TeensyTimerTool::Timer t1;
+
 void setup() {
   Serial.begin(115200);
   loadEprom();
@@ -97,13 +100,13 @@ void setup() {
   usbMIDI.setHandleRealTimeSystem(RealTimeSystem);
   usbMIDI.setHandleProgramChange(OnProgramChange);
   usbMIDI.setHandleControlChange(OnControlChange);
-  // periodicBang.begin(internalClock, ((60.0 / Tempo) / 24.0) * 1000000);
   pinMode(INTPIN, INPUT);
   digitalWrite(INTPIN, HIGH);
   trellis.begin(0x70);
   initSequence();
   refreshKeypad();
   printToScreen(layerNames[activeLayer], "Roll   CC0   CC1");
+  //t1.beginPeriodic(internalClockTimer,((60.0 / Tempo) / 24.0) * 1000000);
 }
 
 void loop() {
@@ -156,6 +159,10 @@ void manageButtonClicks(String callbackString){
 }
 
 void internalClock(String callbackString) { //String callbackString
+  RealTimeSystem(CLOCK);
+}
+
+void internalClockTimer() { //String callbackString
   RealTimeSystem(CLOCK);
 }
 
@@ -221,10 +228,13 @@ void actOnClockGridTick(String callbackString) {
     if (sequenceMatrix[currentLayer].matrix[currentRow][currentCol].eventState() && layerIsNotMute(currentLayer)) {
       switch(sequenceMatrix[currentLayer].noteMode){
         case DRUM:{
+          //Serial.printf("PASSES THROUGH DRUM\n");
           midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 127);
           midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].midiNote, 0);
+          break;
         }
         case SYNTH: {
+          //Serial.printf("PASSES THROUGH SYNTH!\n");
           for(int i=0; i<sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
             midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
             sequenceMatrix[currentLayer].lastPlayedNotes.remove(i);
@@ -237,8 +247,10 @@ void actOnClockGridTick(String callbackString) {
           midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
           //sequenceMatrix[currentLayer].lastMidiNote = mControl.getCurrentScaleMidiNote();
           sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
+          break;
         }
         case CHORD:{
+          //Serial.printf("PASSES THROUGH CHORD!\n");
           mControl.setCurrentOctave(leftRange.getCurrentZone(sequenceMatrix[currentLayer].matrix[currentRow][currentCol].getEventRead()));
           for(int i=0; i< sequenceMatrix[currentLayer].lastPlayedNotes.size(); i++){
             midiSend(sequenceMatrix[currentLayer].midiChannel, sequenceMatrix[currentLayer].lastPlayedNotes.get(i), 0);
@@ -249,6 +261,7 @@ void actOnClockGridTick(String callbackString) {
             midiSend(sequenceMatrix[currentLayer].midiChannel, mControl.getCurrentChordMidiNote(), 100);
             sequenceMatrix[currentLayer].lastPlayedNotes.add(mControl.getCurrentChordMidiNote());
           } 
+          break;
         }
       }
     }
@@ -389,9 +402,13 @@ void saveOnEprom() {
 }
 
 void switchInternalClockState() {
-    internalClockState = !internalClockState;
-    RealTimeSystem(STOP);
-    Serial.println("SWITCH TO INTERNAL/EXTERNAL CLOCK");
+  internalClockState = !internalClockState;
+  /*if(internalClockState)
+    // t1.beginPeriodic(internalClockTimer,((60.0 / Tempo) / 24.0) * 1000000);
+  else
+    // t1.end();*/
+  RealTimeSystem(STOP);
+  Serial.println("SWITCH TO INTERNAL/EXTERNAL CLOCK");
 }
 
 void OnProgramChange(byte channel, byte program) {

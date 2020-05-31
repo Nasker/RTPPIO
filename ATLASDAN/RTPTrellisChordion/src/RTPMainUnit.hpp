@@ -1,9 +1,10 @@
 #pragma once
+//#define NEO_TRELLIS
 
 #include "Arduino.h"
 #include "MIDI.h"
 #include "RTPScreen.hpp"
-//#include "RTPTrellis.hpp"
+#include "RTPTrellis.hpp"
 #include "RTPNeoTrellis.hpp"
 #include "RTPRotaryClickChordion.hpp"
 #include "ThreeAxisRange.hpp"
@@ -13,8 +14,12 @@
 //extern RTPScreen* rtpScreen;
   
 class RTPMainUnit{
-  //RTPTrellis* rtpTrellis;
-  RTPNeoTrellis* rtpNeotrellis;
+  #ifdef NEO_TRELLIS
+    RTPNeoTrellis* rtpTrellis;
+  #else
+    RTPTrellis* rtpTrellis;
+  #endif
+  
   RTPRotaryClickChordion* rtpRotary;
   RTPScreen* rtpScreen;
   ThreeAxisRange* threeAxisRange;
