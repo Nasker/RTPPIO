@@ -27,19 +27,22 @@ void setup() {
 void loop() {
   VL53L0X_RangingMeasurementData_t measure;
     
-  Serial.print("Reading a measurement... ");
+  // Serial.print("Reading a measurement... ");
   lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
   if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-    Serial.print("Distance (mm): "); Serial.println(measure.RangeMilliMeter);
-    int midiValue = constrain(map(measure.RangeMilliMeter,40,400,0,127),0,127);
+    // Serial.print("Distance (mm): "); 
+    int measurement = measure.RangeMilliMeter;
+    if(measurement > 2000) measurement = 0;
+    Serial.println(measurement);
+    int midiValue = constrain(map(measurement,40,400,0,127),0,127);
     if(lastMidiValue != midiValue){
       usbMIDI.sendControlChange(1,midiValue,1);
       lastMidiValue = midiValue;
     }
 
   } else {
-    Serial.println(" out of range ");
+    Serial.println(0);
   }
     
   //delay(100);

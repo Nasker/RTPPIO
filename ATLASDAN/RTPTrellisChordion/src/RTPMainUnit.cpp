@@ -12,10 +12,7 @@ VoidStateMachine voidStateMachine(initState);
 RTPMainUnit::RTPMainUnit(){
 }
 
-void RTPMainUnit::begin(){
-  Serial.begin(115200);
-  
-  
+void RTPMainUnit::begin(){  
   rtpRotary = new RTPRotaryClickChordion(ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true);
   threeAxisRange = new ThreeAxisRange();
 
@@ -24,9 +21,11 @@ void RTPMainUnit::begin(){
   rtpScreen->print("   Hey There!   ", " I'm Chordion!! ");
   chordionKeys.initSetup();
   #ifdef NEO_TRELLIS
+    Serial.println("NEO TRELLIS!");
     rtpTrellis = new RTPNeoTrellis();
     rtpTrellis->begin(this);
   #else 
+  Serial.println("OLD TRELLIS!");
     rtpTrellis = new RTPTrellis();
     rtpTrellis->begin();
   #endif

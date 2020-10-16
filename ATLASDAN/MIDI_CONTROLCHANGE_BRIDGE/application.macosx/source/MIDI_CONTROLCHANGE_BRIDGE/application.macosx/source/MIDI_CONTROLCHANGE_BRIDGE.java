@@ -28,7 +28,7 @@ public void setup() {
   background(0, 255, 0);
   MidiBus.list(); 
   chordionVoidBus = new MidiBus(this, "CHORDION_MIDI", "VOID_MIDI"); 
-  chordionEtharpBus = new MidiBus(this, "CHORDION_MIDI", "ethArp MIDI");
+  chordionEtharpBus = new MidiBus(this, "CHORDION_MIDI", "Teensy MIDI");
 }
 
 public void draw() {
@@ -59,7 +59,6 @@ public void controllerChange(int channel, int number, int value) {
   chordionEtharpBus.sendControllerChange(channel, number, value);
   blinkLed = true;
 }
-
   public void settings() {  size(100, 100); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "MIDI_CONTROLCHANGE_BRIDGE" };

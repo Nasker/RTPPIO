@@ -8,8 +8,10 @@ int scaleNumber = 8;   //1-Ionian/2-Dorian/3-Phrygian/4-Lydian/5-Mixolydian
 int chordNumber = 4; //minor as default
 
 float Tempo = 120.0;
-
-#include <Wire.h>
+/*#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>*/
 #include <LiquidCrystal_I2C.h>
 #include "Adafruit_Trellis.h"
 #include <RTPPeriodicBang.h>
@@ -34,7 +36,7 @@ const String layerNames[NLayers] = {"PATTERN     Kick", "PATTERN  SUBCONT", "PAT
                                     "PATTERN  OPHiHat", "PATTERN   Hi Tom", "PATTERN  CLHihat",
                                     "PATTERN   LOOP_1", "PATTERN   LOOP_2", "PATTERN    SLICE",
                                     "PATTERN     BASS", "PATTERN   KeysII", "PATTERN  KeysIII",
-                                    "PATTERN   KeysIV", "ENABLE     PARTS", "CHORD/KEY SELECT"};
+                                    "PATTERN   KeysIV", "ENABLE     PARTS", "THREE AXIS  CC's"};
 
 RTPRotaryClick rotaryClick(ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true);
 ThreeAxisPing threeAxis;
@@ -133,8 +135,12 @@ void loop() {
 }
 
 void actOnRangeCallback(int id, String callbackString, int currentStep, int currentZone) {
-  //Serial.printf("-ID: %d \t%s  \tstep: %d \n", id, callbackString, currentStep);
-  usbMIDI.sendControlChange(id, currentStep, sequenceMatrix[activeLayer].midiChannel);
+  Serial.printf("-ID: %d \t%s  \tstep: %d \n", id, callbackString, currentStep);
+  for(int i=0; i<SEQUENCED_LAYERS; i++){
+    if(CCIsActive(i))
+      usbMIDI.sendControlChange(id, currentStep, i+1);
+  }
+
 }
 
 void manageButtonClicks(String callbackString){
@@ -220,6 +226,7 @@ void actOnClockGridTick(String callbackString) {
   }
   if (sequenceMatrix[activeLayer].matrix[currentRow][currentCol].eventState() && threeAxis.overLeft()) {
     sequenceMatrix[activeLayer].matrix[currentRow][currentCol].setEventRead(threeAxis.pingLeft());
+    //Serial.printf("%d\n", threeAxis.pingLeft());
     //mControl.setCurrentOctave(leftRange.getCurrentZone(ultraReading[0]));
     //mControl.setCurrentStep(leftRange.getCurrentStepInZone(ultraReading[0]));
     //sequenceMatrix[activeLayer].matrix[currentRow][currentCol].setEventNote(mControl.getCurrentMidiNote());
@@ -365,7 +372,7 @@ void loadEprom() {
     sequenceMatrix[l].midiNote = midiNotes[l];
     if (midiChannels[l] == 10) 
       sequenceMatrix[l].noteMode = DRUM;
-    else if (midiChannels[l] == 4) 
+    else if (midiChannels[l] == 4 || midiChannels[l] == 3) 
       sequenceMatrix[l].noteMode = CHORD;
     else 
       sequenceMatrix[l].noteMode = SYNTH;
@@ -439,7 +446,7 @@ void OnControlChange(byte channel, byte control, byte value) {
   Serial.print(", value=");
   Serial.print(value, DEC);
   Serial.println();
-  if(channel == 1 && control>=0 && control<=15 && value>=0 && value<=15){ 
+  if(channel == 1 && control>=0 && control<=15 && value<=15){ 
     mControl.setCurrentRootNote(control);
     mControl.setCurrentScale(value);
     mControl.setCurrentChord(value);
@@ -454,6 +461,14 @@ bool layerIsNotMute(int layerNumber) {
   int col = layerNumber / 4;
   int row = layerNumber % 4;
   bool state = sequenceMatrix[ENABLE_PART_LAYER].matrix[row][col].eventState();
+  //Serial.println(state);
+  return state;
+}
+
+bool CCIsActive(int layerNumber) {
+  int col = layerNumber / 4;
+  int row = layerNumber % 4;
+  bool state = sequenceMatrix[NLayers-1].matrix[row][col].eventState();
   //Serial.println(state);
   return state;
 }

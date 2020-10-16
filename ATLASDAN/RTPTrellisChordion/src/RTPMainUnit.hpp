@@ -1,5 +1,5 @@
 #pragma once
-//#define NEO_TRELLIS
+#define NEO_TRELLIS
 
 #include "Arduino.h"
 #include "MIDI.h"

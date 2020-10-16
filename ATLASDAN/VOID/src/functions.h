@@ -40,6 +40,8 @@ void OnControlChange(byte channel, byte control, byte value);
 
 bool layerIsNotMute(int layerNumber);
 
+bool CCIsActive(int layerNumber);
+
 /*
 void updateScreen(String callbackString){
   printToScreen(layerNames[activeLayer], "Roll   CC0   CC1");

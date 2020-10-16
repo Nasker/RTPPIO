@@ -10,7 +10,7 @@ void setup() {
   background(0, 255, 0);
   MidiBus.list(); 
   chordionVoidBus = new MidiBus(this, "CHORDION_MIDI", "VOID_MIDI"); 
-  chordionEtharpBus = new MidiBus(this, "CHORDION_MIDI", "ethArp MIDI");
+  chordionEtharpBus = new MidiBus(this, "CHORDION_MIDI", "Teensy MIDI");
 }
 
 void draw() {

@@ -5,8 +5,8 @@
 #define CHORD 2
 
 #define NPOSITIONS 256
-#define MAX_DISTANCE 50
-#define MIN_DISTANCE 10
+#define MAX_DISTANCE 25
+#define MIN_DISTANCE 5
 #define SONAR_NUM     3
 #define INTPIN A2
 #define NLayers 18
