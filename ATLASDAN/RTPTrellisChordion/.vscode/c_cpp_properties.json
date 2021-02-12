@@ -1,11 +1,12 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
-            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
-        },
-        {
-            "name": "Mac",
-            "macFrameworkPath": [],
+            "name": "PlatformIO",
             "includePath": [
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/include",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/src",
@@ -246,10 +247,10 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=50001",
+                "PLATFORMIO=50100",
                 "__MK20DX256__",
                 "ARDUINO_TEENSY31",
-                "USB_MIDI_AUDIO_SERIAL",
+                "USB_MIDI_SERIAL",
                 "ARDUINO=10805",
                 "TEENSYDUINO=153",
                 "CORE_TEENSY",
@@ -257,7 +258,6 @@
                 "LAYOUT_US_ENGLISH",
                 ""
             ],
-            "intelliSenseMode": "clang-x64",
             "cppStandard": "c++14",
             "compilerPath": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc",
             "compilerArgs": [

@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <Arduino.h>
 #include "functionsHeaders.h"
 #include <RTPMusicController.h>
 #include <RTPPeriodicBang.h>
