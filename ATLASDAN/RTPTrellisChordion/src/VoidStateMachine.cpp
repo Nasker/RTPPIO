@@ -11,7 +11,7 @@
 
 #include "Arduino.h"
 
-VoidStateMachine::VoidStateMachine(VoidState* initial){ //, LiquidScreen& lScreen
+VoidStateMachine::VoidStateMachine(){ //, LiquidScreen& lScreen
   _state = new InitState(this);
 	_initState = new InitState(this);
 	_transportState = new TransportState(this);
@@ -78,4 +78,16 @@ VoidState* VoidStateMachine::getSequenceSelectState(){
 
 VoidState* VoidStateMachine::getSequenceSettingsState(){
   return _sequenceSettingsState;
+}
+
+void VoidStateMachine::connectScreen(const RTPScreen& screen){
+  _initState->connectScreen(screen);
+	_transportState->connectScreen(screen);
+	_globalSettingsState->connectScreen(screen);
+	_sceneEditState->connectScreen(screen);
+	_sceneSettingsState->connectScreen(screen);
+	_sequenceEditState->connectScreen(screen);
+	_sequencePianoRollState->connectScreen(screen);
+	_sequenceSelectState->connectScreen(screen);
+	_sequenceSettingsState->connectScreen(screen);
 }

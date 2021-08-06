@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VoidState.h"
+#include "RTPScreen.hpp"
 
 class VoidStateMachine{
 	VoidState* _state;
@@ -15,7 +16,7 @@ class VoidStateMachine{
 	VoidState* _sequenceSettingsState;
 
 public:
-	VoidStateMachine(VoidState* initial);  //, LiquidScreen& lScreen
+	VoidStateMachine();  //, LiquidScreen& lScreen
 	void singleClick();
 	void doubleClick();
 	void tripleClick();
@@ -40,4 +41,6 @@ public:
 	VoidState* getSequenceSelectState();
 
 	VoidState* getSequenceSettingsState();
+
+	void connectScreen(const RTPScreen& screen);
 };

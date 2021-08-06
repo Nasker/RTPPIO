@@ -1,5 +1,8 @@
 #include "Arduino.h"
 
+#define IDLE_STATE 0
+#define PEAK_TRACKING_STATE 1
+
 class RTPPiezoSensi{
 int _analogPin;
 int _channel;  // General MIDI: channel 10 = percussion sounds

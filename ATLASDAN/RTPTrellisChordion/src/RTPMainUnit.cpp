@@ -1,45 +1,37 @@
 #include "RTPMainUnit.hpp"
 #include "RTPMusicController.h"
-#include "VoidStateMachine.h"
 #include "ControlCommand.h"
 #include "MIDI.h"
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI2);
 
-VoidState* initState;
-VoidStateMachine voidStateMachine(initState);
-
 RTPMainUnit::RTPMainUnit(){
 }
 
 void RTPMainUnit::begin(){  
-  rtpRotary = new RTPRotaryClickChordion(ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true);
-  threeAxisRange = new ThreeAxisRange();
-
-  rtpScreen = new RTPScreen();
-  rtpScreen->begin();
-  rtpScreen->print("   Hey There!   ", " I'm Chordion!! ");
+  rtpScreen.begin();
+  rtpScreen.print("   Hey There!   ", " I'm Chordion!! ");
   chordionKeys.initSetup();
   #ifdef NEO_TRELLIS
     Serial.println("NEO TRELLIS!");
-    rtpTrellis = new RTPNeoTrellis();
-    rtpTrellis->begin(this);
+    rtpTrellis.begin(this);
   #else 
   Serial.println("OLD TRELLIS!");
     rtpTrellis = new RTPTrellis();
     rtpTrellis->begin();
   #endif
+  voidStateMachine.connectScreen(rtpScreen);
 }
 
 void RTPMainUnit::update(){
-  rtpRotary->callbackFromRotary(this);
-  rtpRotary->callbackFromClicks(this);
+  rtpRotary.callbackFromRotary(this);
+  rtpRotary.callbackFromClicks(this);
 }
 
 void RTPMainUnit::updatePeriodically(){
-  threeAxisRange->callbackFromThreeAxis(this);
+  threeAxisRange.callbackFromThreeAxis(this);
   #ifdef NEO_TRELLIS
-    rtpTrellis->read();
+    rtpTrellis.read();
   #else 
     rtpTrellis->callbackFromTrellis(this);
   #endif
@@ -73,7 +65,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
         case PRESSED:{
           PlayedChord playedChord = chordionKeys.playChord(baseNote + callbackCommand.value);
           Serial.printf("PRESSED\n");
-          rtpScreen->print(String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
+          rtpScreen.print(String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
           break;
         }
         case RELEASED:

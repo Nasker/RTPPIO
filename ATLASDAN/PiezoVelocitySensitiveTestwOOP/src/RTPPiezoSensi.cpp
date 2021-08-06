@@ -16,18 +16,18 @@ void RTPPiezoSensi::peakDetect(void(*userFunc)(int,int,int)) {
     // IDLE state: wait for any reading is above threshold.  Do not set
     // the threshold too low.  You don't want to be too sensitive to slight
     // vibration.
-    case 0:
+    case IDLE_STATE:
       if (voltage > thresholdMin) {
         //Serial.print("begin peak track ");
         //Serial.println(voltage);
         peak = voltage;
         msec = 0;
-        state = 1;
+        state = PEAK_TRACKING_STATE;
       }
       return;
 
     // Peak Tracking state: capture largest reading
-    case 1:
+    case PEAK_TRACKING_STATE:
       if (voltage > peak) {
         peak = voltage;     
       }
@@ -47,9 +47,9 @@ void RTPPiezoSensi::peakDetect(void(*userFunc)(int,int,int)) {
       if (voltage > thresholdMin) {
         msec = 0; // keep resetting timer if above threshold
       } else if (msec > aftershockMillis) {
-        usbMIDI.sendNoteOff(_note, 0, _channel);
+        //usbMIDI.sendNoteOff(_note, 0, _channel);
         userFunc(_note, 0, _channel);
-        state = 0; // go back to idle when
+        state = IDLE_STATE; // go back to idle when
       }
   }
 }

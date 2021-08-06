@@ -10,21 +10,22 @@
 #include "ThreeAxisRange.hpp"
 #include "ChordionKeys.hpp"
 #include "Adafruit_NeoTrellis.h"
+#include "VoidStateMachine.h"
 
-//extern RTPScreen* rtpScreen;
   
 class RTPMainUnit{
   #ifdef NEO_TRELLIS
-    RTPNeoTrellis* rtpTrellis;
+    RTPNeoTrellis rtpTrellis;
   #else
     RTPTrellis* rtpTrellis;
   #endif
   
-  RTPRotaryClickChordion* rtpRotary;
-  RTPScreen* rtpScreen;
-  ThreeAxisRange* threeAxisRange;
+  RTPRotaryClickChordion rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};
+  RTPScreen rtpScreen;
+  ThreeAxisRange threeAxisRange;
   ChordionKeys chordionKeys;
   int baseNote = BASE_NOTE;
+  VoidStateMachine voidStateMachine;
 public:
   RTPMainUnit();
   void begin();
