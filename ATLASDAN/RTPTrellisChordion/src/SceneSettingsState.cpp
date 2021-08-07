@@ -14,6 +14,7 @@
 
   void SceneSettingsState::doubleClick() {
     Serial.println("Going to Scene Edit!");
+    _screen->print("State:", "Scene Edit!");
     _voidMachine->setState(_voidMachine->getSceneEditState());
   }
 

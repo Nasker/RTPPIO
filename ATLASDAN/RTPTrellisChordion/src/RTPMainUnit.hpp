@@ -1,5 +1,5 @@
 #pragma once
-#define NEO_TRELLIS
+//#define NEO_TRELLIS
 
 #include "Arduino.h"
 #include "MIDI.h"
@@ -17,7 +17,7 @@ class RTPMainUnit{
   #ifdef NEO_TRELLIS
     RTPNeoTrellis rtpTrellis;
   #else
-    RTPTrellis* rtpTrellis;
+    RTPTrellis rtpTrellis;
   #endif
   
   RTPRotaryClickChordion rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};

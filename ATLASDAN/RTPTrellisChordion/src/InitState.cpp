@@ -8,7 +8,6 @@
 
   void InitState::singleClick() {
     Serial.println("Going to Transport");
-    _screen->print("State:", "Transport!");
     _voidMachine->setState(_voidMachine->getTransportState());
   }
 

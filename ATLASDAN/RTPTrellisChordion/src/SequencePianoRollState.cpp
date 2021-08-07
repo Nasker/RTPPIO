@@ -14,6 +14,7 @@
 
   void SequencePianoRollState::doubleClick() {
     Serial.println("Going to Sequence Edit!");
+    _screen->print("State:", "Sequence Edit!");
     _voidMachine->setState(_voidMachine->getSequenceEditState());
   }
 

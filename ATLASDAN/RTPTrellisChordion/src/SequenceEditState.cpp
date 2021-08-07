@@ -14,16 +14,19 @@
 
   void SequenceEditState::doubleClick() {
     Serial.println("Going to Scene Edit!");
+    _screen->print("State:", "Scene Edit!");
     _voidMachine->setState(_voidMachine->getSceneEditState());
   }
 
 
   void SequenceEditState::tripleClick() {
     Serial.println("Going to Sequence Piano Roll!");
+    _screen->print("State:", "Seq Piano Roll!");
     _voidMachine->setState(_voidMachine->getSequencePianoRollState());
   }
 
   void SequenceEditState::longClick() {
     Serial.println("Going to Sequence Settings!");
+    _screen->print("State:", "Sequence Settings!");
     _voidMachine->setState(_voidMachine->getSequenceSettingsState());
   }

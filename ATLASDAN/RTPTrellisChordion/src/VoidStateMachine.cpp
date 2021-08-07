@@ -81,7 +81,7 @@ VoidState* VoidStateMachine::getSequenceSettingsState(){
 }
 
 void VoidStateMachine::connectScreen(const RTPScreen& screen){
-  _initState->connectScreen(screen);
+	_initState->connectScreen(screen);
 	_transportState->connectScreen(screen);
 	_globalSettingsState->connectScreen(screen);
 	_sceneEditState->connectScreen(screen);

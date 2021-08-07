@@ -10,7 +10,6 @@
             "includePath": [
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/include",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/src",
-                "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/lib/StateMachine",
                 "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/MIDI/src",
                 "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/Audio",
                 "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/Audio/utility",
@@ -29,6 +28,7 @@
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Encoder",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Encoder/utility",
                 "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/cores/teensy3",
+                "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/lib/StateMachine",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit BusIO",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit GFX Library",
                 "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit ST7735 and ST7789 Library",
@@ -130,7 +130,6 @@
                 "path": [
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/include",
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/src",
-                    "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/lib/StateMachine",
                     "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/MIDI/src",
                     "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/Audio",
                     "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/libraries/Audio/utility",
@@ -149,6 +148,7 @@
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Encoder",
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Encoder/utility",
                     "/Users/oscarmartinezcarmona/.platformio/packages/framework-arduinoteensy/cores/teensy3",
+                    "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/lib/StateMachine",
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit BusIO",
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit GFX Library",
                     "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy31/Adafruit ST7735 and ST7789 Library",

@@ -9,12 +9,14 @@
 
   void SequenceSelectState::singleClick() {
     Serial.println("Going to Sequence Edit!");
+    _screen->print("State:", "Sequence Edit!");
     _voidMachine->setState(_voidMachine->getSequenceEditState());
   }
 
 
   void SequenceSelectState::doubleClick() {
     Serial.println("Going to Scene Edit!");
+    _screen->print("State:", "Scene Edit!");
     _voidMachine->setState(_voidMachine->getSceneEditState());
   }
 

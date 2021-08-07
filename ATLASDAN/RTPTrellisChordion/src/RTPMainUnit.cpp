@@ -9,6 +9,7 @@ RTPMainUnit::RTPMainUnit(){
 }
 
 void RTPMainUnit::begin(){  
+  Serial.begin(9600);
   rtpScreen.begin();
   rtpScreen.print("   Hey There!   ", " I'm Chordion!! ");
   chordionKeys.initSetup();
@@ -17,8 +18,7 @@ void RTPMainUnit::begin(){
     rtpTrellis.begin(this);
   #else 
   Serial.println("OLD TRELLIS!");
-    rtpTrellis = new RTPTrellis();
-    rtpTrellis->begin();
+    rtpTrellis.begin();
   #endif
   voidStateMachine.connectScreen(rtpScreen);
 }
@@ -33,14 +33,12 @@ void RTPMainUnit::updatePeriodically(){
   #ifdef NEO_TRELLIS
     rtpTrellis.read();
   #else 
-    rtpTrellis->callbackFromTrellis(this);
+    rtpTrellis.callbackFromTrellis(this);
   #endif
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  
   switch(callbackCommand.controlType){
-  
     case THREE_AXIS:
       switch(callbackCommand.commandType){
       case CHANGE_LEFT:
@@ -98,6 +96,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
       break;
 
     case PUSH_BUTTON:
+      Serial.printf("-CONTROL: %d \t-CMD:%d\n", callbackCommand.controlType, callbackCommand.commandType);
       switch(callbackCommand.commandType){
         case SINGLE_CLICK:
           voidStateMachine.singleClick();

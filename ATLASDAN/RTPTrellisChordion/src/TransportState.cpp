@@ -13,6 +13,7 @@
 
   void TransportState::doubleClick() {
     Serial.println("Going to Scene Edit!");
+    _screen->print("State:", "Scene Edit!");
     _voidMachine->setState(_voidMachine->getSceneEditState());
   }
 
@@ -23,5 +24,6 @@
 
   void TransportState::longClick() {
     Serial.println("Going to Global Settings!");
+    _screen->print("State:", "Global Settings!");
     _voidMachine->setState(_voidMachine->getGlobalSettingsState());
   }
