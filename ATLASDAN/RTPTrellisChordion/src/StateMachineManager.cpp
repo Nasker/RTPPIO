@@ -14,7 +14,6 @@ void StateMachineManager::connectDevices(const RTPScreen& screen) {
 void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {
   Serial.println("HANDLING FROM MIDDLE CLASS!");
   switch(callbackControlCommand.commandType){
-    
           case SINGLE_CLICK:
             voidStateMachine.singleClick();
             break;
