@@ -1,5 +1,4 @@
 #include <RTPEventNoteSequence.h>
-#include "Arduino.h"
 
 class RTPScene{
   LinkedList <RTPEventNoteSequence*> SequencerScene = LinkedList<RTPEventNoteSequence*>();
@@ -8,4 +7,10 @@ class RTPScene{
 
 public:
   RTPScene(String name, int NSequences);
+  void fordwardScene();
+  void backwardScene();
+  void resetScene();
+  int getSequenceType(int sequenceIndex);
+  LinkedList<RTPEventNotePlus*>  getPlayedNotesList();
+  void editSceneSequenceBlock(int sequence, LinkedList<RTPEventNote*> displayedEventsList, int NsequenceBlock);
 };

@@ -9,4 +9,6 @@ void setup(){
 }
 
 void loop() {
+	Sequencer.playAndMoveSequencer();
+	delay(60);
 }

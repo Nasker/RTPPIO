@@ -2,8 +2,8 @@
 
 #include "Arduino.h"
 
-typedef struct{
+struct ControlCommand{
   int controlType;
   int commandType;
   int value;
-} ControlCommand;
+};

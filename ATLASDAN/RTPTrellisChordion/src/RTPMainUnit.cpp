@@ -20,7 +20,8 @@ void RTPMainUnit::begin(){
   Serial.println("OLD TRELLIS!");
     rtpTrellis.begin();
   #endif
-  voidStateMachine.connectScreen(rtpScreen);
+  //voidStateMachine.connectScreen(rtpScreen);
+  machineManager.connectDevices(rtpScreen);
 }
 
 void RTPMainUnit::update(){
@@ -97,7 +98,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
 
     case PUSH_BUTTON:
       Serial.printf("-CONTROL: %d \t-CMD:%d\n", callbackCommand.controlType, callbackCommand.commandType);
-      switch(callbackCommand.commandType){
+      /*switch(callbackCommand.commandType){
         case SINGLE_CLICK:
           voidStateMachine.singleClick();
           break;
@@ -110,7 +111,8 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
         case LONG_CLICK:
           voidStateMachine.longClick();
           break;
-      }
+      }*/
+      machineManager.handleActions(callbackCommand);
     break;
   }
 }
