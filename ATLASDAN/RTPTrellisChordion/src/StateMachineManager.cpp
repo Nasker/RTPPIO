@@ -8,11 +8,11 @@ StateMachineManager::StateMachineManager() {}
 StateMachineManager::~StateMachineManager() {}
 
 void StateMachineManager::connectDevices(const RTPScreen& screen) {
+  voidStateMachine.setState(voidStateMachine.getInitState());
   voidStateMachine.connectScreen(screen);
 }
 
 void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {
-  Serial.println("HANDLING FROM MIDDLE CLASS!");
   switch(callbackControlCommand.commandType){
           case SINGLE_CLICK:
             voidStateMachine.singleClick();

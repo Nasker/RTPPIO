@@ -10,7 +10,6 @@
 #include "ThreeAxisRange.hpp"
 #include "ChordionKeys.hpp"
 #include "Adafruit_NeoTrellis.h"
-//#include "VoidStateMachine.h"
 #include "StateMachineManager.hpp"
   
 class RTPMainUnit{
@@ -25,7 +24,6 @@ class RTPMainUnit{
   ThreeAxisRange threeAxisRange;
   ChordionKeys chordionKeys;
   int baseNote = BASE_NOTE;
-  //VoidStateMachine voidStateMachine;
   StateMachineManager machineManager;
 
 public:
