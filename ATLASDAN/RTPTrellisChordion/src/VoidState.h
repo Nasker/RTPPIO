@@ -12,7 +12,6 @@ public:
 	virtual void longClick() = 0;
 
 	void connectScreen(const RTPScreen& screen) {
-		_screen = new RTPScreen(screen);
+		_screen = (RTPScreen*) &screen;
 	}
 };
-
