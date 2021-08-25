@@ -8,6 +8,7 @@ StateMachineManager::StateMachineManager() {}
 StateMachineManager::~StateMachineManager() {}
 
 void StateMachineManager::connectDevices(const RTPScreen& screen) {
+  voidStateMachine.setState(voidStateMachine.getInitState());
   voidStateMachine.connectScreen(screen);
 }
 
