@@ -8,12 +8,6 @@ int lastMidiValue = 0;
 
 void setup() {
   Serial.begin(115200);
-
-  // wait until serial port opens for native USB devices
-  while (! Serial) {
-    delay(1);
-  }
-  
   Serial.println("Adafruit VL53L0X test");
   if (!lox.begin()) {
     Serial.println(F("Failed to boot VL53L0X"));
@@ -35,7 +29,7 @@ void loop() {
     int measurement = measure.RangeMilliMeter;
     if(measurement > 2000) measurement = 0;
     Serial.println(measurement);
-    int midiValue = constrain(map(measurement,40,400,0,127),0,127);
+    int midiValue = constrain(map(measurement,40,200,0,127),0,127);
     if(lastMidiValue != midiValue){
       usbMIDI.sendControlChange(1,midiValue,1);
       lastMidiValue = midiValue;

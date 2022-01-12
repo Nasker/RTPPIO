@@ -10,7 +10,7 @@ void linkToSequencerManager(byte realtimebyte){
 }
 
 void setup(){
-	Serial.begin(115200);
+	Serial.begin(115200); 
 	usbMIDI.setHandleRealTimeSystem(linkToSequencerManager);
 	SequencerManager.connectSequencer(Sequencer);
 }
