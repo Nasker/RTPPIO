@@ -1,7 +1,3 @@
-/*
-    Copyright 2021 Oscar Martínez
-*/
-
 #pragma once
 
 #include "VoidStateMachine.h"

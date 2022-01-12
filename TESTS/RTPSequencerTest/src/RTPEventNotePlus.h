@@ -1,3 +1,5 @@
+#pragma once
+
 #include <RTPEventNote.h>
 
 class RTPEventNotePlus: public RTPEventNote{
@@ -13,9 +15,9 @@ class RTPEventNotePlus: public RTPEventNote{
       _midiChannel = midiChannel;
     }
     void playNoteOn(){
-      usbMIDI.sendNoteOn(getEventNote(), getEventVelocity(), getMidiChannel());
+      //usbMIDI.sendNoteOn(getEventNote(), getEventVelocity(), getMidiChannel());
     }
     void playNoteOff(){
-      usbMIDI.sendNoteOff(getEventNote(), getEventVelocity(), getMidiChannel());
+      //usbMIDI.sendNoteOff(getEventNote(), getEventVelocity(), getMidiChannel());
     }
 };

@@ -94,9 +94,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
           break;
       }
       break;
-
     case PUSH_BUTTON:
-      //Serial.printf("-CONTROL: %d \t-CMD:%d\n", callbackCommand.controlType, callbackCommand.commandType);
       machineManager.handleActions(callbackCommand);
     break;
   }

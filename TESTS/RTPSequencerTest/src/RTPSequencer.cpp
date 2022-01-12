@@ -14,7 +14,7 @@ void RTPSequencer::playAndMoveSequencer(){
     for(int j=0; j<Sequencer.get(i)->getPlayedNotesList().size(); j++){
       switch(Sequencer.get(i)->getSequenceType(j)){
         case DRUM:
-          //playNoteOn(Sequencer.get(i)->getPlayedNotesList().get(j));
+          playNoteOn(Sequencer.get(i)->getPlayedNotesList().get(j));
           Sequencer.get(i)->getPlayedNotesList().get(j)->playNoteOn();
           Sequencer.get(i)->getPlayedNotesList().get(j)->playNoteOff();
           Sequencer.get(i)->getPlayedNotesList().remove(j);
@@ -22,7 +22,7 @@ void RTPSequencer::playAndMoveSequencer(){
           break;
         case SYNTH:
           Sequencer.get(i)->getPlayedNotesList().get(j)->playNoteOn();
-          //playNoteOn(Sequencer.get(i)->getPlayedNotesList().get(j));
+          playNoteOn(Sequencer.get(i)->getPlayedNotesList().get(j));
           break;
       }
     }
@@ -55,12 +55,12 @@ void RTPSequencer::editSceneSequenceBlock(int scene, int sequence, LinkedList<RT
 
 
 void RTPSequencer::playNoteOn(RTPEventNotePlus* eventNote) {
-    //usbMIDI.sendNoteOn(eventNote->getEventNote(), eventNote->getEventVelocity(), eventNote->getMidiChannel());
+    usbMIDI.sendNoteOn(eventNote->getEventNote(), eventNote->getEventVelocity(), eventNote->getMidiChannel());
     //MIDI.sendNoteOn(midiNote, velocity, channel);
 }
 
 void RTPSequencer::playNoteOff(RTPEventNotePlus* eventNote) {
-    //usbMIDI.sendNoteOff(eventNote->getEventNote(), eventNote->getEventVelocity(), eventNote->getMidiChannel());
+    usbMIDI.sendNoteOff(eventNote->getEventNote(), eventNote->getEventVelocity(), eventNote->getMidiChannel());
     //MIDI.sendNoteOff(midiNote, velocity, channel);
     //Serial.println("SEND_NOTE OFF");
 }

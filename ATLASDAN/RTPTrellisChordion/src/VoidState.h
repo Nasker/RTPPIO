@@ -15,4 +15,3 @@ public:
 		_screen = (RTPScreen*) &screen;
 	}
 };
-

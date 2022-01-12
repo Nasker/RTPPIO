@@ -1,10 +1,14 @@
+#define DRUM 0
+
+
 #include <RTPScene.h>
 
-RTPScene::RTPScene(std::string name, int NSequences){
+
+RTPScene::RTPScene(String name, int NSequences){
   _name = name;
   _NSequences = NSequences;
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, 16, "DRUM");
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, 16, DRUM);
     SequencerScene.add(sequence);
   }
 }

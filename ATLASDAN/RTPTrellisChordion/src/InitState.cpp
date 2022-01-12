@@ -8,22 +8,26 @@
 
   void InitState::singleClick() {
     Serial.println("Going to Transport");
+    _screen->print("State:", "Transport!");
     _voidMachine->setState(_voidMachine->getTransportState());
   }
 
 
   void InitState::doubleClick() {
     Serial.println("Going to Transport");
+    _screen->print("State:", "Transport!");
     _voidMachine->setState(_voidMachine->getTransportState());
   }
 
 
   void InitState::tripleClick() {
     Serial.println("Going to Transport");
+    _screen->print("State:", "Transport!");
     _voidMachine->setState(_voidMachine->getTransportState());
   }
 
   void InitState::longClick() {
     Serial.println("Going to Transport");
+    _screen->print("State:", "Transport!");
     _voidMachine->setState(_voidMachine->getTransportState());
   }

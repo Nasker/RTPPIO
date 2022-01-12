@@ -1,10 +1,4 @@
-/*
-    RTPEventNote.h - RTPEventNote, Simple state/note/velocity object
-	Created by Oscar Martínez Carmona @ RockinTechProjects, October 30, 2015.
-*/
-
-#ifndef RTPEventNote_h
-#define RTPEventNote_h   
+#pragma once 
 
 class RTPEventNote{
     bool _state;
@@ -25,5 +19,3 @@ class RTPEventNote{
     void setEventVelocity(int velocity);
     void switchState();
 };
-
-#endif

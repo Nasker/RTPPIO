@@ -12,10 +12,11 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/VOID/.pio/build/teensy40/firmware.elf",
-            "projectEnvName": "teensy40",
-            "toolchainBinDir": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "executable": "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/VOID/.pio/build/teensy31/firmware.elf",
+            "projectEnvName": "teensy31",
+            "toolchainBinDir": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi@1.50401.190816/bin",
             "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/oscarmartinezcarmona/.platformio/platforms/teensy/misc/svd/MK20D5.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
                 "task": "Pre-Debug"
@@ -25,10 +26,22 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/VOID/.pio/build/teensy40/firmware.elf",
-            "projectEnvName": "teensy40",
-            "toolchainBinDir": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi/bin",
-            "internalConsoleOptions": "openOnSessionStart"
+            "executable": "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/VOID/.pio/build/teensy31/firmware.elf",
+            "projectEnvName": "teensy31",
+            "toolchainBinDir": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi@1.50401.190816/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/oscarmartinezcarmona/.platformio/platforms/teensy/misc/svd/MK20D5.svd"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "/Users/oscarmartinezcarmona/Documents/workspace/RTP/RTPPIO/ATLASDAN/VOID/.pio/build/teensy31/firmware.elf",
+            "projectEnvName": "teensy31",
+            "toolchainBinDir": "/Users/oscarmartinezcarmona/.platformio/packages/toolchain-gccarmnoneeabi@1.50401.190816/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/oscarmartinezcarmona/.platformio/platforms/teensy/misc/svd/MK20D5.svd",
+            "loadMode": "manual"
         }
     ]
 }
