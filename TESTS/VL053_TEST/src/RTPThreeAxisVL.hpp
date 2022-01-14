@@ -13,7 +13,8 @@
 #define SENSOR_2_ID 2
 #define SENSOR_3_ID 3
 
-#define DEFAULT_MAX_READING 250
+#define DEFAULT_MAX_READING 306
+#define DEFAULT_MIN_READING 50
 
 struct ThreeReadings {
   int sensorReading1;
@@ -33,6 +34,7 @@ class RTPThreeAxisVL{
   VL53L0X sensor3;
   ThreeReadings lastReadings;
   int _maxLimitReading;
+  int _minLimitReading;
 public:
   RTPThreeAxisVL();
   void initSetup();
@@ -40,6 +42,8 @@ public:
   void stopContinuous();
   void setMaxLimitReading(int maxReading);
   int getMaxLimitReading();
+  void setMinLimitReading(int minReading);
+  int getMinLimitReading();
   ThreeReadings getThreeReadings();
   ThreeReadings getThreeCleanReadings();
   void callbackThreeAxisChanged(void (*userFunc) (ControlCommand callbackCommand));

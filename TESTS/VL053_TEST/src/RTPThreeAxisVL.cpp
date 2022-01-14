@@ -2,6 +2,7 @@
 
 RTPThreeAxisVL::RTPThreeAxisVL(){
     _maxLimitReading = DEFAULT_MAX_READING;
+    _minLimitReading = DEFAULT_MIN_READING;
 }
 
 void RTPThreeAxisVL::initSetup(){
@@ -11,6 +12,7 @@ void RTPThreeAxisVL::initSetup(){
     digitalWrite(SENSOR_1_PIN, LOW);
     digitalWrite(SENSOR_2_PIN, LOW);
     digitalWrite(SENSOR_3_PIN, LOW);
+
     delay(5);
     sensor1.setBus(&Wire);
     sensor2.setBus(&Wire);
@@ -70,6 +72,14 @@ void RTPThreeAxisVL::setMaxLimitReading(int maxReading){
 
 int RTPThreeAxisVL::getMaxLimitReading(){
     return _maxLimitReading;
+}
+
+void RTPThreeAxisVL::setMinLimitReading(int minReading){
+    _minLimitReading = minReading;
+}
+
+int RTPThreeAxisVL::getMinLimitReading(){
+    return _minLimitReading;
 }
 
 ThreeReadings RTPThreeAxisVL::getThreeReadings(){
