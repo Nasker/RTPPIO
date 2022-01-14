@@ -1,7 +1,10 @@
 #include "Adafruit_NeoTrellis.h"
+#include "Wire.h"
+#include "SPI.h"
+
 #define N_KEYS 12
 
-Adafruit_NeoTrellis trellis;
+Adafruit_NeoTrellis trellis(0x2E);
 
 const bool pianoArray[N_KEYS] = {1,0,1,0,1,1,0,1,0,1,0,1};
 const int convertMatrix[16] = {0,4,8,12,1,5,9,13,2,6,10,14,3,7,11,15};
@@ -36,6 +39,7 @@ TrellisCallback blink(keyEvent evt){
 }
 
 void setup() {
+  delay(5000);
   Serial.begin(9600);
   pinMode(INT_PIN, INPUT);
   

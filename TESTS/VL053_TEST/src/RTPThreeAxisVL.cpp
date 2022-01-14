@@ -14,9 +14,9 @@ void RTPThreeAxisVL::initSetup(){
     digitalWrite(SENSOR_3_PIN, LOW);
 
     delay(5);
-    sensor1.setBus(&Wire);
-    sensor2.setBus(&Wire);
-    sensor3.setBus(&Wire);
+    sensor1.setBus(&Wire1);
+    sensor2.setBus(&Wire1);
+    sensor3.setBus(&Wire1);
     pinMode(SENSOR_1_PIN, INPUT);
     delay(15);
     Serial.println("00");

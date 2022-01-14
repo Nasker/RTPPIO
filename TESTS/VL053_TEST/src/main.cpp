@@ -17,7 +17,7 @@ void actOnCallbackThreeAxisChanged(ControlCommand callbackCommand){
 
 void setup(){
   Serial.begin (115200);
-  Wire.begin();
+  Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
 }

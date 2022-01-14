@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -15,7 +15,7 @@ struct ThreeReadings {
 };
 
 class RTPOled {
-    Adafruit_SSD1306* display;
+    Adafruit_SSD1306 display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS);
 public:
     RTPOled();
     void initSetup();

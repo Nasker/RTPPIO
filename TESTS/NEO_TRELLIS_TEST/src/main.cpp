@@ -1,16 +1,29 @@
-/*  Test to pass a button press to another function.
-  *  Will light up the button on first press, then
-  *  turn off on second press.
-  */
-
 #include "Wire.h"
 #include "SPI.h"
 #include "Adafruit_NeoTrellis.h"
-Adafruit_seesaw ss( &Wire1 );
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+
+
+Adafruit_SSD1306 display{SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS};
 Adafruit_NeoTrellis trellis = Adafruit_NeoTrellis(0x2E);
 
 byte key;
 bool bState[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+
+void printToScreen(String text, int size) {
+  display.clearDisplay();
+  display.setTextSize(size); // Draw 2X-scale text
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println(text);
+  display.display();      // Show initial text
+}
 
 
 uint32_t Wheel(byte WheelPos) {
@@ -28,6 +41,7 @@ uint32_t Wheel(byte WheelPos) {
 
 void keypadEvent() {
   Serial.print("Button "); Serial.print(key); Serial.println(" was pressed");
+  printToScreen("Button " + String(key) + " was pressed", 2);
   bState[key] = !bState[key];
   if (bState[key] == true) {
     trellis.pixels.setPixelColor(key, Wheel(map(key, 0, trellis.pixels.numPixels(), 0, 255)));
@@ -53,10 +67,12 @@ TrellisCallback blink(keyEvent evt){
 }
 
 
-
 void setup() {
   Serial.begin(9600);
-  Wire1.begin();
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop foreve
+  }
   
   if (!trellis.begin()) {
     Serial.println("Could not start trellis, check wiring?");
@@ -64,7 +80,7 @@ void setup() {
   } else {
     Serial.println("NeoPixel Trellis started");
   }
-
+  printToScreen("RTP FTW, BITCH!", 3);
   //activate all keys and set callbacks
   for(int i=0; i<NEO_TRELLIS_NUM_KEYS; i++){
     trellis.activateKey(i, SEESAW_KEYPAD_EDGE_RISING);
