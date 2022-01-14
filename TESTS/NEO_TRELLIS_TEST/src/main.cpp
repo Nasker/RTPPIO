@@ -80,7 +80,7 @@ void setup() {
   } else {
     Serial.println("NeoPixel Trellis started");
   }
-  printToScreen("RTP FTW, BITCH!", 3);
+  printToScreen("RTP FTW!", 2);
   //activate all keys and set callbacks
   for(int i=0; i<NEO_TRELLIS_NUM_KEYS; i++){
     trellis.activateKey(i, SEESAW_KEYPAD_EDGE_RISING);
@@ -90,18 +90,16 @@ void setup() {
   for (uint16_t i=0; i<trellis.pixels.numPixels(); i++) {
     trellis.pixels.setPixelColor(i, Wheel(map(i, 0, trellis.pixels.numPixels(), 0, 255)));
     trellis.pixels.show();
-    delay(50);
+    delay(20);
   }
   for (uint16_t i=0; i<trellis.pixels.numPixels(); i++) {
     trellis.pixels.setPixelColor(i, 0x000000);
     trellis.pixels.show();
-    delay(50);
+    delay(20);
   }
 }
 
 void loop() {
   trellis.read();
-  //keypadEvent();
-  delay(20);
 }
 
