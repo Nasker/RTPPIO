@@ -9,9 +9,10 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define TRELLIS_ADDRESS 0x2E
 
 Adafruit_SSD1306 display{SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS};
-Adafruit_NeoTrellis trellis = Adafruit_NeoTrellis(0x2E);
+Adafruit_NeoTrellis trellis = Adafruit_NeoTrellis(TRELLIS_ADDRESS);
 RTPThreeAxisVL vlSensor;
 
 byte key;
@@ -114,12 +115,12 @@ void setup(){
   for (uint16_t i=0; i<trellis.pixels.numPixels(); i++) {
     trellis.pixels.setPixelColor(i, Wheel(map(i, 0, trellis.pixels.numPixels(), 0, 255)));
     trellis.pixels.show();
-    delay(20);
+    delay(40);
   }
   for (uint16_t i=0; i<trellis.pixels.numPixels(); i++) {
     trellis.pixels.setPixelColor(i, 0x000000);
     trellis.pixels.show();
-    delay(20);
+    delay(40);
   }
 }
 
