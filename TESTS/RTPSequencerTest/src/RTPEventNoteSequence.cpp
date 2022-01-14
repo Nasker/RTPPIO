@@ -9,7 +9,7 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   _isRecording = false;
   _isEnabled = true;
   for(int i=0; i < NEvents; i++){
-    RTPEventNotePlus *eventNote = new RTPEventNotePlus(_midiChannel, true, 60, 80); //random(0,100) > 60, random(48,72), random(40,100)
+    RTPEventNotePlus *eventNote = new RTPEventNotePlus(_midiChannel,random(0,100) > 60, random(48,72), random(40,100)); // true, 60, 80
     EventNoteSequence.add(eventNote);
   }
 }

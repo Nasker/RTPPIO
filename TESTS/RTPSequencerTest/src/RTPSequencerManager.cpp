@@ -1,7 +1,7 @@
 #include "RTPSequencerManager.hpp"
 
 RTPSequencerManager::RTPSequencerManager(){
-    resetCounter;
+    resetCounter();
 }
 
 void RTPSequencerManager::connectSequencer(const RTPSequencer& sequencer){
