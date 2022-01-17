@@ -29,7 +29,6 @@ void RTPMainUnit::update(){
 }
 
 void RTPMainUnit::updatePeriodically(){
-  threeAxisRange.callbackFromThreeAxis(this);
   #ifdef NEO_TRELLIS
     rtpTrellis.read();
   #else 

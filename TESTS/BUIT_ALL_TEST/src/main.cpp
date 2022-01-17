@@ -4,6 +4,7 @@
 #include "Adafruit_NeoTrellis.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "RTPRotaryClick.h"
 #include "RTPThreeAxisVL.hpp"
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -11,11 +12,21 @@
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 #define TRELLIS_ADDRESS 0x2E
 
+
+#define ROT_LEFT_PIN 11
+#define ROT_RIGHT_PIN 12
+#define BTN_PIN 10
+
+#define TRELLIS_ID 4
+#define BUTTON_ID 5
+#define ROTARY_ID 6
+
+
 Adafruit_SSD1306 display{SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS};
 Adafruit_NeoTrellis trellis = Adafruit_NeoTrellis(TRELLIS_ADDRESS);
+RTPRotaryClick rotary(ROT_LEFT_PIN, ROT_RIGHT_PIN, BTN_PIN, false, true);
 RTPThreeAxisVL vlSensor;
 
-byte key;
 bool bState[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void printToScreen(ControlCommand command){
@@ -53,15 +64,19 @@ uint32_t Wheel(byte WheelPos) {
   return 0;
 }
 
-void keypadEvent() {
-  Serial.print("Button "); Serial.print(key); Serial.println(" was pressed");
-  printToScreen("Button " + String(key) + " was pressed", 2);
-  bState[key] = !bState[key];
-  if (bState[key] == true) {
-    trellis.pixels.setPixelColor(key, Wheel(map(key, 0, trellis.pixels.numPixels(), 0, 255)));
+void keypadEvent(int keyNumber) {
+  ControlCommand command;
+  command.controlID = TRELLIS_ID;
+  command.commandType = 0;
+  command.value = keyNumber;
+  printToScreen(command);
+  Serial.print("Button "); Serial.print(keyNumber); Serial.println(" was pressed");
+  bState[keyNumber] = !bState[keyNumber];
+  if (bState[keyNumber] == true) {
+    trellis.pixels.setPixelColor(keyNumber, Wheel(map(keyNumber, 0, trellis.pixels.numPixels(), 0, 255)));
   }
   else {
-    trellis.pixels.setPixelColor(key, 0);
+    trellis.pixels.setPixelColor(keyNumber, 0);
   }
   trellis.pixels.show();
 }
@@ -71,8 +86,7 @@ void keypadEvent() {
 TrellisCallback blink(keyEvent evt){
   // Check is the pad pressed?
   if (evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING) {
-    key = evt.bit.NUM;
-    keypadEvent();
+    keypadEvent( evt.bit.NUM);
     //Serial.print("Button "); Serial.print(evt.bit.NUM); Serial.println(" was pressed");
   }
   // Turn on/off the neopixels!
@@ -85,6 +99,36 @@ void actOnCallbackThreeAxisChanged(ControlCommand callbackCommand){
   int midiValue = map(callbackCommand.value, 0, vlSensor.getMaxLimitReading(), 0, 127);
   usbMIDI.sendControlChange(callbackCommand.commandType, midiValue, callbackCommand.controlID);
   printToScreen(callbackCommand);
+}
+
+void actOnClicksCallback(String callbackString){
+  Serial.println(callbackString);
+  ControlCommand command;
+  command.controlID = BUTTON_ID;
+  if (callbackString == "SINGLE click") 
+    command.commandType = 0;
+  else if (callbackString == "DOUBLE click")
+    command.commandType = 1;
+  else if (callbackString == "SINGLE LONG click")
+    command.commandType = 2;
+  else
+    command.commandType = -1;
+  command.value = 0;
+  printToScreen(command);
+}
+
+void actOnRotationCallback(String callbackString, int callbackInt){
+  Serial.println(callbackString);
+  ControlCommand command;
+  command.controlID = ROTARY_ID;
+  if (callbackString == "ROTATING LEFT") 
+    command.commandType = 0;
+  else if (callbackString == "ROTATING RIGHT")
+    command.commandType = 1;
+  else
+    command.commandType = -1;
+  command.value = callbackInt;
+  printToScreen(command);
 }
 
 void setup(){
@@ -127,4 +171,6 @@ void setup(){
 void loop(){
   vlSensor.callbackThreeAxisChanged(actOnCallbackThreeAxisChanged);
   trellis.read();
+  rotary.callbackOnClicks(actOnClicksCallback);
+  rotary.callbackOnRotation(actOnRotationCallback);
 }

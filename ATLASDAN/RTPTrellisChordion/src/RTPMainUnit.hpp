@@ -7,7 +7,6 @@
 #include "RTPTrellis.hpp"
 #include "RTPNeoTrellis.hpp"
 #include "RTPRotaryClickChordion.hpp"
-#include "ThreeAxisRange.hpp"
 #include "ChordionKeys.hpp"
 #include "Adafruit_NeoTrellis.h"
 #include "StateMachineManager.hpp"
@@ -21,7 +20,6 @@ class RTPMainUnit{
   
   RTPRotaryClickChordion rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};
   RTPScreen rtpScreen;
-  ThreeAxisRange threeAxisRange;
   ChordionKeys chordionKeys;
   int baseNote = BASE_NOTE;
   StateMachineManager machineManager;
