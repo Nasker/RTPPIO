@@ -10,7 +10,6 @@
             "includePath": [
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/include",
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/src",
-                "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/NewPing/src",
                 "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/MIDI/src",
                 "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/Audio",
                 "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/Audio/utility",
@@ -33,6 +32,7 @@
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Adafruit ST7735 and ST7789 Library",
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Encoder@1.4.1",
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Encoder@1.4.1/utility",
+                "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/NewPing/src",
                 "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/SD@0.0.0-alpha+sha.041f788250",
                 "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/ADC",
                 "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper/src",
@@ -133,7 +133,6 @@
                 "path": [
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/include",
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/src",
-                    "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/NewPing/src",
                     "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/MIDI/src",
                     "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/Audio",
                     "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/Audio/utility",
@@ -156,6 +155,7 @@
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Adafruit ST7735 and ST7789 Library",
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Encoder@1.4.1",
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/Encoder@1.4.1/utility",
+                    "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/NewPing/src",
                     "c:/Users/xamps/Documents/Development/OWN STUFF/RTPPIO/ATLASDAN/RTPTrellisChordion/.pio/libdeps/teensy40/SD@0.0.0-alpha+sha.041f788250",
                     "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/ADC",
                     "C:/Users/xamps/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper/src",
