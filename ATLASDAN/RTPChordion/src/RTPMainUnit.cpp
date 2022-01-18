@@ -18,7 +18,7 @@ void RTPMainUnit::begin(){
 
   Wire1.begin();
   vlSensor.initSetup();
-  //vlSensor.startContinuous();
+  vlSensor.startContinuous();
   chordionKeys.initSetup();
   #ifdef NEO_TRELLIS
     Serial.println("NEO TRELLIS!");

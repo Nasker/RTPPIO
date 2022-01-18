@@ -10,13 +10,11 @@ void RTPRotaryClickChordion::callbackFromRotary(RTPMainUnit* mainClass){
   	if (newPosition < _oldPosition) {
    	        _oldPosition = newPosition;
                 callbackCommand.value = newPosition;
-		  //mainClass->actOnRotationCallback("ROTATING LEFT", newPosition);
                 callbackCommand.commandType = ROTATING_LEFT;
                 mainClass->actOnControlsCallback(callbackCommand);
   	}
   	else if (newPosition > _oldPosition) {
    		_oldPosition = newPosition;
-   		//mainClass->actOnRotationCallback("ROTATING RIGHT", newPosition);
                 callbackCommand.value = newPosition;
                 callbackCommand.commandType = ROTATING_RIGHT;
                 mainClass->actOnControlsCallback(callbackCommand);
@@ -27,6 +25,7 @@ void RTPRotaryClickChordion::callbackFromClicks(RTPMainUnit* mainClass){
   Update();
   ControlCommand callbackCommand;
   callbackCommand.controlType = PUSH_BUTTON;
+  callbackCommand.value = 0;
   switch(clicks){
     case 1: callbackCommand.commandType = SINGLE_CLICK;
             mainClass->actOnControlsCallback(callbackCommand);
