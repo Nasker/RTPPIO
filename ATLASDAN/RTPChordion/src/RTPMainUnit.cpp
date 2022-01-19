@@ -9,24 +9,17 @@ RTPMainUnit::RTPMainUnit(){
 }
 
 void RTPMainUnit::begin(){  
-  Serial.begin(9600);
+  Serial.begin(115200);
   Wire.begin();
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop foreve
+    while(true);
   }
-
   Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
   chordionKeys.initSetup();
-  #ifdef NEO_TRELLIS
-    Serial.println("NEO TRELLIS!");
-    rtpTrellis.begin(this);
-  #else 
-  Serial.println("OLD TRELLIS!");
-    rtpTrellis.begin();
-  #endif
+  rtpTrellis.begin(this);
   //machineManager.connectDevices(rtpScreen);
 }
 
@@ -37,11 +30,7 @@ void RTPMainUnit::update(){
 }
 
 void RTPMainUnit::updatePeriodically(){
-  #ifdef NEO_TRELLIS
-    rtpTrellis.read();
-  #else 
-    rtpTrellis.callbackFromTrellis(this);
-  #endif
+  rtpTrellis.read();
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
