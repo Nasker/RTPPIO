@@ -100,13 +100,7 @@ void RTPMainUnit::printToScreen(ControlCommand command){
   display.clearDisplay();
   display.setTextSize(2); // Draw 2X-scale text
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println("->ID: " + String(command.controlType));
-  display.setCursor(0, 20);
-  display.println("->CMD: " + String(command.commandType));
-  display.setCursor(0, 40);
-  display.println("->VAL: " + String(command.value));
-  display.display();
+  printToScreen("->ID: " + String(command.controlType),"->CMD: " + String(command.commandType),"->VAL: " + String(command.value));
 }
 
 void RTPMainUnit::printToScreen(String firstLine, String secondLine, String thirdLine){
