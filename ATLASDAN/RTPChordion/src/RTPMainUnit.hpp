@@ -30,4 +30,5 @@ public:
   void actOnThreeAxisCallback(String callbackString, int rangeValue);
   void actOnControlsCallback(ControlCommand answer);
   void printToScreen(ControlCommand command);
+  void printToScreen(String firstLine, String secondLine, String thirdLine);
 };

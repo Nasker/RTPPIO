@@ -34,7 +34,7 @@ void RTPMainUnit::updatePeriodically(){
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  printToScreen(callbackCommand);
+  // printToScreen(callbackCommand);
   switch(callbackCommand.controlType){
     case THREE_AXIS:
       switch(callbackCommand.commandType){
@@ -60,7 +60,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
         case PRESSED:{
           PlayedChord playedChord = chordionKeys.playChord(baseNote + callbackCommand.value);
           Serial.printf("PRESSED\n");
-          //rtpScreen.print(String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
+          printToScreen("PLAY CHORD", String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
           break;
         }
         case RELEASED:
@@ -106,5 +106,18 @@ void RTPMainUnit::printToScreen(ControlCommand command){
   display.println("->CMD: " + String(command.commandType));
   display.setCursor(0, 40);
   display.println("->VAL: " + String(command.value));
+  display.display();
+}
+
+void RTPMainUnit::printToScreen(String firstLine, String secondLine, String thirdLine){
+  display.clearDisplay();
+  display.setTextSize(2); // Draw 2X-scale text
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println(firstLine);
+  display.setCursor(0, 20);
+  display.println(secondLine);
+  display.setCursor(0, 40);
+  display.println(thirdLine);
   display.display();
 }
