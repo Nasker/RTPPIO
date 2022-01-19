@@ -1,4 +1,5 @@
 #include "RTPThreeAxisVL.hpp"
+#include "RTPMainUnit.hpp"
 
 RTPThreeAxisVL::RTPThreeAxisVL(){
     _maxLimitReading = DEFAULT_MAX_READING;
@@ -105,22 +106,22 @@ void RTPThreeAxisVL::callbackThreeAxisChanged(void (*userFunc) (ControlCommand c
     ThreeReadings readings = getThreeCleanReadings();
     if(readings.sensorReading1 != lastReadings.sensorReading1 && readings.sensorReading1 != -1){
         ControlCommand command;
-        command.controlType = SENSOR_1_ID;
-        command.commandType = CONTROL_ID;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_LEFT;
         command.value = readings.sensorReading1;
         userFunc(command);
     }
     if(readings.sensorReading2 != lastReadings.sensorReading2 && readings.sensorReading2 != -1){
         ControlCommand command;
-        command.controlType = SENSOR_2_ID;
-        command.commandType = CONTROL_ID;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_CENTER;
         command.value = readings.sensorReading2;
         userFunc(command);
     }
     if(readings.sensorReading3 != lastReadings.sensorReading3 && readings.sensorReading3 != -1){
         ControlCommand command;
-        command.controlType = SENSOR_3_ID;
-        command.commandType = CONTROL_ID;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_RIGHT;
         command.value = readings.sensorReading3;
         userFunc(command);
     }
@@ -128,3 +129,28 @@ void RTPThreeAxisVL::callbackThreeAxisChanged(void (*userFunc) (ControlCommand c
 }
 
 
+void RTPThreeAxisVL::callbackThreeAxisChanged(RTPMainUnit* mainClass){
+    ThreeReadings readings = getThreeCleanReadings();
+    if(readings.sensorReading1 != lastReadings.sensorReading1 && readings.sensorReading1 != -1){
+        ControlCommand command;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_LEFT;
+        command.value = readings.sensorReading1;
+        mainClass->actOnControlsCallback(command);
+    }
+    if(readings.sensorReading2 != lastReadings.sensorReading2 && readings.sensorReading2 != -1){
+        ControlCommand command;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_CENTER;
+        command.value = readings.sensorReading2;
+        mainClass->actOnControlsCallback(command);
+    }
+    if(readings.sensorReading3 != lastReadings.sensorReading3 && readings.sensorReading3 != -1){
+        ControlCommand command;
+        command.controlType = THREE_AXIS;
+        command.commandType = CHANGE_RIGHT;
+        command.value = readings.sensorReading3;
+        mainClass->actOnControlsCallback(command);
+    }
+    lastReadings = readings;
+}

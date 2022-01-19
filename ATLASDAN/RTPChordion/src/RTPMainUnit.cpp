@@ -33,6 +33,7 @@ void RTPMainUnit::begin(){
 void RTPMainUnit::update(){
   rtpRotary.callbackFromRotary(this);
   rtpRotary.callbackFromClicks(this);
+  vlSensor.callbackThreeAxisChanged(this);
 }
 
 void RTPMainUnit::updatePeriodically(){
@@ -49,16 +50,16 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
     case THREE_AXIS:
       switch(callbackCommand.commandType){
       case CHANGE_LEFT:
-        //usbMIDI.sendControlChange(0, map(callbackCommand.value,0,1000,0,127), 1);
-        MIDI2.sendControlChange(1, map(callbackCommand.value ,0,1000,0,127), 1);
+        usbMIDI.sendControlChange(0, map(callbackCommand.value,0,vlSensor.getMaxLimitReading(),0,127), 1);
+        MIDI2.sendControlChange(1, map(callbackCommand.value ,0,vlSensor.getMaxLimitReading(),0,127), 1);
         break;
       case CHANGE_CENTER:
-        //usbMIDI.sendControlChange(1, map(callbackCommand.value,0,1000,0,127), 1);
-        MIDI2.sendControlChange(7, map(callbackCommand.value,0,1000,0,127), 1);
+        usbMIDI.sendControlChange(1, map(callbackCommand.value,0,vlSensor.getMaxLimitReading(),0,127), 1);
+        MIDI2.sendControlChange(7, map(callbackCommand.value,0,vlSensor.getMaxLimitReading(),0,127), 1);
         break;
       case CHANGE_RIGHT:
-        //usbMIDI.sendControlChange(2, map(callbackCommand.value,0,1000,0,127), 1);
-        MIDI2.sendControlChange(74, map(callbackCommand.value,0,1000,0,127), 1);
+        usbMIDI.sendControlChange(2, map(callbackCommand.value,0,vlSensor.getMaxLimitReading(),0,127), 1);
+        MIDI2.sendControlChange(74, map(callbackCommand.value,0,vlSensor.getMaxLimitReading(),0,127), 1);
         break;
     }
     break;

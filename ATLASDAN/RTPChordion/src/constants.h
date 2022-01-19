@@ -1,8 +1,8 @@
  #include <Arduino.h>
 
-#define THREE_AXIS 0
 #define TRELLIS 1
 #define ROTARY 2
+#define THREE_AXIS 3
 #define PUSH_BUTTON 4
 
 #define CHANGE_LEFT 0
@@ -24,6 +24,9 @@
 #define ROT_LEFT_PIN 11
 #define ROT_RIGHT_PIN 12
 
+#define SENSOR_1_PIN 5
+#define SENSOR_2_PIN 6
+#define SENSOR_3_PIN 7
 #define N_NOTES 12
 #define BASE_NOTE 48
 

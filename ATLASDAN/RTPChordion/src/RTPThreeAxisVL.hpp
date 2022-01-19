@@ -3,19 +3,12 @@
 #include <VL53L0X.h>
 #include "Wire.h"
 #include "ControlCommand.h"
-
-#define CONTROL_ID 1
-
-#define SENSOR_1_PIN 5
-#define SENSOR_2_PIN 6
-#define SENSOR_3_PIN 7
-
-#define SENSOR_1_ID 1
-#define SENSOR_2_ID 2
-#define SENSOR_3_ID 3
+#include "constants.h"
 
 #define DEFAULT_MAX_READING 306
 #define DEFAULT_MIN_READING 50
+
+class RTPMainUnit;
 
 struct ThreeReadings {
   int sensorReading1;
@@ -43,4 +36,5 @@ public:
   ThreeReadings getThreeReadings();
   ThreeReadings getThreeCleanReadings();
   void callbackThreeAxisChanged(void (*userFunc) (ControlCommand callbackCommand));
+  void callbackThreeAxisChanged(RTPMainUnit*);
 };

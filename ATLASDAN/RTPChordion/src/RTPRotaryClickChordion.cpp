@@ -5,8 +5,8 @@
 
 void RTPRotaryClickChordion::callbackFromRotary(RTPMainUnit* mainClass){
 	long newPosition = read()/4;
-  ControlCommand callbackCommand;
-  callbackCommand.controlType = ROTARY;
+        ControlCommand callbackCommand;
+        callbackCommand.controlType = ROTARY;
   	if (newPosition < _oldPosition) {
    	        _oldPosition = newPosition;
                 callbackCommand.value = newPosition;
@@ -22,28 +22,27 @@ void RTPRotaryClickChordion::callbackFromRotary(RTPMainUnit* mainClass){
 }
 
 void RTPRotaryClickChordion::callbackFromClicks(RTPMainUnit* mainClass){
-  Update();
-  ControlCommand callbackCommand;
-  callbackCommand.controlType = PUSH_BUTTON;
-  callbackCommand.value = 0;
-  switch(clicks){
-    case 1: callbackCommand.commandType = SINGLE_CLICK;
-            mainClass->actOnControlsCallback(callbackCommand);
-            break;
+        Update();
+        ControlCommand callbackCommand;
+        callbackCommand.controlType = PUSH_BUTTON;
+        callbackCommand.value = 0;
+        switch(clicks){
+                case 1: callbackCommand.commandType = SINGLE_CLICK;
+                        mainClass->actOnControlsCallback(callbackCommand);
+                        break;
 
-    case 2: callbackCommand.commandType = DOUBLE_CLICK;
-            mainClass->actOnControlsCallback(callbackCommand);
-            break;
+                case 2: callbackCommand.commandType = DOUBLE_CLICK;
+                        mainClass->actOnControlsCallback(callbackCommand);
+                        break;
 
-    case 3: callbackCommand.commandType = TRIPLE_CLICK;
-            mainClass->actOnControlsCallback(callbackCommand);
-            break;
+                case 3: callbackCommand.commandType = TRIPLE_CLICK;
+                        mainClass->actOnControlsCallback(callbackCommand);
+                        break;
 
-    case -1: callbackCommand.commandType = LONG_CLICK;
-            mainClass->actOnControlsCallback(callbackCommand);
-            break;
+                case -1: callbackCommand.commandType = LONG_CLICK;
+                        mainClass->actOnControlsCallback(callbackCommand);
+                        break;
 
-    default:  break;
-  }
-  
+                default:  break;
+  }      
 }
