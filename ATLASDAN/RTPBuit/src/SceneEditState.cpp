@@ -2,22 +2,22 @@
 
 #include "SceneEditState.h"
 
-  SceneEditState::SceneEditState (VoidStateMachine* voidMachine){
+  SceneEditState::SceneEditState (BuitStateMachine* buitMachine){
     Serial.println("SceneEditState");
-    _voidMachine = voidMachine;
+    _buitMachine = buitMachine;
   }
 
   void SceneEditState::singleClick() {
     Serial.println("Going to Sequence Select!");
     _outDevices->printToScreen("State:", "Sequence Select!","");
-    _voidMachine->setState(_voidMachine->getSequenceSelectState());
+    _buitMachine->setState(_buitMachine->getSequenceSelectState());
   }
 
 
   void SceneEditState::doubleClick() {
     Serial.println("Going to Transport");
     _outDevices->printToScreen("State:", "Transport!","");
-    _voidMachine->setState(_voidMachine->getTransportState());
+    _buitMachine->setState(_buitMachine->getTransportState());
   }
 
 
@@ -28,5 +28,5 @@
   void SceneEditState::longClick() {
     Serial.println("Going to Scene Settings!");
     _outDevices->printToScreen("State:", "Scene Settings!","");
-    _voidMachine->setState(_voidMachine->getSceneSettingsState());
+    _buitMachine->setState(_buitMachine->getSceneSettingsState());
   }

@@ -11,7 +11,7 @@
 
 #include "Arduino.h"
 
-VoidStateMachine::VoidStateMachine(){ //, LiquidScreen& lScreen
+BuitStateMachine::BuitStateMachine(){ //, LiquidScreen& lScreen
   _state = new InitState(this);
 	_initState = new InitState(this);
 	_transportState = new TransportState(this);
@@ -24,63 +24,63 @@ VoidStateMachine::VoidStateMachine(){ //, LiquidScreen& lScreen
 	_sequenceSettingsState = new SequenceSettingsState(this);
 }
 
-void VoidStateMachine::singleClick(){
+void BuitStateMachine::singleClick(){
   _state->singleClick();
 }
 
-void VoidStateMachine::doubleClick(){
+void BuitStateMachine::doubleClick(){
   _state->doubleClick();
 }
 
-void VoidStateMachine::tripleClick(){
+void BuitStateMachine::tripleClick(){
   _state->tripleClick();
 }
 
-void VoidStateMachine::longClick(){
+void BuitStateMachine::longClick(){
   _state->longClick();
 }
 
-void VoidStateMachine::setState(VoidState* state){
+void BuitStateMachine::setState(BuitState* state){
   _state = state;
 }
 
-VoidState* VoidStateMachine::getInitState(){
+BuitState* BuitStateMachine::getInitState(){
   return _initState;
 }
 
-VoidState* VoidStateMachine::getTransportState(){
+BuitState* BuitStateMachine::getTransportState(){
   return _transportState;
 }
 
-VoidState* VoidStateMachine::getGlobalSettingsState(){
+BuitState* BuitStateMachine::getGlobalSettingsState(){
   return _globalSettingsState;
 }
 
-VoidState* VoidStateMachine::getSceneEditState(){
+BuitState* BuitStateMachine::getSceneEditState(){
   return _sceneEditState;
 }
 
-VoidState* VoidStateMachine::getSceneSettingsState(){
+BuitState* BuitStateMachine::getSceneSettingsState(){
   return _sceneSettingsState;
 }
 
-VoidState* VoidStateMachine::getSequenceEditState(){
+BuitState* BuitStateMachine::getSequenceEditState(){
   return _sequenceEditState;
 }
 
-VoidState* VoidStateMachine::getSequencePianoRollState(){
+BuitState* BuitStateMachine::getSequencePianoRollState(){
   return _sequencePianoRollState;
 }
 
-VoidState* VoidStateMachine::getSequenceSelectState(){
+BuitState* BuitStateMachine::getSequenceSelectState(){
   return _sequenceSelectState;
 }
 
-VoidState* VoidStateMachine::getSequenceSettingsState(){
+BuitState* BuitStateMachine::getSequenceSettingsState(){
   return _sequenceSettingsState;
 }
 
-void VoidStateMachine::connectScreen(const RTPScreen& screen){
+void BuitStateMachine::connectScreen(const RTPScreen& screen){
 	_initState->connectScreen(screen);
 	_transportState->connectScreen(screen);
 	_globalSettingsState->connectScreen(screen);

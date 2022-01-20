@@ -1,9 +1,9 @@
-#include "VoidStateMachine.h"
+#include "BuitStateMachine.h"
 
-class SequencePianoRollState : public VoidState{
-  VoidStateMachine* _voidMachine;
+class SequencePianoRollState : public BuitState{
+  BuitStateMachine* _buitMachine;
 public:
-  SequencePianoRollState (VoidStateMachine* voidMachine);
+  SequencePianoRollState (BuitStateMachine* voidMachine);
   void singleClick();
   void doubleClick();
   void tripleClick();

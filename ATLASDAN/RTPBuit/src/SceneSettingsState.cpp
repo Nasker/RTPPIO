@@ -2,9 +2,9 @@
 
 #include "SceneSettingsState.h"
 
-  SceneSettingsState::SceneSettingsState (VoidStateMachine* voidMachine){
+  SceneSettingsState::SceneSettingsState (BuitStateMachine* buitMachine){
     Serial.println("SceneSettingsState");
-    _voidMachine = voidMachine;
+    _buitMachine = buitMachine;
   }
 
   void SceneSettingsState::singleClick() {
@@ -15,7 +15,7 @@
   void SceneSettingsState::doubleClick() {
     Serial.println("Going to Scene Edit!");
     _outDevices->printToScreen("State:", "Scene Edit!","");
-    _voidMachine->setState(_voidMachine->getSceneEditState());
+    _buitMachine->setState(_buitMachine->getSceneEditState());
   }
 
 

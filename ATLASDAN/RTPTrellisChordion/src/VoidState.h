@@ -2,7 +2,7 @@
 
 #include "RTPScreen.hpp"
 
-class VoidState {
+class BuitState {
 protected:
 	RTPScreen* _screen;
 public:

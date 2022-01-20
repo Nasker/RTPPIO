@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VoidState.h"
-#include "RTPScreen.hpp"
+#include "BuitState.h"
+#include "BuitOutDevicesManager.hpp"
 
 class BuitStateMachine{
 	BuitState* _state;
@@ -42,5 +42,5 @@ public:
 
 	BuitState* getSequenceSettingsState();
 
-	void connectScreen(const RTPScreen& screen);
+	void connectOutDevices(const BuitOutDevicesManager& outDevices);
 };

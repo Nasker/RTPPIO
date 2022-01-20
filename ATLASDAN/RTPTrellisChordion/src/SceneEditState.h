@@ -1,9 +1,9 @@
 #include "VoidStateMachine.h"
 
-class SceneEditState : public VoidState{
-  VoidStateMachine* _voidMachine;
+class SceneEditState : public BuitState{
+  BuitStateMachine* _buitMachine;
 public:
-  SceneEditState(VoidStateMachine* voidMachine);
+  SceneEditState(BuitStateMachine* voidMachine);
   void singleClick();
   void doubleClick();
   void tripleClick();

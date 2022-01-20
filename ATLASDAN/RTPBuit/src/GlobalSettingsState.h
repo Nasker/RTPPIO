@@ -1,9 +1,9 @@
-#include "VoidStateMachine.h"
+#include "BuitStateMachine.h"
 
-class GlobalSettingsState : public VoidState{
-  VoidStateMachine* _voidMachine;
+class GlobalSettingsState : public BuitState{
+  BuitStateMachine* _buitMachine;
 public:
-  GlobalSettingsState (VoidStateMachine* voidMachine);
+  GlobalSettingsState (BuitStateMachine* voidMachine);
   void singleClick();
   void doubleClick();
   void tripleClick();

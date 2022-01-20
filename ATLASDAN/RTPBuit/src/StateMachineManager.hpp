@@ -1,12 +1,12 @@
 #pragma once
 
-#include "VoidStateMachine.h"
+#include "BuitStateMachine.h"
 #include "BuitOutDevicesManager.hpp"
 #include "ControlCommand.h"
 #include "constants.h"
 
 class StateMachineManager{
-    VoidStateMachine voidStateMachine;
+    BuitStateMachine buitStateMachine;
  public:
     StateMachineManager();
     ~StateMachineManager();

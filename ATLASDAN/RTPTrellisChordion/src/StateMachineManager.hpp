@@ -6,7 +6,7 @@
 #include "constants.h"
 
 class StateMachineManager{
-    VoidStateMachine voidStateMachine;
+    BuitStateMachine voidStateMachine;
  public:
     StateMachineManager();
     ~StateMachineManager();

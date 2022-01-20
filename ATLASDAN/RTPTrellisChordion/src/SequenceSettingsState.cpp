@@ -2,9 +2,9 @@
 
 #include "SequenceSettingsState.h"
 
-  SequenceSettingsState::SequenceSettingsState(VoidStateMachine* voidMachine){
+  SequenceSettingsState::SequenceSettingsState(BuitStateMachine* voidMachine){
     Serial.println("SequenceSettingsState");
-    _voidMachine = voidMachine;
+    _buitMachine = voidMachine;
   }
 
   void SequenceSettingsState::singleClick() {
@@ -15,7 +15,7 @@
   void SequenceSettingsState::doubleClick() {
     Serial.println("Going to Sequence Edit!");
     _screen->print("State:", "Sequence Edit!");
-    _voidMachine->setState(_voidMachine->getSequenceEditState());
+    _buitMachine->setState(_buitMachine->getSequenceEditState());
   }
 
 

@@ -1,9 +1,9 @@
 #include "VoidStateMachine.h"
 
-class SequenceSelectState : public VoidState{
-  VoidStateMachine* _voidMachine;
+class SequenceSelectState : public BuitState{
+  BuitStateMachine* _buitMachine;
 public:
-  SequenceSelectState(VoidStateMachine* voidMachine);
+  SequenceSelectState(BuitStateMachine* voidMachine);
   void singleClick();
   void doubleClick();
   void tripleClick();

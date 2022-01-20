@@ -2,9 +2,9 @@
 
 #include "SequenceEditState.h"
 
-  SequenceEditState::SequenceEditState(VoidStateMachine* voidMachine){
+  SequenceEditState::SequenceEditState(BuitStateMachine* buitMachine){
     Serial.println("SequenceEditState");
-    _voidMachine = voidMachine;
+    _buitMachine = buitMachine;
   }
 
   void SequenceEditState::singleClick() {
@@ -15,18 +15,18 @@
   void SequenceEditState::doubleClick() {
     Serial.println("Going to Scene Edit!");
     _outDevices->printToScreen("State:", "Scene Edit!","");
-    _voidMachine->setState(_voidMachine->getSceneEditState());
+    _buitMachine->setState(_buitMachine->getSceneEditState());
   }
 
 
   void SequenceEditState::tripleClick() {
     Serial.println("Going to Sequence Piano Roll!");
     _outDevices->printToScreen("State:", "Seq Piano Roll!","");
-    _voidMachine->setState(_voidMachine->getSequencePianoRollState());
+    _buitMachine->setState(_buitMachine->getSequencePianoRollState());
   }
 
   void SequenceEditState::longClick() {
     Serial.println("Going to Sequence Settings!");
     _outDevices->printToScreen("State:", "Sequence Settings!","");
-    _voidMachine->setState(_voidMachine->getSequenceSettingsState());
+    _buitMachine->setState(_buitMachine->getSequenceSettingsState());
   }

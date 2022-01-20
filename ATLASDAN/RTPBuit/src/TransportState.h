@@ -1,9 +1,9 @@
-#include "VoidStateMachine.h"
+#include "BuitStateMachine.h"
 
-class TransportState : public VoidState{
-  VoidStateMachine* _voidMachine;
+class TransportState : public BuitState{
+  BuitStateMachine* _buitMachine;
 public:
-  TransportState  (VoidStateMachine* voidMachine);
+  TransportState  (BuitStateMachine* buitMachine);
   void singleClick();
   void doubleClick();
   void tripleClick();

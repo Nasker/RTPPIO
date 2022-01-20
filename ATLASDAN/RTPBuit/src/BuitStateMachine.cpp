@@ -1,4 +1,4 @@
-#include "VoidStateMachine.h"
+#include "BuitStateMachine.h"
 #include "InitState.h"
 #include "GlobalSettingsState.h"
 #include "TransportState.h"
@@ -11,7 +11,7 @@
 
 #include "Arduino.h"
 
-VoidStateMachine::VoidStateMachine(){ //, LiquidScreen& lScreen
+BuitStateMachine::BuitStateMachine(){ //, LiquidScreen& lScreen
   _state = new InitState(this);
 	_initState = new InitState(this);
 	_transportState = new TransportState(this);
@@ -24,63 +24,63 @@ VoidStateMachine::VoidStateMachine(){ //, LiquidScreen& lScreen
 	_sequenceSettingsState = new SequenceSettingsState(this);
 }
 
-void VoidStateMachine::singleClick(){
+void BuitStateMachine::singleClick(){
   _state->singleClick();
 }
 
-void VoidStateMachine::doubleClick(){
+void BuitStateMachine::doubleClick(){
   _state->doubleClick();
 }
 
-void VoidStateMachine::tripleClick(){
+void BuitStateMachine::tripleClick(){
   _state->tripleClick();
 }
 
-void VoidStateMachine::longClick(){
+void BuitStateMachine::longClick(){
   _state->longClick();
 }
 
-void VoidStateMachine::setState(VoidState* state){
+void BuitStateMachine::setState(BuitState* state){
   _state = state;
 }
 
-VoidState* VoidStateMachine::getInitState(){
+BuitState* BuitStateMachine::getInitState(){
   return _initState;
 }
 
-VoidState* VoidStateMachine::getTransportState(){
+BuitState* BuitStateMachine::getTransportState(){
   return _transportState;
 }
 
-VoidState* VoidStateMachine::getGlobalSettingsState(){
+BuitState* BuitStateMachine::getGlobalSettingsState(){
   return _globalSettingsState;
 }
 
-VoidState* VoidStateMachine::getSceneEditState(){
+BuitState* BuitStateMachine::getSceneEditState(){
   return _sceneEditState;
 }
 
-VoidState* VoidStateMachine::getSceneSettingsState(){
+BuitState* BuitStateMachine::getSceneSettingsState(){
   return _sceneSettingsState;
 }
 
-VoidState* VoidStateMachine::getSequenceEditState(){
+BuitState* BuitStateMachine::getSequenceEditState(){
   return _sequenceEditState;
 }
 
-VoidState* VoidStateMachine::getSequencePianoRollState(){
+BuitState* BuitStateMachine::getSequencePianoRollState(){
   return _sequencePianoRollState;
 }
 
-VoidState* VoidStateMachine::getSequenceSelectState(){
+BuitState* BuitStateMachine::getSequenceSelectState(){
   return _sequenceSelectState;
 }
 
-VoidState* VoidStateMachine::getSequenceSettingsState(){
+BuitState* BuitStateMachine::getSequenceSettingsState(){
   return _sequenceSettingsState;
 }
 
-void VoidStateMachine::connectOutDevices(const BuitOutDevicesManager& outDevices){
+void BuitStateMachine::connectOutDevices(const BuitOutDevicesManager& outDevices){
 	_initState->connectOutDevices(outDevices);
 	_transportState->connectOutDevices(outDevices);
 	_globalSettingsState->connectOutDevices(outDevices);

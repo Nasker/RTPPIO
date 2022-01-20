@@ -1,9 +1,9 @@
 #include "Arduino.h"
 #include "TransportState.h"
 
-  TransportState::TransportState (VoidStateMachine* voidMachine){
+  TransportState::TransportState (BuitStateMachine* voidMachine){
     Serial.println("TransportState");
-    _voidMachine = voidMachine;
+    _buitMachine = voidMachine;
   }
 
   void TransportState::singleClick() {
@@ -14,7 +14,7 @@
   void TransportState::doubleClick() {
     Serial.println("Going to Scene Edit!");
     _screen->print("State:", "Scene Edit!");
-    _voidMachine->setState(_voidMachine->getSceneEditState());
+    _buitMachine->setState(_buitMachine->getSceneEditState());
   }
 
 
@@ -25,5 +25,5 @@
   void TransportState::longClick() {
     Serial.println("Going to Global Settings!");
     _screen->print("State:", "Global Settings!");
-    _voidMachine->setState(_voidMachine->getGlobalSettingsState());
+    _buitMachine->setState(_buitMachine->getGlobalSettingsState());
   }

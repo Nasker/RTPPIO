@@ -2,7 +2,7 @@
 
 #include "BuitOutDevicesManager.hpp"
 
-class VoidState {
+class BuitState {
 protected:
 	BuitOutDevicesManager* _outDevices;
 public:

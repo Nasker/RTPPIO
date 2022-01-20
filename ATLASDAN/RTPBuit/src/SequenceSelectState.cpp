@@ -2,22 +2,22 @@
 
 #include "SequenceSelectState.h"
 
-  SequenceSelectState::SequenceSelectState(VoidStateMachine* voidMachine){
+  SequenceSelectState::SequenceSelectState(BuitStateMachine* buitMachine){
     Serial.println("SequenceSelectState");
-    _voidMachine = voidMachine;
+    _buitMachine = buitMachine;
   }
 
   void SequenceSelectState::singleClick() {
     Serial.println("Going to Sequence Edit!");
     _outDevices->printToScreen("State:", "Sequence Edit!","");
-    _voidMachine->setState(_voidMachine->getSequenceEditState());
+    _buitMachine->setState(_buitMachine->getSequenceEditState());
   }
 
 
   void SequenceSelectState::doubleClick() {
     Serial.println("Going to Scene Edit!");
     _outDevices->printToScreen("State:", "Scene Edit!","");
-    _voidMachine->setState(_voidMachine->getSceneEditState());
+    _buitMachine->setState(_buitMachine->getSceneEditState());
   }
 
 
