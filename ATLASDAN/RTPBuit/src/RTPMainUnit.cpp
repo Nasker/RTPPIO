@@ -8,8 +8,8 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI2);
 RTPMainUnit::RTPMainUnit(){
 }
 
-void linkToSequencerManager(byte realtimebyte){
-	//SequencerManager.handleRealTimeSystem(realtimebyte);
+void linkTo(byte realtimebyte){
+	//linkToSequencerManager(realtimebyte); 
   Serial.println(realtimebyte);
 }
 
@@ -24,7 +24,7 @@ void RTPMainUnit::begin(){
   outDevicesManager.initSetup();
   outDevicesManager.connectNeoTrellis(rtpTrellis);
   stateMachineManager.connectOutDevices(outDevicesManager);
-  usbMIDI.setHandleRealTimeSystem(linkToSequencerManager);
+  usbMIDI.setHandleRealTimeSystem(linkTo);
 	SequencerManager.connectSequencer(Sequencer);
   outDevicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
@@ -37,8 +37,11 @@ void RTPMainUnit::update(){
   usbMIDI.read();
 }
 
-
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
   //outDevicesManager.printToScreen(callbackCommand);
   stateMachineManager.handleActions(callbackCommand);
+}
+
+void RTPMainUnit::linkToSequencerManager(byte realtimebyte){
+  SequencerManager.handleRealTimeSystem(realtimebyte);
 }

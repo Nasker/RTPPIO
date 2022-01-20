@@ -26,7 +26,7 @@ public:
   RTPMainUnit();
   void begin();
   void update();
-  //void linkToSequencerManager(byte realtimebyte);
+  void linkToSequencerManager(byte realtimebyte);
   void actOnThreeAxisCallback(String callbackString, int rangeValue);
   void actOnControlsCallback(ControlCommand answer);
 };
