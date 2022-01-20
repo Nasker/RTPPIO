@@ -11,16 +11,13 @@ RTPMainUnit::RTPMainUnit(){
 void RTPMainUnit::begin(){  
   Serial.begin(115200);
   Wire.begin();
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    while(true);
-  }
+  display.init();
   Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
   chordionKeys.initSetup();
   rtpTrellis.begin(this);
-  //machineManager.connectDevices(rtpScreen);
+  display.printToScreen("Hey there!", "Chordion!", "FTW!");
 }
 
 void RTPMainUnit::update(){
@@ -60,7 +57,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
         case PRESSED:{
           PlayedChord playedChord = chordionKeys.playChord(baseNote + callbackCommand.value);
           Serial.printf("PRESSED\n");
-          printToScreen("PLAY CHORD", String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
+          display.printToScreen("PLAY CHORD", String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
           break;
         }
         case RELEASED:
@@ -94,24 +91,4 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
     case PUSH_BUTTON:
     break;
   }
-}
-
-void RTPMainUnit::printToScreen(ControlCommand command){
-  display.clearDisplay();
-  display.setTextSize(2); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
-  printToScreen("->ID: " + String(command.controlType),"->CMD: " + String(command.commandType),"->VAL: " + String(command.value));
-}
-
-void RTPMainUnit::printToScreen(String firstLine, String secondLine, String thirdLine){
-  display.clearDisplay();
-  display.setTextSize(2); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println(firstLine);
-  display.setCursor(0, 20);
-  display.println(secondLine);
-  display.setCursor(0, 40);
-  display.println(thirdLine);
-  display.display();
 }

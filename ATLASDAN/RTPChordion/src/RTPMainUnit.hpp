@@ -5,21 +5,15 @@
 #include "MIDI.h"
 #include "RTPNeoTrellis.hpp"
 #include "RTPRotaryClickChordion.hpp"
-#include "ChordionKeys.hpp"
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include "Adafruit_NeoTrellis.h"
+#include "RTPOled.hpp"
 #include "RTPThreeAxisVL.hpp"
-
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define SCREEN_ADDRESS 0x3C
+#include "ChordionKeys.hpp"
   
 class RTPMainUnit{
   RTPNeoTrellis rtpTrellis;
   RTPRotaryClickChordion rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};
   RTPThreeAxisVL vlSensor;
-  Adafruit_SSD1306 display{SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS};
+  RTPOled display;
   ChordionKeys chordionKeys;
   int baseNote = BASE_NOTE;
 public:
@@ -29,6 +23,4 @@ public:
   void updatePeriodically();
   void actOnThreeAxisCallback(String callbackString, int rangeValue);
   void actOnControlsCallback(ControlCommand answer);
-  void printToScreen(ControlCommand command);
-  void printToScreen(String firstLine, String secondLine, String thirdLine);
 };
