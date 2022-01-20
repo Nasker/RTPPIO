@@ -12,7 +12,6 @@ void InitState::singleClick() {
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
-
 void InitState::doubleClick() {
   Serial.println("Going to Transport");
   _outDevices->printToScreen("State:", "Transport!","");
