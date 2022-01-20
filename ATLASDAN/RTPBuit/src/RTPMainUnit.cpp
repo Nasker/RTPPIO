@@ -11,13 +11,15 @@ RTPMainUnit::RTPMainUnit(){
 void RTPMainUnit::begin(){  
   Serial.begin(115200);
   Wire.begin();
-  display.init();
   Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
   chordionKeys.initSetup();
   rtpTrellis.begin(this);
-  display.printToScreen("Hey there!", "I'm Buit!", "FTW!");
+  outDevicesManager.initSetup();
+  outDevicesManager.connectNeoTrellis(rtpTrellis);
+  stateMachineManager.connectOutDevices(outDevicesManager);
+  outDevicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
 
 void RTPMainUnit::update(){
@@ -31,7 +33,7 @@ void RTPMainUnit::updatePeriodically(){
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  //display.printToScreen(callbackCommand);
+  //outDevicesManager.printToScreen(callbackCommand);
   switch(callbackCommand.controlType){
     case THREE_AXIS:
       switch(callbackCommand.commandType){
@@ -55,24 +57,24 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
         Serial.printf("CALLBACK  %d value:%d\n",callbackCommand.commandType, callbackCommand.value);
         switch (callbackCommand.commandType){
         case PRESSED:{
-          PlayedChord playedChord = chordionKeys.playChord(baseNote + callbackCommand.value);
+          //PlayedChord playedChord = chordionKeys.playChord(baseNote + callbackCommand.value);
           Serial.printf("PRESSED\n");
-          display.printToScreen("PLAY CHORD", String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
+          //display.printToScreen("PLAY CHORD", String(rootName[callbackCommand.value]), String(chordName[playedChord.chordType]));
           break;
         }
         case RELEASED:
           Serial.printf("RELEASED\n");
-          chordionKeys.releaseChord(baseNote + callbackCommand.value);
+          //chordionKeys.releaseChord(baseNote + callbackCommand.value);
           break;
         }
       }
       else{
         switch (callbackCommand.commandType){
           case PRESSED:
-            chordionKeys.enableChordionKey(callbackCommand.value - N_NOTES);
+            //chordionKeys.enableChordionKey(callbackCommand.value - N_NOTES);
             break;
           case RELEASED:
-            chordionKeys.disableChordionKey(callbackCommand.value - N_NOTES);
+            //chordionKeys.disableChordionKey(callbackCommand.value - N_NOTES);
             break;
         }
       }
@@ -81,14 +83,16 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
     case ROTARY:
       switch(callbackCommand.commandType){
         case ROTATING_LEFT:
-          baseNote -= N_NOTES;
+          //baseNote -= N_NOTES;
           break;
         case ROTATING_RIGHT:
-          baseNote += N_NOTES;
+          //baseNote += N_NOTES;
           break;
       }
       break;
     case PUSH_BUTTON:
+      stateMachineManager.handleActions(callbackCommand);
+      break;
     break;
   }
 }
