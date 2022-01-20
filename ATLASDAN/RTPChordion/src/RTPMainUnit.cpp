@@ -31,7 +31,7 @@ void RTPMainUnit::updatePeriodically(){
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  // printToScreen(callbackCommand);
+  //display.printToScreen(callbackCommand);
   switch(callbackCommand.controlType){
     case THREE_AXIS:
       switch(callbackCommand.commandType){
