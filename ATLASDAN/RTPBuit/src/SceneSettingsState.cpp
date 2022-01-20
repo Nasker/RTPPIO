@@ -2,27 +2,37 @@
 
 #include "SceneSettingsState.h"
 
-  SceneSettingsState::SceneSettingsState (BuitStateMachine* buitMachine){
-    Serial.println("SceneSettingsState");
-    _buitMachine = buitMachine;
-  }
+SceneSettingsState::SceneSettingsState (BuitStateMachine* buitMachine){
+  Serial.println("SceneSettingsState");
+  _buitMachine = buitMachine;
+}
 
-  void SceneSettingsState::singleClick() {
-    Serial.println("Does nothing here!");
-  }
+void SceneSettingsState::singleClick() {
+  Serial.println("Does nothing here!");
+}
 
+void SceneSettingsState::doubleClick() {
+  Serial.println("Going to Scene Edit!");
+  _outDevices->printToScreen("State:", "Scene Edit!","");
+  _buitMachine->setState(_buitMachine->getSceneEditState());
+}
 
-  void SceneSettingsState::doubleClick() {
-    Serial.println("Going to Scene Edit!");
-    _outDevices->printToScreen("State:", "Scene Edit!","");
-    _buitMachine->setState(_buitMachine->getSceneEditState());
-  }
+void SceneSettingsState::longClick() {
+  Serial.println("Does nothing here!");
+}
 
+void SceneSettingsState::rotaryTurned(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
 
-  void SceneSettingsState::tripleClick() {
-    Serial.println("Does nothing here!");
-  }
+void SceneSettingsState::threeAxisChanged(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
 
-  void SceneSettingsState::longClick() {
-    Serial.println("Does nothing here!");
-  }
+void SceneSettingsState::trellisPressed(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
+
+void SceneSettingsState::trellisReleased(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}

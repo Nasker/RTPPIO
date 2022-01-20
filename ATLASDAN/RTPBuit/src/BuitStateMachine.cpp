@@ -32,12 +32,24 @@ void BuitStateMachine::doubleClick(){
   _state->doubleClick();
 }
 
-void BuitStateMachine::tripleClick(){
-  _state->tripleClick();
-}
-
 void BuitStateMachine::longClick(){
   _state->longClick();
+}
+
+void BuitStateMachine::rotaryTurned(ControlCommand command){
+  _state->rotaryTurned(command);
+}
+
+void BuitStateMachine::threeAxisChanged(ControlCommand command){
+  _state->threeAxisChanged(command);
+}
+
+void BuitStateMachine::trellisPressed(ControlCommand command){
+  _state->trellisPressed(command);
+}
+
+void BuitStateMachine::trellisReleased(ControlCommand command){
+  _state->trellisReleased(command);
 }
 
 void BuitStateMachine::setState(BuitState* state){

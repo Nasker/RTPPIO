@@ -6,6 +6,9 @@ public:
   SceneEditState(BuitStateMachine* buitMachine);
   void singleClick();
   void doubleClick();
-  void tripleClick();
   void longClick();
+  void rotaryTurned(ControlCommand command);
+  void threeAxisChanged(ControlCommand command);
+  void trellisPressed(ControlCommand command);
+  void trellisReleased(ControlCommand command);
 };

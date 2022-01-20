@@ -2,27 +2,37 @@
 
 #include "GlobalSettingsState.h"
 
-  GlobalSettingsState::GlobalSettingsState (BuitStateMachine* buitMachine){
-    Serial.println("GlobalSettingsState");
-    _buitMachine = buitMachine;
-  }
+GlobalSettingsState::GlobalSettingsState (BuitStateMachine* buitMachine){
+  Serial.println("GlobalSettingsState");
+  _buitMachine = buitMachine;
+}
 
-  void GlobalSettingsState::singleClick() {
-    Serial.println("Does nothing here!");
-  }
+void GlobalSettingsState::singleClick() {
+  Serial.println("Does nothing here!");
+}
 
+void GlobalSettingsState::doubleClick() {
+  Serial.println("Going to Transport");
+  _outDevices->printToScreen("Transport", "", "");
+  _buitMachine->setState(_buitMachine->getTransportState());
+}
 
-  void GlobalSettingsState::doubleClick() {
-    Serial.println("Going to Transport");
-    _outDevices->printToScreen("Transport", "", "");
-    _buitMachine->setState(_buitMachine->getTransportState());
-  }
+void GlobalSettingsState::longClick() {
+  Serial.println("Does nothing here!");
+}
 
+void GlobalSettingsState::rotaryTurned(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
 
-  void GlobalSettingsState::tripleClick() {
-    Serial.println("Does nothing here!");
-  }
+void GlobalSettingsState::threeAxisChanged(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
 
-  void GlobalSettingsState::longClick() {
-    Serial.println("Does nothing here!");
-  }
+void  GlobalSettingsState::trellisPressed(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
+
+void GlobalSettingsState::trellisReleased(ControlCommand command) {
+  Serial.println("Does nothing here!");
+}
