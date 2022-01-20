@@ -26,9 +26,6 @@ void RTPMainUnit::update(){
   rtpRotary.callbackFromRotary(this);
   rtpRotary.callbackFromClicks(this);
   vlSensor.callbackThreeAxisChanged(this);
-}
-
-void RTPMainUnit::updatePeriodically(){
   rtpTrellis.read();
 }
 

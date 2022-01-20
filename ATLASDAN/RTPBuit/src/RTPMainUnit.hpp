@@ -22,7 +22,6 @@ public:
   RTPMainUnit();
   void begin();
   void update();
-  void updatePeriodically();
   void actOnThreeAxisCallback(String callbackString, int rangeValue);
   void actOnControlsCallback(ControlCommand answer);
 };
