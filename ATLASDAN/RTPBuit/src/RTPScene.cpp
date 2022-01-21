@@ -3,8 +3,10 @@
 RTPScene::RTPScene(String name, int NSequences){
   _name = name;
   _NSequences = NSequences;
+  _selectedSequence = 0;
+  Serial.printf("Selected sequence in constuctor of Scene is: %d\n", _selectedSequence);
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, 16, DRUM);
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, DRUM);
     SequencerScene.add(sequence);
   }
 }
@@ -22,6 +24,38 @@ void RTPScene::backwardScene(){
 void RTPScene::resetScene(){
   for(int i=0; i<SequencerScene.size(); i++)
     SequencerScene.get(i)->resetSequence();
+}
+
+void RTPScene::setSelectedSequence(int selectedSequence){
+  _selectedSequence = selectedSequence;
+}
+
+int RTPScene::getSelectedSequence(){
+  return _selectedSequence;
+}
+
+int RTPScene::getSize(){
+  return SequencerScene.size();
+}
+
+RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
+  for(int i=0; i<SEQ_BLOCK_SIZE; i++){
+    if(i < SequencerScene.get(_selectedSequence)->getSequenceSize())
+      _seqStates.val[i] = SequencerScene.get(_selectedSequence)->getNoteStateInSequence(i);
+    else
+      _seqStates.val[i] = false;
+  } 
+  return _seqStates;
+}
+
+RTPSequencesState RTPScene::getSequencesState(){
+  Serial.println("BEFORE LOOP");
+  RTPSequencesState seqsState;
+  for(int i=0; i<SequencerScene.size(); i++){
+    seqsState.sequenceState[i].state = SequencerScene.get(i)->isCurrentSequenceEnabled();
+    seqsState.sequenceState[i].color = SequencerScene.get(i)->getColor();
+  }
+  return seqsState;
 }
 
 int RTPScene::getSequenceType(int sequenceIndex)  {
@@ -44,11 +78,14 @@ int RTPScene::getSelectedParameterInSequeceValue(){
   return SequencerScene.get(_selectedSequence)->getParameterValue();
 }
 
+void RTPScene::toggleSequence(int sequenceIndex){
+  SequencerScene.get(sequenceIndex)->enableSequence(!SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled());
+}
+
 void RTPScene::toggleNoteInSequence(int position){
   SequencerScene.get(_selectedSequence)->editNoteInSequence(position,
   !SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
 }
-
 
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();

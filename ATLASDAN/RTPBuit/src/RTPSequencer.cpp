@@ -1,9 +1,11 @@
 #include "RTPSequencer.h"
 
 RTPSequencer::RTPSequencer(int NScenes){
+  Serial.println("CREATING RTPSequencer");
   _NScenes = NScenes;
+  _selectedScene = 0;
   for(int i=0; i < _NScenes; i++){
-    RTPScene *scene = new RTPScene("Scene", 16);
+    RTPScene *scene = new RTPScene("Scene", SCENE_BLOCK_SIZE);
     Sequencer.add(scene);
   }
 }
@@ -44,4 +46,34 @@ void RTPSequencer::pauseSequencer(){
       Sequencer.get(i)->getPlayedNotesList().remove(j);
     }
   }
+}
+
+void RTPSequencer::selectScene(int scene){
+  _selectedScene = scene;
+}
+
+int RTPSequencer::getSelectScene(){
+  return _selectedScene;
+}
+
+void RTPSequencer::addScene(RTPScene* scene){
+  Sequencer.add(scene);
+}
+
+void RTPSequencer::removeScene(int scene){
+  Sequencer.remove(scene);
+}
+
+void RTPSequencer::toggleNoteInScene(int position){
+  Sequencer.get(_selectedScene)->toggleNoteInSequence(position);
+}
+
+void RTPSequencer::toggleSequence(int sequenceIndex){
+  Sequencer.get(_selectedScene)->toggleSequence(sequenceIndex);
+}
+
+RTPSequencesState RTPSequencer::getSequencesState(){
+  Serial.printf("Selected Scene: %d\n", _selectedScene);
+  RTPSequencesState sequencesState = Sequencer.get(_selectedScene)->getSequencesState();
+  return sequencesState;
 }

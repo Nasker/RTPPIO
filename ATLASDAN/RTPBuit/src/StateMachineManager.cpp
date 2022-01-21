@@ -12,6 +12,10 @@ void StateMachineManager::connectOutDevices(const BuitOutDevicesManager& outDevi
   buitStateMachine.connectOutDevices(outDevices);
 }
 
+void StateMachineManager::connectSequencer(const RTPSequencer& sequencer) {
+  buitStateMachine.connectSequencer(sequencer);
+}
+
 void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {
   switch(callbackControlCommand.controlType){
     case PUSH_BUTTON:

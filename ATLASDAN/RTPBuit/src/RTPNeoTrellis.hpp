@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Adafruit_NeoTrellis.h"
+#include "Structs.h"
 #include "ControlCommand.h"
 #include "constants.h"
 
@@ -13,6 +14,8 @@ class RTPNeoTrellis{
     void begin(RTPMainUnit* _mainUnit);
     static TrellisCallback blink(keyEvent evt);
     void read();
+    void writeSequenceStates(RTPSequenceNoteStates seqStates, int color);
+    void writeSceneStates(RTPSequencesState sceneStates);
     //void callbackFromTrellis(void(*userFunc)(String,int));
     //void callbackFromNeoTrellis(RTPMainUnit*);
 };

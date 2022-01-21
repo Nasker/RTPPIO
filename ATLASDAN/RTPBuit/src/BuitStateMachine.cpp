@@ -103,3 +103,15 @@ void BuitStateMachine::connectOutDevices(const BuitOutDevicesManager& outDevices
 	_sequenceSelectState->connectOutDevices(outDevices);
 	_sequenceSettingsState->connectOutDevices(outDevices);
 }
+
+void BuitStateMachine::connectSequencer(const RTPSequencer& sequencer){
+  _initState->connectSequencer(sequencer);
+  _transportState->connectSequencer(sequencer);
+  _globalSettingsState->connectSequencer(sequencer);
+  _sceneEditState->connectSequencer(sequencer);
+  _sceneSettingsState->connectSequencer(sequencer);
+  _sequenceEditState->connectSequencer(sequencer);
+  _sequencePianoRollState->connectSequencer(sequencer);
+  _sequenceSelectState->connectSequencer(sequencer);
+  _sequenceSettingsState->connectSequencer(sequencer);
+}

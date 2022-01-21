@@ -5,10 +5,13 @@
 #include "RTPParameter.hpp"
 #include "Arduino.h"
 
+#define SEQ_BLOCK_SIZE 16
+#define SCENE_BLOCK_SIZE 16
+
 enum RTPEventNoteSequenceType{
-  DRUM,
-  MONO_SYNTH,
-  POLY_SYNTH
+	DRUM,
+	MONO_SYNTH,
+	POLY_SYNTH
 };
 
 enum SequenceParametersIndex{
@@ -39,6 +42,7 @@ public:
 	int getColor();
 	void setType(int type);
 	int getType();
+	int getSequenceSize();
 	void editNoteInSequence(int position, bool eventState);
 	bool getNoteStateInSequence(int position);
 	void editNoteInSequence(int position, int note, int velocity);

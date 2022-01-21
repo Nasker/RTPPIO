@@ -46,4 +46,6 @@ public:
 	BuitState* getSequenceSettingsState();
 
 	void connectOutDevices(const BuitOutDevicesManager& outDevices);
+
+	void connectSequencer(const RTPSequencer& sequencer);
 };

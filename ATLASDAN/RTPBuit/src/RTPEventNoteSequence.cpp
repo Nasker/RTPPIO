@@ -1,6 +1,6 @@
 #include <RTPEventNoteSequence.h>
 #include "RTPEventNotePlus.h"
-#define SEQ_BLOCK_SIZE 16
+
 
 RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type){
   RTPParameter *parameterType = new RTPParameter(0,2,type);
@@ -93,6 +93,10 @@ void RTPEventNoteSequence::setType(int type){
 }
 int RTPEventNoteSequence::getType(){
   return sequenceParameters.get(TYPE)->getValue();
+}
+
+int RTPEventNoteSequence::getSequenceSize(){
+  return EventNoteSequence.size();
 }
 
 void RTPEventNoteSequence::editNoteInSequence(int position, bool eventState){

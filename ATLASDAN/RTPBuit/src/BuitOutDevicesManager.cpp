@@ -19,3 +19,11 @@ void BuitOutDevicesManager::printToScreen(String firstLine, String secondLine, S
 void BuitOutDevicesManager::printToScreen(ControlCommand command){
     _oled.printToScreen(command);
 }
+
+void BuitOutDevicesManager::writeSequenceToNeoTrellis(RTPSequenceNoteStates sequenceStates, int color){
+    _neoTrellis->writeSequenceStates(sequenceStates, color);
+}
+
+void BuitOutDevicesManager::writeSceneToNeoTrellis(RTPSequencesState sequencesState){
+    _neoTrellis->writeSceneStates(sequencesState);
+}

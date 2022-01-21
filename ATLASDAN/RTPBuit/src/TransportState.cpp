@@ -13,6 +13,13 @@ void TransportState::singleClick() {
 void TransportState::doubleClick() {
   Serial.println("Going to Scene Edit!");
   _outDevices->printToScreen("State:", "Scene Edit!","");
+  _sequencer->selectScene(0);
+  Serial.printf("Selected scene is: %d\n", _sequencer->getSelectScene());
+  _sequencer->getSequencesState();
+
+  
+  // _outDevices->writeSceneToNeoTrellis(_sequencer->getSequencesState());
+  //_outDevices->writeSceneToNeoTrellis(seqsState);
   _buitMachine->setState(_buitMachine->getSceneEditState());
 }
 

@@ -15,7 +15,7 @@ TrellisCallback RTPNeoTrellis::blink(keyEvent evt){
   ControlCommand callbackCommand;
   callbackCommand.controlType = TRELLIS;
   if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING){
-    myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
+    //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
     Serial.printf("KEY #%d RISES\n", evt.bit.NUM);
     callbackCommand.commandType = PRESSED;
     callbackCommand.value = convertMatrix[evt.bit.NUM];
@@ -24,7 +24,7 @@ TrellisCallback RTPNeoTrellis::blink(keyEvent evt){
   }
     
   else if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_FALLING){
-    myTrellis.pixels.setPixelColor(evt.bit.NUM, 0); //off falling
+    //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0); //off falling
     Serial.printf("KEY #%d FALLS\n", evt.bit.NUM);
     callbackCommand.commandType = RELEASED;
     callbackCommand.value = convertMatrix[evt.bit.NUM];
@@ -56,6 +56,30 @@ void RTPNeoTrellis::begin(RTPMainUnit* _mainUnit){
 void RTPNeoTrellis::read(){
   myTrellis.read();
 }
+
+
+void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int color){
+  for(int i=0; i<SEQ_BLOCK_SIZE; i++){
+    if(seqStates.val[i]){
+      myTrellis.pixels.setPixelColor(i, color);
+    }
+    else{
+      myTrellis.pixels.setPixelColor(i, 0);
+    }
+  }
+  myTrellis.pixels.show();
+}
+
+void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
+  for(int i=0; i<SCENE_BLOCK_SIZE; i++){
+    if(sequencesState.sequenceState[i].state)
+      myTrellis.pixels.setPixelColor(i, sequencesState.sequenceState[i].color);
+    else
+      myTrellis.pixels.setPixelColor(i, 0);
+  }
+  myTrellis.pixels.show();
+}
+
 /*
 void RTPNeoTrellis::callbackFromNeoTrellis(RTPMainUnit* mainClass){
   ControlCommand callbackCommand;
