@@ -1,8 +1,4 @@
-#define DRUM 0
-
-
 #include <RTPScene.h>
-
 
 RTPScene::RTPScene(String name, int NSequences){
   _name = name;
@@ -29,8 +25,30 @@ void RTPScene::resetScene(){
 }
 
 int RTPScene::getSequenceType(int sequenceIndex)  {
-  return SequencerScene.get(sequenceIndex)->getSequenceType();
+  return SequencerScene.get(sequenceIndex)->getType();
 }
+
+void RTPScene::selectParameterInSequece(int parameterIndex){
+  SequencerScene.get(_selectedSequence)->selectParameter(parameterIndex);
+}
+
+void RTPScene::incselectParameterInSequece(){
+  SequencerScene.get(_selectedSequence)->increaseParameterValue();
+}
+
+void RTPScene::decselectParameterInSequece(){
+  SequencerScene.get(_selectedSequence)->decreaseParameterValue();
+}
+
+int RTPScene::getSelectedParameterInSequeceValue(){
+  return SequencerScene.get(_selectedSequence)->getParameterValue();
+}
+
+void RTPScene::toggleNoteInSequence(int position){
+  SequencerScene.get(_selectedSequence)->editNoteInSequence(position,
+  !SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
+}
+
 
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();
@@ -39,8 +57,4 @@ LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
       playedNotesList.add(SequencerScene.get(i)->getCurrentEventNote());
   }
   return playedNotesList;
-}
-
-void RTPScene::editSceneSequenceBlock(int sequence, LinkedList<RTPEventNote*> displayedEventsList, int NsequenceBlock){
-  SequencerScene.get(sequence)->editSequenceBlock(displayedEventsList, NsequenceBlock);
 }
