@@ -5,10 +5,24 @@
 RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type){
   RTPParameter *parameterType = new RTPParameter(0,2,type);
   RTPParameter *parameterMidiChannel = new RTPParameter(1,16,midiChannel);
-  RTPParameter *parameterColor = new RTPParameter(0,16,0);
+  RTPParameter *parameterColor = new RTPParameter(0,0XFFFFFF,0);
   sequenceParameters.add(parameterType);
   sequenceParameters.add(parameterMidiChannel);
   sequenceParameters.add(parameterColor);
+  switch (getType()){
+    case DRUM:
+      setColor(0xFF0000);
+      break;
+    case BASS_SYNTH:
+      setColor(0x0000FF);
+      break;
+    case MONO_SYNTH:
+      setColor(0x00FF00);
+      break;
+    case POLY_SYNTH:
+      setColor(0xFFFF00);
+      break;
+  }
   _currentPosition = 0;
   _isRecording = false;
   _isEnabled = true;

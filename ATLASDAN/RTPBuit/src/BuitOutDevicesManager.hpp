@@ -15,4 +15,5 @@ public:
     void printToScreen(ControlCommand command);
     void writeSequenceToNeoTrellis(RTPSequenceNoteStates sequenceStates, int color);
     void writeSceneToNeoTrellis(RTPSequencesState sequencesState);
+    void writeTransportPage();
 };

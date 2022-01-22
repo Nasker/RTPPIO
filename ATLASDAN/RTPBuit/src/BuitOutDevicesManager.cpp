@@ -27,3 +27,7 @@ void BuitOutDevicesManager::writeSequenceToNeoTrellis(RTPSequenceNoteStates sequ
 void BuitOutDevicesManager::writeSceneToNeoTrellis(RTPSequencesState sequencesState){
     _neoTrellis->writeSceneStates(sequencesState);
 }
+
+void BuitOutDevicesManager::writeTransportPage(){
+    _neoTrellis->writeTransportPage();
+}

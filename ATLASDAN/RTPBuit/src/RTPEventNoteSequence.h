@@ -10,6 +10,7 @@
 
 enum RTPEventNoteSequenceType{
 	DRUM,
+	BASS_SYNTH,
 	MONO_SYNTH,
 	POLY_SYNTH
 };

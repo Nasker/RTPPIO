@@ -1,11 +1,30 @@
 #include <RTPScene.h>
 
+int types[16] = {
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  BASS_SYNTH,
+  BASS_SYNTH,
+  MONO_SYNTH,
+  MONO_SYNTH,
+  MONO_SYNTH,
+  POLY_SYNTH,
+  POLY_SYNTH,
+  POLY_SYNTH
+};
+
 RTPScene::RTPScene(String name, int NSequences){
   _name = name;
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, DRUM);
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, types[i]);
     SequencerScene.add(sequence);
   }
 }
@@ -78,6 +97,7 @@ int RTPScene::getSelectedParameterInSequeceValue(){
 
 void RTPScene::toggleSequence(int sequenceIndex){
   SequencerScene.get(sequenceIndex)->enableSequence(!SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled());
+  Serial.printf("Sequence %d is %s\n", sequenceIndex, SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled() ? "enabled" : "disabled");
 }
 
 void RTPScene::toggleNoteInSequence(int position){

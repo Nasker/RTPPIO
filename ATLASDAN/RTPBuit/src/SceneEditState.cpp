@@ -16,6 +16,7 @@ void SceneEditState::singleClick() {
 void SceneEditState::doubleClick() {
   Serial.println("Going to Transport");
   _outDevices->printToScreen("State:", "Transport!","");
+  _outDevices->writeTransportPage();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
@@ -34,7 +35,9 @@ void SceneEditState::threeAxisChanged(ControlCommand command) {
 }
 
 void SceneEditState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  Serial.printf("VALUE: %d\n", command.value);
+  _sequencer->toggleSequence(command.value);
+  _outDevices->writeSceneToNeoTrellis(_sequencer->getSequencesState());
 }
 
 void SceneEditState::trellisReleased(ControlCommand command) {
