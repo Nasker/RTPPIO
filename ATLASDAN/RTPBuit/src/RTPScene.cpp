@@ -4,7 +4,6 @@ RTPScene::RTPScene(String name, int NSequences){
   _name = name;
   _NSequences = NSequences;
   _selectedSequence = 0;
-  Serial.printf("Selected sequence in constuctor of Scene is: %d\n", _selectedSequence);
   for(int i=0; i < _NSequences; i++){
     RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, DRUM);
     SequencerScene.add(sequence);
@@ -49,7 +48,6 @@ RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
 }
 
 RTPSequencesState RTPScene::getSequencesState(){
-  Serial.println("BEFORE LOOP");
   RTPSequencesState seqsState;
   for(int i=0; i<SequencerScene.size(); i++){
     seqsState.sequenceState[i].state = SequencerScene.get(i)->isCurrentSequenceEnabled();

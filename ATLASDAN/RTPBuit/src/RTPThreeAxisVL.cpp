@@ -20,35 +20,23 @@ void RTPThreeAxisVL::initSetup(){
     sensor3.setBus(&Wire1);
     pinMode(SENSOR_1_PIN, INPUT);
     delay(15);
-    Serial.println("00");
     sensor1.init(true);
-    Serial.println("01");
     delay(10);
     sensor1.setAddress((uint8_t)22);
-    Serial.println("02");
 
     //SENSOR 2
     pinMode(SENSOR_2_PIN, INPUT);
     delay(15);
     sensor2.init(true);
-    Serial.println("03");
     delay(10);
     sensor2.setAddress((uint8_t)25);
-    Serial.println("04");
 
     //SENSOR 3
     pinMode(SENSOR_3_PIN, INPUT);
     delay(15);
     sensor3.init(true);
-    Serial.println("05");
     delay(10);
     sensor3.setAddress((uint8_t)28);
-    Serial.println("06");
-
-    Serial.println("");
-    Serial.println("addresses set");
-    Serial.println("");
-    Serial.println("");
 
     sensor1.setTimeout(50);
     sensor2.setTimeout(50);

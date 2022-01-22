@@ -73,7 +73,6 @@ void RTPSequencer::toggleSequence(int sequenceIndex){
 }
 
 RTPSequencesState RTPSequencer::getSequencesState(){
-  Serial.printf("Selected Scene: %d\n", _selectedScene);
   RTPSequencesState sequencesState = Sequencer.get(_selectedScene)->getSequencesState();
   return sequencesState;
 }

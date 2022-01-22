@@ -49,7 +49,7 @@ void RTPNeoTrellis::begin(RTPMainUnit* _mainUnit){
     myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_RISING);
     myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_FALLING);
     myTrellis.registerCallback(i, RTPNeoTrellis::blink);
-    Serial.println(i);
+    //Serial.println(i);
   }
 }
 
