@@ -33,7 +33,9 @@ void SequenceSelectState::threeAxisChanged(ControlCommand command) {
 }
 
 void SequenceSelectState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  Serial.printf("Editing sequence #%d\n", command.value);
+  _outDevices->printToScreen("Editing sequence", "", String(command.value));
+  _buitMachine->setState(_buitMachine->getSequenceEditState());
 }
 
 void SequenceSelectState::trellisReleased(ControlCommand command) {

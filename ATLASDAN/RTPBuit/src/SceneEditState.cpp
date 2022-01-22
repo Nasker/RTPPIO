@@ -35,7 +35,6 @@ void SceneEditState::threeAxisChanged(ControlCommand command) {
 }
 
 void SceneEditState::trellisPressed(ControlCommand command) {
-  Serial.printf("VALUE: %d\n", command.value);
   _sequencer->toggleSequence(command.value);
   _outDevices->writeSceneToNeoTrellis(_sequencer->getSequencesState());
 }

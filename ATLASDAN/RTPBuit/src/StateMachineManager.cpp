@@ -42,7 +42,7 @@ void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {
             buitStateMachine.trellisPressed(callbackControlCommand);
             break;
         case RELEASED:    
-            buitStateMachine.trellisReleased(callbackControlCommand);
+            //buitStateMachine.trellisReleased(callbackControlCommand);
             break;
         default:
             break;

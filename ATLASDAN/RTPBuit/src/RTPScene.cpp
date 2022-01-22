@@ -97,7 +97,7 @@ int RTPScene::getSelectedParameterInSequeceValue(){
 
 void RTPScene::toggleSequence(int sequenceIndex){
   SequencerScene.get(sequenceIndex)->enableSequence(!SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled());
-  Serial.printf("Sequence %d is %s\n", sequenceIndex, SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled() ? "enabled" : "disabled");
+  //Serial.printf("Sequence %d is %s\n", sequenceIndex, SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled() ? "enabled" : "disabled");
 }
 
 void RTPScene::toggleNoteInSequence(int position){

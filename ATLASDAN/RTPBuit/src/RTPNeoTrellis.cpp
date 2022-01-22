@@ -16,18 +16,18 @@ TrellisCallback RTPNeoTrellis::blink(keyEvent evt){
   callbackCommand.controlType = TRELLIS;
   if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING){
     //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
-    Serial.printf("KEY #%d RISES\n", evt.bit.NUM);
+    Serial.printf("KEY #%d RISES\n", convertMatrix[evt.bit.NUM]);
     callbackCommand.commandType = PRESSED;
-    callbackCommand.value = convertMatrix[evt.bit.NUM];
+    callbackCommand.value = convertMatrix[evt.bit.NUM];//convertMatrix[evt.bit.NUM];
     mainUnit->actOnControlsCallback(callbackCommand);
     //mainClass->actOnControlsCallback(callbackCommand);
   }
     
   else if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_FALLING){
     //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0); //off falling
-    Serial.printf("KEY #%d FALLS\n", evt.bit.NUM);
+    //Serial.printf("KEY #%d FALLS\n", evt.bit.NUM);
     callbackCommand.commandType = RELEASED;
-    callbackCommand.value = convertMatrix[evt.bit.NUM];
+    callbackCommand.value = evt.bit.NUM;//convertMatrix[evt.bit.NUM];
     mainUnit->actOnControlsCallback(callbackCommand);
     //mainClass->actOnControlsCallback(callbackCommand);
   }
@@ -61,10 +61,10 @@ void RTPNeoTrellis::read(){
 void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int color){
   for(int i=0; i<SEQ_BLOCK_SIZE; i++){
     if(seqStates.val[i]){
-      myTrellis.pixels.setPixelColor(i, color);
+      myTrellis.pixels.setPixelColor(convertMatrix[i], color);
     }
     else{
-      myTrellis.pixels.setPixelColor(i, 0);
+      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
     }
   }
   myTrellis.pixels.show();
@@ -73,9 +73,9 @@ void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int col
 void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
   for(int i=0; i<SCENE_BLOCK_SIZE; i++){
     if(sequencesState.sequenceState[i].state)
-      myTrellis.pixels.setPixelColor(i, sequencesState.sequenceState[i].color);
+      myTrellis.pixels.setPixelColor(convertMatrix[i], sequencesState.sequenceState[i].color);
     else
-      myTrellis.pixels.setPixelColor(i, 0);
+      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
   }
   myTrellis.pixels.show();
 }
