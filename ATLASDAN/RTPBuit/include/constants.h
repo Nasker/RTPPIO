@@ -27,6 +27,7 @@
 #define SENSOR_1_PIN 5
 #define SENSOR_2_PIN 6
 #define SENSOR_3_PIN 7
+
 #define N_NOTES 12
 #define BASE_NOTE 48
 
