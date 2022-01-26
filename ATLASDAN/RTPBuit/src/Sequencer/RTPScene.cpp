@@ -113,3 +113,14 @@ LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   }
   return playedNotesList;
 }
+
+RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
+  for(int i=0; i<SequencerScene.get(_selectedSequence)->getSequenceSize(); i++){
+    _seqStates.val[i] = SequencerScene.get(_selectedSequence)->getNoteStateInSequence(i);
+  }
+  return _seqStates;
+}
+
+int RTPScene::getSequenceColor(){
+  return SequencerScene.get(_selectedSequence)->getColor();
+}

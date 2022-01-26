@@ -17,7 +17,10 @@ public:
   int getSelectScene();
   void addScene(RTPScene* scene);
   void removeScene(int scene);
-  void toggleNoteInScene(int position);
   void toggleSequence(int sequenceIndex);
   RTPSequencesState getSequencesState();
+  void selectSequence(int sequenceIndex);
+  RTPSequenceNoteStates getSelectedSequenceNoteStates();
+  void toggleNoteInSceneInSelectedSequence(int position);
+  int getSelectedSequenceColor();
 };

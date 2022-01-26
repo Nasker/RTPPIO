@@ -64,7 +64,7 @@ void RTPSequencer::removeScene(int scene){
   Sequencer.remove(scene);
 }
 
-void RTPSequencer::toggleNoteInScene(int position){
+void RTPSequencer::toggleNoteInSceneInSelectedSequence(int position){
   Sequencer.get(_selectedScene)->toggleNoteInSequence(position);
 }
 
@@ -75,4 +75,17 @@ void RTPSequencer::toggleSequence(int sequenceIndex){
 RTPSequencesState RTPSequencer::getSequencesState(){
   RTPSequencesState sequencesState = Sequencer.get(_selectedScene)->getSequencesState();
   return sequencesState;
+}
+
+void RTPSequencer::selectSequence(int sequenceIndex){
+  Sequencer.get(_selectedScene)->setSelectedSequence(sequenceIndex);
+}
+
+RTPSequenceNoteStates RTPSequencer::getSelectedSequenceNoteStates(){
+  RTPSequenceNoteStates sequenceNoteStates = Sequencer.get(_selectedScene)->getSequenceNoteStates();
+  return sequenceNoteStates;
+}
+
+int RTPSequencer::getSelectedSequenceColor(){
+  return Sequencer.get(_selectedScene)->getSequenceColor();
 }

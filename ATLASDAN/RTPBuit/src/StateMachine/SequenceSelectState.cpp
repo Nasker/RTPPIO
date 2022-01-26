@@ -35,6 +35,8 @@ void SequenceSelectState::threeAxisChanged(ControlCommand command) {
 void SequenceSelectState::trellisPressed(ControlCommand command) {
   Serial.printf("Editing sequence #%d\n", command.value);
   _outDevices->printToScreen("Editing sequence", "", String(command.value));
+  _sequencer->selectSequence(command.value);
+  _outDevices->writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
   _buitMachine->setState(_buitMachine->getSequenceEditState());
 }
 
