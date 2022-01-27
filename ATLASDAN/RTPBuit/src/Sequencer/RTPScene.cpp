@@ -19,12 +19,31 @@ int types[16] = {
   POLY_SYNTH
 };
 
+int midiChannels[16] = {
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+};
+
 RTPScene::RTPScene(String name, int NSequences){
   _name = name;
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, types[i]);
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i]);
     SequencerScene.add(sequence);
   }
 }

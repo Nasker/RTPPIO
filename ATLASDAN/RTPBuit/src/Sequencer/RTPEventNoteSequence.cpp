@@ -29,7 +29,8 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   _isEnabled = true;
   _selectedParameter = 0;
   for(int i=0; i < NEvents; i++){
-    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel,random(0,100) > 60, random(48,72), random(40,100)); // true, 60, 80
+    int note = (getType() == DRUM )? 36: 64;
+    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel,random(0,100) > 60, note , 80); // true, 60, 80
     EventNoteSequence.add(eventNote);
   }
 }
