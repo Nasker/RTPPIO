@@ -16,12 +16,12 @@ void RTPMainUnit::begin(){
   vlSensor.startContinuous();
   chordionKeys.initSetup();
   rtpTrellis.begin(this);
-  outDevicesManager.initSetup();
-  outDevicesManager.connectNeoTrellis(rtpTrellis);
-  stateMachineManager.connectOutDevices(outDevicesManager);
-  stateMachineManager.connectSequencer(Sequencer);
+  devicesManager.initSetup();
+  devicesManager.connectNeoTrellis(rtpTrellis);
+  devicesManager.connectSequencer(Sequencer);
+  stateMachineManager.connectDevices(devicesManager);
 	SequencerManager.connectSequencer(Sequencer);
-  outDevicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
+  devicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
 
 void RTPMainUnit::update(){
@@ -32,7 +32,7 @@ void RTPMainUnit::update(){
 }
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  //outDevicesManager.printToScreen(callbackCommand);
+  //devicesManager.printToScreen(callbackCommand);
   stateMachineManager.handleActions(callbackCommand);
 }
 

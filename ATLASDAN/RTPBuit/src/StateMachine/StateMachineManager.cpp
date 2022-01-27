@@ -7,13 +7,9 @@ StateMachineManager::StateMachineManager() {}
 
 StateMachineManager::~StateMachineManager() {}
 
-void StateMachineManager::connectOutDevices(const BuitOutDevicesManager& outDevices) {
+void StateMachineManager::connectDevices(const BuitDevicesManager& outDevices) {
   buitStateMachine.setState(buitStateMachine.getInitState());
-  buitStateMachine.connectOutDevices(outDevices);
-}
-
-void StateMachineManager::connectSequencer(const RTPSequencer& sequencer) {
-  buitStateMachine.connectSequencer(sequencer);
+  buitStateMachine.connectDevices(outDevices);
 }
 
 void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {

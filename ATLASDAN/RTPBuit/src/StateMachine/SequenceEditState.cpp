@@ -13,14 +13,13 @@ void SequenceEditState::singleClick() {
 
 void SequenceEditState::doubleClick() {
   Serial.println("Going to Scene Edit!");
-  _outDevices->printToScreen("State:", "Scene Edit!","");
-  _outDevices->writeSceneToNeoTrellis(_sequencer->getSequencesState());
+  _devices->presentScene();
   _buitMachine->setState(_buitMachine->getSceneEditState());
 }
 
 void SequenceEditState::longClick() {
   Serial.println("Going to Sequence Settings!");
-  _outDevices->printToScreen("State:", "Sequence Settings!","");
+  _devices->printToScreen("State:", "Sequence Settings!","");
   _buitMachine->setState(_buitMachine->getSequenceSettingsState());
 }
 
@@ -33,8 +32,7 @@ void SequenceEditState::threeAxisChanged(ControlCommand command) {
 }
 
 void SequenceEditState::trellisPressed(ControlCommand command) {
-  _sequencer->toggleNoteInSceneInSelectedSequence(command.value);
-  _outDevices->writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+  _devices->editSequence(command);
 }
 
 void SequenceEditState::trellisReleased(ControlCommand command) {
