@@ -31,7 +31,7 @@ void SceneEditState::rotaryTurned(ControlCommand command) {
 void SceneEditState::threeAxisChanged(ControlCommand command) {
 }
 
-void SceneEditState::trellisPressed(ControlCommand command) {
+void SceneEditState::trellisPressed(ControlCommand command) { 
   _devices->editScene(command);
 }
 
