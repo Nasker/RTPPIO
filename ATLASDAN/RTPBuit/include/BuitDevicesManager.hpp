@@ -4,6 +4,7 @@
 #include "RTPNeoTrellis.hpp"
 #include "RTPSequencer.h"
 #include "Structs.h"
+#include "RTPTypeColors.h"
 
 class BuitDevicesManager {
     RTPOled _oled;

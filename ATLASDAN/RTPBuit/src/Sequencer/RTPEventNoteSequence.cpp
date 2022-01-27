@@ -1,5 +1,6 @@
 #include <RTPEventNoteSequence.h>
 #include "RTPEventNotePlus.h"
+#include "RTPTypeColors.h"
 
 
 RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type){
@@ -11,16 +12,16 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   sequenceParameters.add(parameterColor);
   switch (getType()){
     case DRUM:
-      setColor(0xFF0000);
+      setColor(DRUM_COLOR);
       break;
     case BASS_SYNTH:
-      setColor(0x0000FF);
+      setColor(BASS_SYNTH_COLOR);
       break;
     case MONO_SYNTH:
-      setColor(0x00FF00);
+      setColor(MONO_SYNTH_COLOR);
       break;
     case POLY_SYNTH:
-      setColor(0xFFFF00);
+      setColor(POLY_SYNTH_COLOR);
       break;
   }
   _currentPosition = 0;

@@ -31,7 +31,7 @@ void BuitDevicesManager::writeSceneToNeoTrellis(RTPSequencesState sequencesState
 }
 
 void BuitDevicesManager::writeTransportPage(){
-    _neoTrellis->writeTransportPage();
+    _neoTrellis->writeTransportPage(TRANSPORT_COLOR);
 }
 
 void BuitDevicesManager::editScene(ControlCommand command){
