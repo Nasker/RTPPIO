@@ -24,12 +24,13 @@ enum SequenceParametersIndex{
 class RTPEventNoteSequence{
 	LinkedList<RTPEventNotePlus*> EventNoteSequence = LinkedList<RTPEventNotePlus*>();
 	LinkedList<RTPParameter*> sequenceParameters;
+	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
 	int _currentPosition;
 	int _selectedParameter;
 public:
-	RTPEventNoteSequence(int midiChannel, int NEvents, int type);
+	RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote);
 	void fordwardSequence();
 	void backwardSequence();
 	void resetSequence();

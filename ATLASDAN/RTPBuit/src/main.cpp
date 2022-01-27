@@ -2,7 +2,6 @@
 #include "RTPMainUnit.hpp"
 #include "RTPPeriodicBang.h"
 
-
 #define UPDATE_PERIOD 10
 
 RTPMainUnit mUnit;

@@ -3,7 +3,7 @@
 #include "RTPTypeColors.h"
 
 
-RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type){
+RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote){
   RTPParameter *parameterType = new RTPParameter(0,2,type);
   RTPParameter *parameterMidiChannel = new RTPParameter(1,16,midiChannel);
   RTPParameter *parameterColor = new RTPParameter(0,0XFFFFFF,0);
@@ -24,13 +24,14 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
       setColor(POLY_SYNTH_COLOR);
       break;
   }
+  _baseNote = baseNote;
   _currentPosition = 0;
   _isRecording = false;
   _isEnabled = true;
   _selectedParameter = 0;
+
   for(int i=0; i < NEvents; i++){
-    int note = (getType() == DRUM )? 36: 64;
-    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel,random(0,100) > 60, note , 80); // true, 60, 80
+    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
     EventNoteSequence.add(eventNote);
   }
 }

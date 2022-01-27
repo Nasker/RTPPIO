@@ -14,7 +14,7 @@ void RTPSequencer::playAndMoveSequencer(){
   for(int i=0; i<Sequencer.size(); i++){
     for(int j=0; j<Sequencer.get(i)->getPlayedNotesList().size(); j++){
       switch(Sequencer.get(i)->getSequenceType(j)){
-        case DRUM:
+        case DRUM: 
           Sequencer.get(i)->getPlayedNotesList().get(j)->playNoteOn();
           Sequencer.get(i)->getPlayedNotesList().get(j)->playNoteOff();
           Sequencer.get(i)->getPlayedNotesList().remove(j);

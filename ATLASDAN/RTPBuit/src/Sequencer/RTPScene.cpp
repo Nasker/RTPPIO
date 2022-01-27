@@ -9,12 +9,12 @@ int types[16] = {
   DRUM,
   DRUM,
   DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
   BASS_SYNTH,
-  BASS_SYNTH,
   MONO_SYNTH,
-  MONO_SYNTH,
-  MONO_SYNTH,
-  POLY_SYNTH,
   POLY_SYNTH,
   POLY_SYNTH
 };
@@ -28,14 +28,14 @@ int midiChannels[16] = {
   10,
   10,
   10,
+  10,
+  10,
+  10,
+  10,
   1,
   2,
   3,
-  4,
-  5,
-  6,
-  7,
-  8
+  4
 };
 
 RTPScene::RTPScene(String name, int NSequences){
@@ -43,7 +43,8 @@ RTPScene::RTPScene(String name, int NSequences){
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i]);
+    int baseNote = types[i] == DRUM ? 36 + i : 60;
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i], baseNote);
     SequencerScene.add(sequence);
   }
 }
