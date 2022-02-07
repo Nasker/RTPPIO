@@ -7,7 +7,6 @@
 using namespace std;
 
 class RTPScene{
-  //LinkedList <RTPEventNoteSequence*> SequencerScene = LinkedList<RTPEventNoteSequence*>();
   vector<RTPEventNoteSequence> SequencerScene;
   String _name;
   int _NSequences;

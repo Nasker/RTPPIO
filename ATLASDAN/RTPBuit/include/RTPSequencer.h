@@ -3,9 +3,11 @@
 #include <LinkedList.h>
 #include <RTPScene.h>
 #include "Structs.h"
+#include <vector>
+using namespace std;
 
 class RTPSequencer{
-  LinkedList<RTPScene*> Sequencer = LinkedList<RTPScene*>();
+  vector<RTPScene> Sequencer;
   int _NScenes;
   int _selectedScene;
 public:
@@ -15,7 +17,7 @@ public:
   void pauseSequencer();
   void selectScene(int scene);
   int getSelectScene();
-  void addScene(RTPScene* scene);
+  void addScene(RTPScene scene);
   void removeScene(int scene);
   void toggleSequence(int sequenceIndex);
   RTPSequencesState getSequencesState();
