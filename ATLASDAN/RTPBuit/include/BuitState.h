@@ -1,12 +1,10 @@
 #pragma once
 
-#include "BuitOutDevicesManager.hpp"
-#include "RTPSequencer.h"
+#include "BuitDevicesManager.hpp"
 
 class BuitState {
 protected:
-	BuitOutDevicesManager* _outDevices;
-	RTPSequencer* _sequencer;
+	BuitDevicesManager* _devices;
 public:
   	virtual void singleClick() = 0;
 	virtual void doubleClick() = 0;
@@ -16,11 +14,7 @@ public:
 	virtual void trellisPressed(ControlCommand command) = 0;
 	virtual void trellisReleased(ControlCommand command) = 0;
 
-	void connectOutDevices(const BuitOutDevicesManager& outDevices) {
-		_outDevices = (BuitOutDevicesManager*) &outDevices;
-	}
-
-	void connectSequencer(const RTPSequencer& sequencer) {
-		_sequencer = (RTPSequencer*) &sequencer;
+	void connectDevices(const BuitDevicesManager& outDevices) {
+		_devices = (BuitDevicesManager*) &outDevices;
 	}
 };

@@ -9,14 +9,33 @@ int types[16] = {
   DRUM,
   DRUM,
   DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
+  DRUM,
   BASS_SYNTH,
-  BASS_SYNTH,
   MONO_SYNTH,
-  MONO_SYNTH,
-  MONO_SYNTH,
-  POLY_SYNTH,
   POLY_SYNTH,
   POLY_SYNTH
+};
+
+int midiChannels[16] = {
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  1,
+  2,
+  3,
+  4
 };
 
 RTPScene::RTPScene(String name, int NSequences){
@@ -24,7 +43,8 @@ RTPScene::RTPScene(String name, int NSequences){
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(i, SEQ_BLOCK_SIZE, types[i]);
+    int baseNote = types[i] == DRUM ? 36 + i : 60;
+    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i], baseNote);
     SequencerScene.add(sequence);
   }
 }
@@ -112,4 +132,15 @@ LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
       playedNotesList.add(SequencerScene.get(i)->getCurrentEventNote());
   }
   return playedNotesList;
+}
+
+RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
+  for(int i=0; i<SequencerScene.get(_selectedSequence)->getSequenceSize(); i++){
+    _seqStates.val[i] = SequencerScene.get(_selectedSequence)->getNoteStateInSequence(i);
+  }
+  return _seqStates;
+}
+
+int RTPScene::getSequenceColor(){
+  return SequencerScene.get(_selectedSequence)->getColor();
 }

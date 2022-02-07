@@ -1,8 +1,9 @@
 #include <RTPEventNoteSequence.h>
 #include "RTPEventNotePlus.h"
+#include "RTPTypeColors.h"
 
 
-RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type){
+RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote){
   RTPParameter *parameterType = new RTPParameter(0,2,type);
   RTPParameter *parameterMidiChannel = new RTPParameter(1,16,midiChannel);
   RTPParameter *parameterColor = new RTPParameter(0,0XFFFFFF,0);
@@ -11,24 +12,26 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   sequenceParameters.add(parameterColor);
   switch (getType()){
     case DRUM:
-      setColor(0xFF0000);
+      setColor(DRUM_COLOR);
       break;
     case BASS_SYNTH:
-      setColor(0x0000FF);
+      setColor(BASS_SYNTH_COLOR);
       break;
     case MONO_SYNTH:
-      setColor(0x00FF00);
+      setColor(MONO_SYNTH_COLOR);
       break;
     case POLY_SYNTH:
-      setColor(0xFFFF00);
+      setColor(POLY_SYNTH_COLOR);
       break;
   }
+  _baseNote = baseNote;
   _currentPosition = 0;
   _isRecording = false;
   _isEnabled = true;
   _selectedParameter = 0;
+
   for(int i=0; i < NEvents; i++){
-    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel,random(0,100) > 60, random(48,72), random(40,100)); // true, 60, 80
+    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
     EventNoteSequence.add(eventNote);
   }
 }

@@ -8,37 +8,38 @@ InitState::InitState(BuitStateMachine* buitMachine){
 
 void InitState::singleClick() {
   Serial.println("Going to Transport");
-  _outDevices->printToScreen("State:", "Transport!","");
-  _outDevices->writeTransportPage();
+  _devices->presentTransport();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::doubleClick() {
   Serial.println("Going to Transport");
-  _outDevices->printToScreen("State:", "Transport!","");
-  _outDevices->writeTransportPage();
+  _devices->presentTransport();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::longClick() {
   Serial.println("Going to Transport");
-  _outDevices->printToScreen("State:", "Transport!","");
-  _outDevices->writeTransportPage();
+  _devices->presentTransport();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+    Serial.println("Going to Transport");
+  _devices->presentTransport();
+  _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void InitState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  Serial.println("Going to Transport");
+  _devices->presentTransport();
+  _buitMachine->setState(_buitMachine->getTransportState());
 } 
 
 void InitState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

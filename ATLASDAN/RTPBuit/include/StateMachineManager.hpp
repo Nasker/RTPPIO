@@ -1,8 +1,7 @@
 #pragma once
 
 #include "BuitStateMachine.h"
-#include "RTPSequencer.h"
-#include "BuitOutDevicesManager.hpp"
+#include "BuitDevicesManager.hpp"
 #include "ControlCommand.h"
 #include "constants.h"
 
@@ -11,7 +10,6 @@ class StateMachineManager{
  public:
     StateMachineManager();
     ~StateMachineManager();
-    void connectOutDevices(const BuitOutDevicesManager& outDevices);
-    void connectSequencer(const RTPSequencer& sequencer);
+    void connectDevices(const BuitDevicesManager& outDevices);
     void handleActions(ControlCommand callbackControlCommand);
 };

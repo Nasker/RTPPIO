@@ -80,9 +80,9 @@ void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
   myTrellis.pixels.show();
 }
 
-void RTPNeoTrellis::writeTransportPage(){
+void RTPNeoTrellis::writeTransportPage(int color){
   for(int i=0; i<SCENE_BLOCK_SIZE; i++){
-    myTrellis.pixels.setPixelColor(i, 0xFFFFFF);
+    myTrellis.pixels.setPixelColor(i, color);
   }
   myTrellis.pixels.show();
 }

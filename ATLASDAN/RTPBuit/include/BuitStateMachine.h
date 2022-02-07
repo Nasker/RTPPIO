@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BuitState.h"
-#include "BuitOutDevicesManager.hpp"
+#include "BuitDevicesManager.hpp"
 
 class BuitStateMachine{
 	BuitState* _state;
@@ -45,7 +45,5 @@ public:
 
 	BuitState* getSequenceSettingsState();
 
-	void connectOutDevices(const BuitOutDevicesManager& outDevices);
-
-	void connectSequencer(const RTPSequencer& sequencer);
+	void connectDevices(const BuitDevicesManager& outDevices);
 };

@@ -13,7 +13,7 @@ void GlobalSettingsState::singleClick() {
 
 void GlobalSettingsState::doubleClick() {
   Serial.println("Going to Transport");
-  _outDevices->printToScreen("Transport", "", "");
+  _devices->printToScreen("Transport", "", "");
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 

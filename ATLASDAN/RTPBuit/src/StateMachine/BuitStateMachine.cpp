@@ -92,26 +92,14 @@ BuitState* BuitStateMachine::getSequenceSettingsState(){
   return _sequenceSettingsState;
 }
 
-void BuitStateMachine::connectOutDevices(const BuitOutDevicesManager& outDevices){
-	_initState->connectOutDevices(outDevices);
-	_transportState->connectOutDevices(outDevices);
-	_globalSettingsState->connectOutDevices(outDevices);
-	_sceneEditState->connectOutDevices(outDevices);
-	_sceneSettingsState->connectOutDevices(outDevices);
-	_sequenceEditState->connectOutDevices(outDevices);
-	_sequencePianoRollState->connectOutDevices(outDevices);
-	_sequenceSelectState->connectOutDevices(outDevices);
-	_sequenceSettingsState->connectOutDevices(outDevices);
-}
-
-void BuitStateMachine::connectSequencer(const RTPSequencer& sequencer){
-  _initState->connectSequencer(sequencer);
-  _transportState->connectSequencer(sequencer);
-  _globalSettingsState->connectSequencer(sequencer);
-  _sceneEditState->connectSequencer(sequencer);
-  _sceneSettingsState->connectSequencer(sequencer);
-  _sequenceEditState->connectSequencer(sequencer);
-  _sequencePianoRollState->connectSequencer(sequencer);
-  _sequenceSelectState->connectSequencer(sequencer);
-  _sequenceSettingsState->connectSequencer(sequencer);
+void BuitStateMachine::connectDevices(const BuitDevicesManager& outDevices){
+	_initState->connectDevices(outDevices);
+	_transportState->connectDevices(outDevices);
+	_globalSettingsState->connectDevices(outDevices);
+	_sceneEditState->connectDevices(outDevices);
+	_sceneSettingsState->connectDevices(outDevices);
+	_sequenceEditState->connectDevices(outDevices);
+	_sequencePianoRollState->connectDevices(outDevices);
+	_sequenceSelectState->connectDevices(outDevices);
+	_sequenceSettingsState->connectDevices(outDevices);
 }

@@ -11,23 +11,26 @@ void RTPMainUnit::begin(){
   vlSensor.initSetup();
   vlSensor.startContinuous();
   rtpTrellis.begin(this);
-  outDevicesManager.initSetup();
-  outDevicesManager.connectNeoTrellis(rtpTrellis);
-  stateMachineManager.connectOutDevices(outDevicesManager);
-  stateMachineManager.connectSequencer(Sequencer);
+  devicesManager.initSetup();
+  devicesManager.connectNeoTrellis(rtpTrellis);
+  devicesManager.connectSequencer(Sequencer);
+  stateMachineManager.connectDevices(devicesManager);
 	SequencerManager.connectSequencer(Sequencer);
-  outDevicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
+  devicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
 
 void RTPMainUnit::update(){
   rtpRotary.callbackFromRotary(this);
   rtpRotary.callbackFromClicks(this);
-  vlSensor.callbackThreeAxisChanged(this);
   rtpTrellis.read();
 }
 
+void RTPMainUnit::updatePeriodically(){
+  vlSensor.callbackThreeAxisChanged(this);
+}
+
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
-  //outDevicesManager.printToScreen(callbackCommand);
+  //devicesManager.printToScreen(callbackCommand);
   stateMachineManager.handleActions(callbackCommand);
 }
 

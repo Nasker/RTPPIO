@@ -13,7 +13,7 @@ void SequencePianoRollState::singleClick() {
 
 void SequencePianoRollState::doubleClick() {
   Serial.println("Going to Sequence Edit!");
-  _outDevices->printToScreen("State:", "Sequence Edit!","");
+  _devices->printToScreen("State:", "Sequence Edit!","");
   _buitMachine->setState(_buitMachine->getSequenceEditState());
 }
 

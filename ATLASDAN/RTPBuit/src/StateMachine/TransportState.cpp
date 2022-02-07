@@ -7,34 +7,32 @@ TransportState::TransportState (BuitStateMachine* buitMachine){
 }
 
 void TransportState::singleClick() {
-  Serial.println("Does nothing here!");
 }
 
 void TransportState::doubleClick() {
   Serial.println("Going to Scene Edit!");
-  _outDevices->printToScreen("State:", "Scene Edit!","");
-  _outDevices->writeSceneToNeoTrellis(_sequencer->getSequencesState());
+  _devices->presentScene();
   _buitMachine->setState(_buitMachine->getSceneEditState());
 }
 
 void TransportState::longClick() {
   Serial.println("Going to Global Settings!");
-  _outDevices->printToScreen("State:", "Global Settings!","");
+  _devices->printToScreen("Global Settings", "","");
   _buitMachine->setState(_buitMachine->getGlobalSettingsState());
 }
 
 void TransportState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+
 }
 
 void TransportState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+
 }
 
 void TransportState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+
 }
 
 void TransportState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+
 }  
