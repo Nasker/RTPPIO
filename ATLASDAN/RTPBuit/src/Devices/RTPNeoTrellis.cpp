@@ -16,7 +16,7 @@ TrellisCallback RTPNeoTrellis::blink(keyEvent evt){
   callbackCommand.controlType = TRELLIS;
   if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING){
     //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
-    Serial.printf("KEY #%d RISES\n", convertMatrix[evt.bit.NUM]);
+    //Serial.printf("KEY #%d RISES\n", convertMatrix[evt.bit.NUM]);
     callbackCommand.commandType = PRESSED;
     callbackCommand.value = convertMatrix[evt.bit.NUM];//convertMatrix[evt.bit.NUM];
     mainUnit->actOnControlsCallback(callbackCommand);

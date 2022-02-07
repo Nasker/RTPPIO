@@ -123,6 +123,7 @@ void RTPScene::toggleSequence(int sequenceIndex){
 void RTPScene::toggleNoteInSequence(int position){
   SequencerScene.get(_selectedSequence)->editNoteInSequence(position,
   !SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
+  Serial.println(SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
 }
 
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
