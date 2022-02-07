@@ -2,6 +2,7 @@
 
 #include <RTPEventNoteSequence.h>
 #include "Structs.h"
+#include "LinkedList.h"
 
 class RTPScene{
   LinkedList <RTPEventNoteSequence*> SequencerScene = LinkedList<RTPEventNoteSequence*>();

@@ -1,10 +1,9 @@
 #pragma once
 
-#include "LinkedList.h"
-#include <vector>
 #include "RTPEventNotePlus.h"
 #include "RTPParameter.hpp"
 #include "Arduino.h"
+#include <vector>
 using namespace std;
 
 #define SEQ_BLOCK_SIZE 16
@@ -25,7 +24,7 @@ enum SequenceParametersIndex{
 
 class RTPEventNoteSequence{
 	vector<RTPEventNotePlus*> EventNoteSequence;
-	LinkedList<RTPParameter*> sequenceParameters;
+	vector<RTPParameter*> sequenceParameters;
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
