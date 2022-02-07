@@ -23,8 +23,8 @@ enum SequenceParametersIndex{
 };
 
 class RTPEventNoteSequence{
-	vector<RTPEventNotePlus*> EventNoteSequence;
-	vector<RTPParameter*> sequenceParameters;
+	vector<RTPEventNotePlus> EventNoteSequence;
+	vector<RTPParameter> sequenceParameters;
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;

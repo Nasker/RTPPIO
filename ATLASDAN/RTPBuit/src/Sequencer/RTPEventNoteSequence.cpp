@@ -4,9 +4,9 @@
 
 
 RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote){
-  RTPParameter *parameterType = new RTPParameter(0,2,type);
-  RTPParameter *parameterMidiChannel = new RTPParameter(1,16,midiChannel);
-  RTPParameter *parameterColor = new RTPParameter(0,0XFFFFFF,0);
+  RTPParameter parameterType = RTPParameter(0,2,type);
+  RTPParameter parameterMidiChannel = RTPParameter(1,16,midiChannel);
+  RTPParameter parameterColor = RTPParameter(0,0XFFFFFF,0);
   sequenceParameters.push_back(parameterType);
   sequenceParameters.push_back(parameterMidiChannel);
   sequenceParameters.push_back(parameterColor);
@@ -31,7 +31,7 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   _selectedParameter = 0;
 
   for(int i=0; i < NEvents; i++){
-    RTPEventNotePlus *eventNote = new RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
+    RTPEventNotePlus eventNote = RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
     EventNoteSequence.push_back(eventNote);
   }
 }
@@ -71,45 +71,45 @@ void RTPEventNoteSequence::selectParameter(int parameterIndex){
 }
 
 void RTPEventNoteSequence::increaseParameterValue(){
-  sequenceParameters[_selectedParameter]->incValue();
+  sequenceParameters[_selectedParameter].incValue();
 }
 
 void RTPEventNoteSequence::decreaseParameterValue(){
-  sequenceParameters[_selectedParameter]->decValue();
+  sequenceParameters[_selectedParameter].decValue();
 }
 
 int RTPEventNoteSequence::getParameterValue(){
-  return sequenceParameters[_selectedParameter]->getValue();
+  return sequenceParameters[_selectedParameter].getValue();
 }
 
 RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
-  if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition]->eventState())
-    return EventNoteSequence[_currentPosition];
+  if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState())
+    return &EventNoteSequence[_currentPosition];
   else
     return NULL;
 }
 
 void RTPEventNoteSequence::setMidiChannel(int midiChannel){
-  sequenceParameters[MIDI_CHANNEL]->setValue(midiChannel);
+  sequenceParameters[MIDI_CHANNEL].setValue(midiChannel);
 }
 
 int RTPEventNoteSequence::getMidiChannel(){
-  return sequenceParameters[MIDI_CHANNEL]->getValue();
+  return sequenceParameters[MIDI_CHANNEL].getValue();
 }
 
 void RTPEventNoteSequence::setColor(int color){
-  sequenceParameters[COLOR]->setValue(color);
+  sequenceParameters[COLOR].setValue(color);
 }
 	
 int RTPEventNoteSequence::getColor(){
-  return sequenceParameters[COLOR]->getValue();
+  return sequenceParameters[COLOR].getValue();
 }
 
 void RTPEventNoteSequence::setType(int type){
-  sequenceParameters[TYPE]->setValue(type);
+  sequenceParameters[TYPE].setValue(type);
 }
 int RTPEventNoteSequence::getType(){
-  return sequenceParameters[TYPE]->getValue();
+  return sequenceParameters[TYPE].getValue();
 }
 
 int RTPEventNoteSequence::getSequenceSize(){
@@ -118,13 +118,13 @@ int RTPEventNoteSequence::getSequenceSize(){
 
 void RTPEventNoteSequence::editNoteInSequence(int position, bool eventState){
   if(position < EventNoteSequence.size()){
-    EventNoteSequence[position]->setEventState(eventState);
+    EventNoteSequence[position].setEventState(eventState);
   }
 }
 
 bool RTPEventNoteSequence::getNoteStateInSequence(int position){
   if(position < EventNoteSequence.size()){
-    return EventNoteSequence[position]->eventState();
+    return EventNoteSequence[position].eventState();
   }
   else{
     return false;
@@ -133,15 +133,15 @@ bool RTPEventNoteSequence::getNoteStateInSequence(int position){
 
 void RTPEventNoteSequence::editNoteInSequence(int position, int note, int velocity){
   if(position < EventNoteSequence.size()){
-    EventNoteSequence[position]->setEventNote(note);
-    EventNoteSequence[position]->setEventVelocity(velocity);
+    EventNoteSequence[position].setEventNote(note);
+    EventNoteSequence[position].setEventVelocity(velocity);
   }
 }
 
 void RTPEventNoteSequence::resizeSequence(int newSize){
   if(newSize > EventNoteSequence.size()){
     for(int i=EventNoteSequence.size(); i < newSize; i++){
-      RTPEventNotePlus *eventNote = new RTPEventNotePlus(sequenceParameters[MIDI_CHANNEL]->getValue(),false, 60, 80);
+      RTPEventNotePlus eventNote = RTPEventNotePlus(sequenceParameters[MIDI_CHANNEL].getValue(),false, 60, 80);
       EventNoteSequence.push_back(eventNote);
     }
   }
