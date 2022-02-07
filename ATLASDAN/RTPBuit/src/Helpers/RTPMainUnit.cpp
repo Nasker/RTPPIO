@@ -1,9 +1,5 @@
 #include "RTPMainUnit.hpp"
-#include "RTPMusicController.h"
 #include "ControlCommand.h"
-#include "MIDI.h"
-
-MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI2);
 
 RTPMainUnit::RTPMainUnit(){
 }
@@ -14,7 +10,6 @@ void RTPMainUnit::begin(){
   Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
-  chordionKeys.initSetup();
   rtpTrellis.begin(this);
   outDevicesManager.initSetup();
   outDevicesManager.connectNeoTrellis(rtpTrellis);

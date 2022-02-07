@@ -2,11 +2,9 @@
 
 #include "Arduino.h"
 #include <Wire.h>
-#include "MIDI.h"
 #include "RTPNeoTrellis.hpp"
 #include "RTPRotaryClickChordion.hpp"
 #include "RTPThreeAxisVL.hpp"
-#include "ChordionKeys.hpp"
 #include "BuitOutDevicesManager.hpp"
 #include "StateMachineManager.hpp"
 #include "RTPSequencer.h"
@@ -20,8 +18,6 @@ class RTPMainUnit{
   StateMachineManager stateMachineManager;
   RTPSequencer Sequencer{1};
   RTPSequencerManager SequencerManager;
-  ChordionKeys chordionKeys;
-  int baseNote = BASE_NOTE;
 public:
   RTPMainUnit();
   void begin();
