@@ -44,24 +44,24 @@ RTPScene::RTPScene(String name, int NSequences){
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
     int baseNote = types[i] == DRUM ? 36 + i : 60;
-    RTPEventNoteSequence *sequence = new RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i], baseNote);
-    SequencerScene.add(sequence);
+    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i], baseNote);
+    SequencerScene.push_back(sequence);
   }
 }
 
 void RTPScene::fordwardScene(){
   for(int i=0; i<SequencerScene.size(); i++)
-    SequencerScene.get(i)->fordwardSequence();
+    SequencerScene[i].fordwardSequence();
 }
 
 void RTPScene::backwardScene(){
   for(int i=0; i<SequencerScene.size(); i++)
-    SequencerScene.get(i)->backwardSequence();
+    SequencerScene[i].backwardSequence();
 }
 
 void RTPScene::resetScene(){
   for(int i=0; i<SequencerScene.size(); i++)
-    SequencerScene.get(i)->resetSequence();
+    SequencerScene[i].resetSequence();
 }
 
 void RTPScene::setSelectedSequence(int selectedSequence){
@@ -78,8 +78,8 @@ int RTPScene::getSize(){
 
 RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
   for(int i=0; i<SEQ_BLOCK_SIZE; i++){
-    if(i < SequencerScene.get(_selectedSequence)->getSequenceSize())
-      _seqStates.val[i] = SequencerScene.get(_selectedSequence)->getNoteStateInSequence(i);
+    if(i < SequencerScene[_selectedSequence].getSequenceSize())
+      _seqStates.val[i] = SequencerScene[_selectedSequence].getNoteStateInSequence(i);
     else
       _seqStates.val[i] = false;
   } 
@@ -89,59 +89,59 @@ RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
 RTPSequencesState RTPScene::getSequencesState(){
   RTPSequencesState seqsState;
   for(int i=0; i<SequencerScene.size(); i++){
-    seqsState.sequenceState[i].state = SequencerScene.get(i)->isCurrentSequenceEnabled();
-    seqsState.sequenceState[i].color = SequencerScene.get(i)->getColor();
+    seqsState.sequenceState[i].state = SequencerScene[i].isCurrentSequenceEnabled();
+    seqsState.sequenceState[i].color = SequencerScene[i].getColor();
   }
   return seqsState;
 }
 
 int RTPScene::getSequenceType(int sequenceIndex)  {
-  return SequencerScene.get(sequenceIndex)->getType();
+  return SequencerScene[sequenceIndex].getType();
 }
 
 void RTPScene::selectParameterInSequece(int parameterIndex){
-  SequencerScene.get(_selectedSequence)->selectParameter(parameterIndex);
+  SequencerScene[_selectedSequence].selectParameter(parameterIndex);
 }
 
 void RTPScene::incselectParameterInSequece(){
-  SequencerScene.get(_selectedSequence)->increaseParameterValue();
+  SequencerScene[_selectedSequence].increaseParameterValue();
 }
 
 void RTPScene::decselectParameterInSequece(){
-  SequencerScene.get(_selectedSequence)->decreaseParameterValue();
+  SequencerScene[_selectedSequence].decreaseParameterValue();
 }
 
 int RTPScene::getSelectedParameterInSequeceValue(){
-  return SequencerScene.get(_selectedSequence)->getParameterValue();
+  return SequencerScene[_selectedSequence].getParameterValue();
 }
 
 void RTPScene::toggleSequence(int sequenceIndex){
-  SequencerScene.get(sequenceIndex)->enableSequence(!SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled());
+  SequencerScene[sequenceIndex].enableSequence(!SequencerScene[sequenceIndex].isCurrentSequenceEnabled());
   //Serial.printf("Sequence %d is %s\n", sequenceIndex, SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled() ? "enabled" : "disabled");
 }
 
 void RTPScene::toggleNoteInSequence(int position){
-  SequencerScene.get(_selectedSequence)->editNoteInSequence(position,
-  !SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
-  Serial.println(SequencerScene.get(_selectedSequence)->getNoteStateInSequence(position));
+  SequencerScene[_selectedSequence].editNoteInSequence(position,
+  !SequencerScene[_selectedSequence].getNoteStateInSequence(position));
+  Serial.println(SequencerScene[_selectedSequence].getNoteStateInSequence(position));
 }
 
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();
   for(int i=0; i<SequencerScene.size(); i++){
-    if(SequencerScene.get(i)->getCurrentEventNote() != NULL)
-      playedNotesList.add(SequencerScene.get(i)->getCurrentEventNote());
+    if(SequencerScene[i].getCurrentEventNote() != NULL)
+      playedNotesList.add(SequencerScene[i].getCurrentEventNote());
   }
   return playedNotesList;
 }
 
 RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
-  for(int i=0; i<SequencerScene.get(_selectedSequence)->getSequenceSize(); i++){
-    _seqStates.val[i] = SequencerScene.get(_selectedSequence)->getNoteStateInSequence(i);
+  for(int i=0; i<SequencerScene[_selectedSequence].getSequenceSize(); i++){
+    _seqStates.val[i] = SequencerScene[_selectedSequence].getNoteStateInSequence(i);
   }
   return _seqStates;
 }
 
 int RTPScene::getSequenceColor(){
-  return SequencerScene.get(_selectedSequence)->getColor();
+  return SequencerScene[_selectedSequence].getColor();
 }

@@ -3,9 +3,12 @@
 #include <RTPEventNoteSequence.h>
 #include "Structs.h"
 #include "LinkedList.h"
+#include <vector>
+using namespace std;
 
 class RTPScene{
-  LinkedList <RTPEventNoteSequence*> SequencerScene = LinkedList<RTPEventNoteSequence*>();
+  //LinkedList <RTPEventNoteSequence*> SequencerScene = LinkedList<RTPEventNoteSequence*>();
+  vector<RTPEventNoteSequence> SequencerScene;
   String _name;
   int _NSequences;
   int _selectedSequence;
