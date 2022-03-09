@@ -17,7 +17,7 @@ void setup() {
   };
 
   a2dp_sink.set_i2s_config(i2s_config);  
-  a2dp_sink.start("NaskersBluetoothSpeaker");  
+  a2dp_sink.start("LaPutaSalleBluetoothSpeaker");  
 
 }
 
