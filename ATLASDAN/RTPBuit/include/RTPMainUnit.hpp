@@ -10,6 +10,7 @@
 #include "StateMachineManager.hpp"
 #include "RTPSequencer.h"
 #include "RTPSequencerManager.hpp"
+#include "MusicManager.hpp"
   
 class RTPMainUnit{
   RTPNeoTrellis rtpTrellis;
@@ -19,6 +20,7 @@ class RTPMainUnit{
   StateMachineManager stateMachineManager;
   RTPSequencer Sequencer{1};
   RTPSequencerManager SequencerManager;
+  MusicManager musicManager;
 public:
   RTPMainUnit();
   void begin();

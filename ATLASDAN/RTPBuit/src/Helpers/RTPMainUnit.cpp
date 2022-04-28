@@ -5,7 +5,7 @@ RTPMainUnit::RTPMainUnit(){
 }
 
 void RTPMainUnit::begin(){  
-  Serial.begin(115200);
+  Serial.begin(9600);
   Wire.begin();
   Wire1.begin();
   vlSensor.initSetup();
@@ -39,5 +39,6 @@ void RTPMainUnit::linkToSequencerManager(byte realtimebyte){
 }
 
 void RTPMainUnit::routeControlChange(byte channel, byte control, byte value) {
-  Serial.printf("Control change: %d %d %d\n", channel, control, value);
+  //Serial.printf("Control change: %d %d %d\n", channel, control, value);
+  musicManager.setCurrentHarmony(channel, control, value);
 }
