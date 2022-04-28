@@ -49,6 +49,11 @@ RTPScene::RTPScene(String name, int NSequences){
   }
 }
 
+void RTPScene::playScene(){
+  for(int i=0; i<SequencerScene.size(); i++)
+    SequencerScene[i].playCurrentEventNote();
+}
+
 void RTPScene::fordwardScene(){
   for(int i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].fordwardSequence();
@@ -124,15 +129,16 @@ void RTPScene::toggleNoteInSequence(int position){
   SequencerScene[_selectedSequence].editNoteInSequence(position,
   !SequencerScene[_selectedSequence].getNoteStateInSequence(position));
 }
-
+/*
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();
   for(int i=0; i<SequencerScene.size(); i++){
     if(SequencerScene[i].getCurrentEventNote() != NULL)
       playedNotesList.add(SequencerScene[i].getCurrentEventNote());
+
   }
   return playedNotesList;
-}
+}*/
 
 RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
   for(int i=0; i<SequencerScene[_selectedSequence].getSequenceSize(); i++){

@@ -10,7 +10,7 @@ RTPSequencer::RTPSequencer(int NScenes){
   }
 }
 
-void RTPSequencer::playAndMoveSequencer(){
+/*void RTPSequencer::playAndMoveSequencer(){
   for(int i=0; i<Sequencer.size(); i++){
     for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
       switch(Sequencer[i].getSequenceType(j)){
@@ -27,25 +27,33 @@ void RTPSequencer::playAndMoveSequencer(){
     }
     Sequencer[i].fordwardScene();
   }
+}*/
+
+void RTPSequencer::playAndMoveSequencer(){
+  for(int i=0; i<Sequencer.size(); i++){
+    Sequencer[i].playScene();
+    Sequencer[i].fordwardScene();
+  }
 }
 
 void RTPSequencer::stopAndCleanSequencer(){
   for(int i=0; i<Sequencer.size(); i++){
     Sequencer[i].resetScene();
+    /*
     for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
       Sequencer[i].getPlayedNotesList().get(j)->playNoteOff();
       Sequencer[i].getPlayedNotesList().remove(j);
-    }
+    }*/
   }
 }
 
 void RTPSequencer::pauseSequencer(){
-  for(int i=0; i<Sequencer.size(); i++){
+ /* for(int i=0; i<Sequencer.size(); i++){
     for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
       Sequencer[i].getPlayedNotesList().get(j)->playNoteOff();
       Sequencer[i].getPlayedNotesList().remove(j);
     }
-  }
+  }*/
 }
 
 void RTPSequencer::selectScene(int scene){

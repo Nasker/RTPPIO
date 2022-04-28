@@ -14,6 +14,7 @@ class RTPScene{
   RTPSequenceNoteStates _seqStates;
 public:
   RTPScene(String name, int NSequences);
+  void playScene();
   void fordwardScene();
   void backwardScene();
   void resetScene();
@@ -31,5 +32,5 @@ public:
   void toggleNoteInSequence(int position);
   RTPSequenceNoteStates getSequenceNoteStates();
   int getSequenceColor();
-  LinkedList<RTPEventNotePlus*>  getPlayedNotesList();
+  //LinkedList<RTPEventNotePlus*>  getPlayedNotesList();
 };

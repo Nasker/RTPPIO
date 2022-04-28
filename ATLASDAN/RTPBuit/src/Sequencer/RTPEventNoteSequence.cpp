@@ -89,6 +89,29 @@ RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
     return NULL;
 }
 
+void RTPEventNoteSequence::playCurrentEventNote(){
+  if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
+    switch (getType()){
+      case DRUM:
+        EventNoteSequence[_currentPosition].playNoteOn();
+        EventNoteSequence[_currentPosition].playNoteOff();
+        break;
+      case BASS_SYNTH:
+        EventNoteSequence[_currentPosition].playNoteOff();
+        EventNoteSequence[_currentPosition].playNoteOn();
+        break;
+      case MONO_SYNTH:
+        EventNoteSequence[_currentPosition].playNoteOff();
+        EventNoteSequence[_currentPosition].playNoteOn();
+        break;
+      case POLY_SYNTH:
+        EventNoteSequence[_currentPosition].playNoteOff();
+        EventNoteSequence[_currentPosition].playNoteOn();
+        break;
+    }
+  }
+}
+
 void RTPEventNoteSequence::setMidiChannel(int midiChannel){
   sequenceParameters[MIDI_CHANNEL].setValue(midiChannel);
 }

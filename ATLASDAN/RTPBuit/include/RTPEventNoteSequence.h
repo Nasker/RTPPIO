@@ -39,6 +39,7 @@ public:
 	bool isCurrentSequenceEnabled();
 	void enableSequence(bool state);
 	RTPEventNotePlus* getCurrentEventNote();
+	void playCurrentEventNote();
 	void setMidiChannel(int midiChannel);
 	int getMidiChannel();
 	void setColor(int color);
