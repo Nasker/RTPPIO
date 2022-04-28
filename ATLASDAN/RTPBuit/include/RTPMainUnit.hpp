@@ -27,4 +27,5 @@ public:
   void linkToSequencerManager(byte realtimebyte);
   void actOnThreeAxisCallback(String callbackString, int rangeValue);
   void actOnControlsCallback(ControlCommand answer);
+  void routeControlChange(byte channel, byte control, byte value);
 };

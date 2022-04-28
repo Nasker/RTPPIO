@@ -37,3 +37,7 @@ void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
 void RTPMainUnit::linkToSequencerManager(byte realtimebyte){
   SequencerManager.handleRealTimeSystem(realtimebyte);
 }
+
+void RTPMainUnit::routeControlChange(byte channel, byte control, byte value) {
+  Serial.printf("Control change: %d %d %d\n", channel, control, value);
+}

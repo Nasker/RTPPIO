@@ -15,9 +15,14 @@ void linkToSequencerManager(byte realtimebyte){
   mUnit.linkToSequencerManager(realtimebyte);
 }
 
+void routeControlChange(byte channel, byte control, byte value){
+  mUnit.routeControlChange(channel, control, value);
+}
+
 void setup() {
   mUnit.begin();
   usbMIDI.setHandleRealTimeSystem(linkToSequencerManager);
+  usbMIDI.setHandleControlChange(routeControlChange);
 }
 
 void loop() {
