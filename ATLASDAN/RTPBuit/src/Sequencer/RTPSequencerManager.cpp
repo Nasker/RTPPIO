@@ -23,9 +23,9 @@ void RTPSequencerManager::handleRealTimeSystem(byte realtimebyte){
 }
 
 void RTPSequencerManager::gridClockUp(byte realtimebyte){
-    increaseCounter();
     if (counter % CLOCK_GRID == 0)
         _sequencer->playAndMoveSequencer();
+    increaseCounter();
 } 
 
 void RTPSequencerManager::increaseCounter(){
