@@ -13,6 +13,7 @@ public:
     NotesPlayer();
     void queueNotes(RTPEventNotePlus note);
     void playNotes();
+    void decreaseTimeToLive();
     bool killThatNote(int keyToNote);
     void killAllNotes();
 };
