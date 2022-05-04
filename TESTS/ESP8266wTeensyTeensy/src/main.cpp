@@ -50,8 +50,8 @@ void printWifiStatus(){
 void setup(){
   pinMode(LED_BUILTIN, OUTPUT);	// initialize digital pin LED_BUILTIN as an output.
   Serial.begin(115200);   // initialize serial for debugging
-  Serial1.begin(115200);    // initialize serial for ESP module
-  WiFi.init(&Serial1);    // initialize ESP module
+  Serial3.begin(115200);    // initialize serial for ESP module
+  WiFi.init(&Serial3);    // initialize ESP module
 
   // check for the presence of the shield
   if (WiFi.status() == WL_NO_SHIELD) {
