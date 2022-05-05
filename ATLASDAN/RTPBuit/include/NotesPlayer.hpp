@@ -1,14 +1,15 @@
 #pragma once
 
 #include "RTPEventNotePlus.h"
+#include "Arduino.h"
 #include <map>
 #include <queue>
 
 using namespace std;
 
 class NotesPlayer {
-    queue<RTPEventNotePlus> _notesQueue;
-    map<int,RTPEventNotePlus> _ringingNotes;
+    queue<RTPEventNotePlus> _notesQueue; 
+    std::map<int, RTPEventNotePlus> _ringingNotes;
 public:
     NotesPlayer();
     void queueNotes(RTPEventNotePlus note);
