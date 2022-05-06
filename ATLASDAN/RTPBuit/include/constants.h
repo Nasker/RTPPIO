@@ -1,5 +1,7 @@
  #include <Arduino.h>
 
+#define DEPLOY_VERSION
+
 #define TRELLIS 1
 #define ROTARY 2
 #define THREE_AXIS 3
@@ -24,9 +26,15 @@
 #define ROT_LEFT_PIN 11
 #define ROT_RIGHT_PIN 12
 
-#define SENSOR_1_PIN 5
-#define SENSOR_2_PIN 6
-#define SENSOR_3_PIN 7
+#if defined(DEPLOY_VERSION)
+    #define SENSOR_1_PIN 2
+    #define SENSOR_2_PIN 3
+    #define SENSOR_3_PIN 4
+#elif 
+    #define SENSOR_1_PIN 5
+    #define SENSOR_2_PIN 6
+    #define SENSOR_3_PIN 7
+#endif
 
 #define N_NOTES 12
 #define BASE_NOTE 48

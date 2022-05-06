@@ -5,9 +5,15 @@
 
 class RTPEventNotePlus: public RTPEventNote{
     int _midiChannel;
+    int _length;
   public:
     RTPEventNotePlus(int midiChannel, bool state, int note, int velocity):RTPEventNote(state, note, velocity){
       _midiChannel = midiChannel;
+      _length = 1;
+    }
+    RTPEventNotePlus(int midiChannel, bool state, int note, int velocity, int length):RTPEventNote(state, note, velocity){
+      _midiChannel = midiChannel;
+      _length = length;
     }
     int getMidiChannel(){
       return _midiChannel;

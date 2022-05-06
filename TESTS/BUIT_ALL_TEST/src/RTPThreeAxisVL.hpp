@@ -1,13 +1,21 @@
 #pragma once
 
+#define DEPLOY_VERSION
+
 #include <VL53L0X.h>
 #include "Wire.h"
 
 #define CONTROL_ID 1
 
-#define SENSOR_1_PIN 5
-#define SENSOR_2_PIN 6
-#define SENSOR_3_PIN 7
+#if defined(DEPLOY_VERSION)
+    #define SENSOR_1_PIN 2
+    #define SENSOR_2_PIN 3
+    #define SENSOR_3_PIN 4
+#elif 
+    #define SENSOR_1_PIN 5
+    #define SENSOR_2_PIN 6
+    #define SENSOR_3_PIN 7
+#endif
 
 #define SENSOR_1_ID 1
 #define SENSOR_2_ID 2
