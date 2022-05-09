@@ -21,7 +21,9 @@ void NotesPlayer::playNotes(){
 void NotesPlayer::decreaseTimeToLive(){
     std::map<int, RTPEventNotePlus>::iterator it;
     for(it = _ringingNotes.begin(); it != _ringingNotes.end(); it++){
-        it->second.decreaseTimeToLive();
+        if(!it->second.decreaseTimeToLive())
+            _ringingNotes.erase(it);
+    }    
 }
 
 bool NotesPlayer::killThatNote(int keyToNote){
