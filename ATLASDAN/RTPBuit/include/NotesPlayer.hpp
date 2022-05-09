@@ -12,9 +12,11 @@ class NotesPlayer {
     std::map<int, RTPEventNotePlus> _ringingNotes;
 public:
     NotesPlayer();
-    void queueNotes(RTPEventNotePlus note);
+    void queueNote(RTPEventNotePlus note);
     void playNotes();
     void decreaseTimeToLive();
-    bool killThatNote(int keyToNote);
+    bool killThatNote(RTPEventNotePlus note);
     void killAllNotes();
+private:
+    int keyToNote(RTPEventNotePlus note);
 };

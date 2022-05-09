@@ -13,12 +13,12 @@ class RTPEventNotePlus: public RTPEventNote{
       _length = 1;
       _timeToLive = _length;
     }
-    
+    /*
     RTPEventNotePlus(int midiChannel, bool state, int note, int velocity, int length):RTPEventNote(state, note, velocity){
       _midiChannel = midiChannel;
       _length = length;
       _timeToLive = _length;
-    }
+    }*/
 
     int getMidiChannel(){
       return _midiChannel;

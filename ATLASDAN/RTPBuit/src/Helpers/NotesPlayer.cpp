@@ -5,7 +5,7 @@ NotesPlayer::NotesPlayer(){
     _ringingNotes = std::map<int, RTPEventNotePlus>();
 }
 
-void NotesPlayer::queueNotes(RTPEventNotePlus note){
+void NotesPlayer::queueNote(RTPEventNotePlus note){
     _notesQueue.push(note);
 }
 
@@ -13,7 +13,7 @@ void NotesPlayer::playNotes(){
     while(!_notesQueue.empty()){
         RTPEventNotePlus note = _notesQueue.front();
         _notesQueue.pop();
-        _ringingNotes[note.getMidiChannel()*1000 + note.getEventNote()] = note;
+        _ringingNotes.insert ( std::pair<int, RTPEventNotePlus>(keyToNote(note), note) );
         note.playNoteOn();
     }
 }
@@ -26,9 +26,9 @@ void NotesPlayer::decreaseTimeToLive(){
     }    
 }
 
-bool NotesPlayer::killThatNote(int keyToNote){
+bool NotesPlayer::killThatNote(RTPEventNotePlus note){
     std::map<int, RTPEventNotePlus>::iterator it;
-    it = _ringingNotes.find(keyToNote);
+    it = _ringingNotes.find(keyToNote(note));
     if(it != _ringingNotes.end()){
         it->second.playNoteOff();
         _ringingNotes.erase(it);
@@ -42,4 +42,8 @@ void NotesPlayer::killAllNotes(){
     for(it = _ringingNotes.begin(); it != _ringingNotes.end(); it++)
         it->second.playNoteOff();
     _ringingNotes.clear();
+}
+
+int NotesPlayer::keyToNote(RTPEventNotePlus note){
+    return note.getMidiChannel() * 1000 + note.getEventNote();
 }
