@@ -13,8 +13,9 @@ void NotesPlayer::playNotes(){
     while(!_notesQueue.empty()){
         RTPEventNotePlus note = _notesQueue.front();
         _notesQueue.pop();
-        _ringingNotes.insert ( std::pair<int, RTPEventNotePlus>(keyToNote(note), note) );
-        note.playNoteOn();
+        auto ans = _ringingNotes.insert ( std::pair<int, RTPEventNotePlus>(keyToNote(note), note) );
+        if(ans.second)
+            note.playNoteOn();
     }
 }
 
@@ -42,6 +43,8 @@ void NotesPlayer::killAllNotes(){
     for(it = _ringingNotes.begin(); it != _ringingNotes.end(); it++)
         it->second.playNoteOff();
     _ringingNotes.clear();
+    while(!_notesQueue.empty())
+        _notesQueue.pop();
 }
 
 int NotesPlayer::keyToNote(RTPEventNotePlus note){
