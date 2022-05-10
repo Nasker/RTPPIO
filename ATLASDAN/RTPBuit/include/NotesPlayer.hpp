@@ -4,12 +4,13 @@
 #include "Arduino.h"
 #include <map>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 class NotesPlayer {
     queue<RTPEventNotePlus> _notesQueue; 
-    std::map<int, RTPEventNotePlus> _ringingNotes;
+    vector<std::map<int, RTPEventNotePlus>> _ringingNotes;
 public:
     NotesPlayer();
     void queueNote(RTPEventNotePlus note);

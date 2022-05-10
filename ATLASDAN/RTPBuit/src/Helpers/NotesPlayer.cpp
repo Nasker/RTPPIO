@@ -2,7 +2,7 @@
 
 NotesPlayer::NotesPlayer(){
     _notesQueue = queue<RTPEventNotePlus>();
-    _ringingNotes = std::map<int, RTPEventNotePlus>();
+    _ringingNotes = vector<std::map<int, RTPEventNotePlus>>(16);
 }
 
 void NotesPlayer::queueNote(RTPEventNotePlus note){
@@ -13,26 +13,30 @@ void NotesPlayer::playNotes(){
     while(!_notesQueue.empty()){
         RTPEventNotePlus note = _notesQueue.front();
         _notesQueue.pop();
-        auto ans = _ringingNotes.insert ( std::pair<int, RTPEventNotePlus>(keyToNote(note), note) );
+        auto ans = _ringingNotes[note.getMidiChannel()-1].
+        insert( std::pair<int, RTPEventNotePlus>(note.getEventNote(), note) );
         if(ans.second)
             note.playNoteOn();
-    }
+        else
+            ans.first->second.playNoteOff();    }
 }
 
 void NotesPlayer::decreaseTimeToLive(){
     std::map<int, RTPEventNotePlus>::iterator it;
-    for(it = _ringingNotes.begin(); it != _ringingNotes.end(); it++){
-        if(!it->second.decreaseTimeToLive())
-            _ringingNotes.erase(it);
-    }    
+    for(int i = 0; i < _ringingNotes.size(); i++){
+        for(it = _ringingNotes[i].begin(); it != _ringingNotes[i].end(); it++){
+            if(!it->second.decreaseTimeToLive())
+                _ringingNotes[i].erase(it);
+        }    
+    }
 }
 
 bool NotesPlayer::killThatNote(RTPEventNotePlus note){
     std::map<int, RTPEventNotePlus>::iterator it;
-    it = _ringingNotes.find(keyToNote(note));
-    if(it != _ringingNotes.end()){
+    it = _ringingNotes[note.getMidiChannel()-1].find(note.getEventNote());
+    if(it != _ringingNotes[note.getMidiChannel()-1].end()){
         it->second.playNoteOff();
-        _ringingNotes.erase(it);
+        _ringingNotes[note.getMidiChannel()-1].erase(it);
         return true;
     }
     return false;
@@ -40,13 +44,12 @@ bool NotesPlayer::killThatNote(RTPEventNotePlus note){
 
 void NotesPlayer::killAllNotes(){
     std::map<int, RTPEventNotePlus>::iterator it;
-    for(it = _ringingNotes.begin(); it != _ringingNotes.end(); it++)
-        it->second.playNoteOff();
-    _ringingNotes.clear();
+    for(int i = 0; i < _ringingNotes.size(); i++){
+        for(it = _ringingNotes[i].begin(); it != _ringingNotes[i].end(); it++){
+            it->second.playNoteOff();
+        }
+        _ringingNotes[i].clear();
+    }
     while(!_notesQueue.empty())
         _notesQueue.pop();
-}
-
-int NotesPlayer::keyToNote(RTPEventNotePlus note){
-    return note.getMidiChannel() * 1000 + note.getEventNote();
 }
