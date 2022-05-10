@@ -21,15 +21,15 @@ void SequenceSelectState::doubleClick() {
 }
 
 void SequenceSelectState::longClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSelectState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSelectState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSelectState::trellisPressed(ControlCommand command) {
@@ -40,5 +40,5 @@ void SequenceSelectState::trellisPressed(ControlCommand command) {
 }
 
 void SequenceSelectState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

@@ -31,13 +31,16 @@ RTPSequencer::RTPSequencer(int NScenes){
 }*/
 
 void RTPSequencer::playAndMoveSequencer(){
-  for(int i=0; i<Sequencer.size(); i++){
+  for(int i=0; i<Sequencer.size(); i++){ 
     Sequencer[i].playScene();
+    _notesPlayer.playNotes();
     Sequencer[i].fordwardScene();
+    _notesPlayer.decreaseTimeToLive();
   }
 }
 
 void RTPSequencer::stopAndCleanSequencer(){
+  _notesPlayer.killAllNotes();
   for(int i=0; i<Sequencer.size(); i++){
     Sequencer[i].resetScene();
     /*
@@ -93,6 +96,10 @@ void RTPSequencer::selectSequence(int sequenceIndex){
 RTPSequenceNoteStates RTPSequencer::getSelectedSequenceNoteStates(){
   RTPSequenceNoteStates sequenceNoteStates = Sequencer[_selectedScene].getSequenceNoteStates();
   return sequenceNoteStates;
+}
+
+void RTPSequencer::editNoteInCurrentPosition(ControlCommand command){
+  Sequencer[_selectedScene].editNoteInCurrentPosition(command);
 }
 
 int RTPSequencer::getSelectedSequenceColor(){

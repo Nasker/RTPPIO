@@ -96,6 +96,7 @@ RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
 void RTPEventNoteSequence::playCurrentEventNote(){
   if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
     _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+
     /*
     switch (getType()){
       case DRUM:
@@ -164,6 +165,23 @@ void RTPEventNoteSequence::editNoteInSequence(int position, int note, int veloci
   if(position < EventNoteSequence.size()){
     EventNoteSequence[position].setEventNote(note);
     EventNoteSequence[position].setEventVelocity(velocity);
+  }
+}
+
+void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
+  if(command.controlType == THREE_AXIS){ 
+    switch(command.commandType){
+      case CHANGE_LEFT:
+        if (getType()!=DRUM)
+          EventNoteSequence[_currentPosition].setEventRead(command.value);
+        return;
+      case CHANGE_RIGHT:
+        EventNoteSequence[_currentPosition].setEventVelocity(command.value);
+        return;
+      case CHANGE_CENTER:
+        EventNoteSequence[_currentPosition].setLength(command.value);
+        return;
+    } 
   }
 }
 

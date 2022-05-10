@@ -8,7 +8,7 @@ SequenceSettingsState::SequenceSettingsState(BuitStateMachine* buitMachine){
 }
 
 void SequenceSettingsState::singleClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSettingsState::doubleClick() {
@@ -18,21 +18,21 @@ void SequenceSettingsState::doubleClick() {
 }
 
 void SequenceSettingsState::longClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSettingsState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSettingsState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequenceSettingsState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 } 
 
 void SequenceSettingsState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

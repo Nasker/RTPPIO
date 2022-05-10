@@ -4,18 +4,12 @@
 #include "Wire.h"
 #include "ControlCommand.h"
 #include "constants.h"
+#include "Structs.h"
 
 #define DEFAULT_MAX_READING 306
 #define DEFAULT_MIN_READING 50
 
 class RTPMainUnit;
-
-struct ThreeReadings {
-  int sensorReading1;
-  int sensorReading2;
-  int sensorReading3;
-};
-
 
 class RTPThreeAxisVL{
   VL53L0X sensor1;

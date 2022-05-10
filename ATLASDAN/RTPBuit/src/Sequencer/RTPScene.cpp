@@ -134,6 +134,11 @@ void RTPScene::toggleNoteInSequence(int position){
   SequencerScene[_selectedSequence].editNoteInSequence(position,
   !SequencerScene[_selectedSequence].getNoteStateInSequence(position));
 }
+
+void RTPScene::editNoteInCurrentPosition(ControlCommand command){
+  SequencerScene[_selectedSequence].editNoteInCurrentPosition(command);
+}
+
 /*
 LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
   LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();

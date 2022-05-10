@@ -31,6 +31,7 @@ public:
   int getSequenceType(int sequenceIndex);
   void toggleSequence(int sequenceIndex);
   void toggleNoteInSequence(int position);
+  void editNoteInCurrentPosition(ControlCommand command);
   RTPSequenceNoteStates getSequenceNoteStates();
   int getSequenceColor();
   //LinkedList<RTPEventNotePlus*>  getPlayedNotesList();

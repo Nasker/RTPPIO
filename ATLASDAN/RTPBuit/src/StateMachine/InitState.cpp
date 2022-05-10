@@ -25,7 +25,7 @@ void InitState::longClick() {
 }
 
 void InitState::rotaryTurned(ControlCommand command) {
-    Serial.println("Going to Transport");
+  Serial.println("Going to Transport");
   _devices->presentTransport();
   _buitMachine->setState(_buitMachine->getTransportState());
 }

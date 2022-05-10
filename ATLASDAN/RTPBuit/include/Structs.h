@@ -13,3 +13,9 @@ struct RTPSequenceState{
 struct RTPSequencesState{
   RTPSequenceState sequenceState[16];
 };
+
+struct ThreeReadings {
+  int sensorReading1;
+  int sensorReading2;
+  int sensorReading3;
+};

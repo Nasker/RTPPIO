@@ -36,6 +36,14 @@ class RTPEventNotePlus: public RTPEventNote{
       usbMIDI.sendNoteOff(getEventNote(), getEventVelocity(), getMidiChannel());
     }
 
+    void setLength(int length){
+      _length = length;
+    }
+
+    int getLength(){
+      return _length;
+    }
+
     bool decreaseTimeToLive(){
       _timeToLive--;
       if(_timeToLive <= 0){
@@ -45,4 +53,3 @@ class RTPEventNotePlus: public RTPEventNote{
       return true;
     }
 };
- 

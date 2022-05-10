@@ -8,7 +8,7 @@ SceneSettingsState::SceneSettingsState (BuitStateMachine* buitMachine){
 }
 
 void SceneSettingsState::singleClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SceneSettingsState::doubleClick() {
@@ -18,21 +18,21 @@ void SceneSettingsState::doubleClick() {
 }
 
 void SceneSettingsState::longClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SceneSettingsState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SceneSettingsState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SceneSettingsState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SceneSettingsState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

@@ -45,6 +45,10 @@ void BuitDevicesManager::editSequence(ControlCommand command){
     _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
 }
 
+void BuitDevicesManager::editCurrentNote(ControlCommand command){
+    _sequencer->editNoteInCurrentPosition(command);
+}
+
 void BuitDevicesManager::presentScene(){
     printToScreen("Edit Scene","","");
     writeSceneToNeoTrellis(_sequencer->getSequencesState());

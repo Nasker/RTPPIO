@@ -8,7 +8,7 @@ SequencePianoRollState::SequencePianoRollState(BuitStateMachine* buitMachine){
 }
 
 void SequencePianoRollState::singleClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequencePianoRollState::doubleClick() {
@@ -18,21 +18,21 @@ void SequencePianoRollState::doubleClick() {
 }
 
 void SequencePianoRollState::longClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequencePianoRollState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequencePianoRollState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequencePianoRollState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void SequencePianoRollState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

@@ -8,7 +8,7 @@ GlobalSettingsState::GlobalSettingsState (BuitStateMachine* buitMachine){
 }
 
 void GlobalSettingsState::singleClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void GlobalSettingsState::doubleClick() {
@@ -18,21 +18,21 @@ void GlobalSettingsState::doubleClick() {
 }
 
 void GlobalSettingsState::longClick() {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void GlobalSettingsState::rotaryTurned(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void GlobalSettingsState::threeAxisChanged(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void  GlobalSettingsState::trellisPressed(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }
 
 void GlobalSettingsState::trellisReleased(ControlCommand command) {
-  Serial.println("Does nothing here!");
+  //Serial.println("Does nothing here!");
 }

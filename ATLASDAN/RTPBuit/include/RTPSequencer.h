@@ -27,5 +27,6 @@ public:
   void selectSequence(int sequenceIndex);
   RTPSequenceNoteStates getSelectedSequenceNoteStates();
   void toggleNoteInSceneInSelectedSequence(int position);
+  void editNoteInCurrentPosition(ControlCommand command);
   int getSelectedSequenceColor();
 };

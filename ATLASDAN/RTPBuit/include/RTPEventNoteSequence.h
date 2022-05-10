@@ -5,6 +5,10 @@
 #include "NotesPlayer.hpp"
 #include "Arduino.h"
 #include <vector>
+#include "Structs.h"
+#include "ControlCommand.h"
+#include "constants.h"
+
 using namespace std;
 
 #define SEQ_BLOCK_SIZE 16
@@ -53,6 +57,7 @@ public:
 	void editNoteInSequence(int position, bool eventState);
 	bool getNoteStateInSequence(int position);
 	void editNoteInSequence(int position, int note, int velocity);
+	void editNoteInCurrentPosition(ControlCommand command);
 	void resizeSequence(int newSize);
 	void selectParameter(int parameterIndex);
 	void increaseParameterValue();
