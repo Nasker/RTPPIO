@@ -17,8 +17,7 @@ void NotesPlayer::playNotes(){
         insert( std::pair<int, RTPEventNotePlus>(note.getEventNote(), note) );
         if(ans.second)
             note.playNoteOn();
-        else
-            ans.first->second.playNoteOff();    }
+    }
 }
 
 void NotesPlayer::decreaseTimeToLive(){

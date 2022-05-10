@@ -49,6 +49,11 @@ RTPScene::RTPScene(String name, int NSequences){
   }
 }
 
+void RTPScene::connectNotesPlayer(const NotesPlayer& notesPlayer){
+  for(int i=0; i<SequencerScene.size(); i++)
+    SequencerScene[i].connectNotesPlayer(notesPlayer);
+}
+
 void RTPScene::playScene(){
   for(int i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].playCurrentEventNote();

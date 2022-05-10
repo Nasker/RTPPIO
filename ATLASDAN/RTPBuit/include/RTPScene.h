@@ -1,6 +1,6 @@
 #pragma once
 
-#include <RTPEventNoteSequence.h>
+#include "RTPEventNoteSequence.h"
 #include "Structs.h"
 #include "LinkedList.h"
 #include <vector>
@@ -14,6 +14,7 @@ class RTPScene{
   RTPSequenceNoteStates _seqStates;
 public:
   RTPScene(String name, int NSequences);
+  void connectNotesPlayer(const NotesPlayer& notesPlayer);
   void playScene();
   void fordwardScene();
   void backwardScene();

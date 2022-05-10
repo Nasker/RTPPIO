@@ -36,6 +36,10 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   }
 }
 
+void RTPEventNoteSequence::connectNotesPlayer(const NotesPlayer& notesPlayer){
+  _notesPlayer = (NotesPlayer*) &notesPlayer;
+}
+
 void RTPEventNoteSequence::fordwardSequence(){
   _currentPosition++;
   if(_currentPosition >= EventNoteSequence.size()){
@@ -91,6 +95,8 @@ RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
 
 void RTPEventNoteSequence::playCurrentEventNote(){
   if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
+    _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+    /*
     switch (getType()){
       case DRUM:
         EventNoteSequence[_currentPosition].playNoteOn();
@@ -108,7 +114,7 @@ void RTPEventNoteSequence::playCurrentEventNote(){
         EventNoteSequence[_currentPosition].playNoteOff();
         EventNoteSequence[_currentPosition].playNoteOn();
         break;
-    }
+    }*/
   }
 }
 

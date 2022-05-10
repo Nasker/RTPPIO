@@ -2,6 +2,7 @@
 
 #include "RTPEventNotePlus.h"
 #include "RTPParameter.hpp"
+#include "NotesPlayer.hpp"
 #include "Arduino.h"
 #include <vector>
 using namespace std;
@@ -25,6 +26,7 @@ enum SequenceParametersIndex{
 class RTPEventNoteSequence{
 	vector<RTPEventNotePlus> EventNoteSequence;
 	vector<RTPParameter> sequenceParameters;
+	NotesPlayer* _notesPlayer;
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
@@ -32,6 +34,7 @@ class RTPEventNoteSequence{
 	int _selectedParameter;
 public:
 	RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote);
+	void connectNotesPlayer(const NotesPlayer& notesPlayer);
 	void fordwardSequence();
 	void backwardSequence();
 	void resetSequence();
