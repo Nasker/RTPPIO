@@ -95,30 +95,23 @@ RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
 
 void RTPEventNoteSequence::playCurrentEventNote(){
   if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
-    _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
-
-    /*
     switch (getType()){
       case DRUM:
-        EventNoteSequence[_currentPosition].playNoteOn();
-        EventNoteSequence[_currentPosition].playNoteOff();
+        EventNoteSequence[_currentPosition].setLength(1);
         break;
       case BASS_SYNTH:
-        EventNoteSequence[_currentPosition].playNoteOff();
-        EventNoteSequence[_currentPosition].playNoteOn();
+        EventNoteSequence[_currentPosition].setLength(4);
         break;
       case MONO_SYNTH:
-        EventNoteSequence[_currentPosition].playNoteOff();
-        EventNoteSequence[_currentPosition].playNoteOn();
+        EventNoteSequence[_currentPosition].setLength(4);
         break;
       case POLY_SYNTH:
-        EventNoteSequence[_currentPosition].playNoteOff();
-        EventNoteSequence[_currentPosition].playNoteOn();
+        EventNoteSequence[_currentPosition].setLength(16);
         break;
-    }*/
+    }
+    _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
   }
-}
-
+} 
 void RTPEventNoteSequence::setMidiChannel(int midiChannel){
   sequenceParameters[MIDI_CHANNEL].setValue(midiChannel);
 }
@@ -171,16 +164,23 @@ void RTPEventNoteSequence::editNoteInSequence(int position, int note, int veloci
 void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
   if(command.controlType == THREE_AXIS){ 
     switch(command.commandType){
-      case CHANGE_LEFT:
-        if (getType()!=DRUM)
+      case CHANGE_LEFT:{
+        if (getType()!=DRUM){
+          //Serial.printf("CHANGE_LEFT: %d\n", command.value);
           EventNoteSequence[_currentPosition].setEventRead(command.value);
+        }
         return;
-      case CHANGE_RIGHT:
+      }
+      case CHANGE_RIGHT:{
+        //Serial.printf("CHANGE_RIGHT: %d\n", command.value);
         EventNoteSequence[_currentPosition].setEventVelocity(command.value);
         return;
-      case CHANGE_CENTER:
+      }
+      case CHANGE_CENTER:{
+        //Serial.printf("CHANGE_CENTER: %d\n", command.value);
         EventNoteSequence[_currentPosition].setLength(command.value);
         return;
+      }
     } 
   }
 }

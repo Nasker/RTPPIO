@@ -1,5 +1,6 @@
 #include "RTPThreeAxisVL.hpp"
 #include "RTPMainUnit.hpp"
+#include "ReMap.hpp"
 
 RTPThreeAxisVL::RTPThreeAxisVL(){
     _maxLimitReading = DEFAULT_MAX_READING;
@@ -96,21 +97,21 @@ void RTPThreeAxisVL::callbackThreeAxisChanged(void (*userFunc) (ControlCommand c
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_LEFT;
-        command.value = readings.sensorReading1;
+        command.value = constrain(remap(readings.sensorReading1, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         userFunc(command);
     }
     if(readings.sensorReading2 != lastReadings.sensorReading2 && readings.sensorReading2 != -1){
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_CENTER;
-        command.value = readings.sensorReading2;
+        command.value = constrain(remap(readings.sensorReading2, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         userFunc(command);
     }
     if(readings.sensorReading3 != lastReadings.sensorReading3 && readings.sensorReading3 != -1){
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_RIGHT;
-        command.value = readings.sensorReading3;
+        command.value = constrain(remap(readings.sensorReading3, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         userFunc(command);
     }
     lastReadings = readings;
@@ -123,21 +124,21 @@ void RTPThreeAxisVL::callbackThreeAxisChanged(RTPMainUnit* mainClass){
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_LEFT;
-        command.value = readings.sensorReading1;
+        command.value = constrain(remap(readings.sensorReading1, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         mainClass->actOnControlsCallback(command);
     }
     if(readings.sensorReading2 != lastReadings.sensorReading2 && readings.sensorReading2 != -1){
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_CENTER;
-        command.value = readings.sensorReading2;
+        command.value = constrain(remap(readings.sensorReading2, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         mainClass->actOnControlsCallback(command);
     }
     if(readings.sensorReading3 != lastReadings.sensorReading3 && readings.sensorReading3 != -1){
         ControlCommand command;
         command.controlType = THREE_AXIS;
         command.commandType = CHANGE_RIGHT;
-        command.value = readings.sensorReading3;
+        command.value = constrain(remap(readings.sensorReading3, _minLimitReading, _maxLimitReading, 0, 127), 0, 127);
         mainClass->actOnControlsCallback(command);
     }
     lastReadings = readings;

@@ -38,10 +38,15 @@ class RTPEventNotePlus: public RTPEventNote{
 
     void setLength(int length){
       _length = length;
+      _timeToLive = _length;
     }
 
     int getLength(){
       return _length;
+    }
+
+    int getTimeToLive(){
+      return _timeToLive;
     }
 
     bool decreaseTimeToLive(){
