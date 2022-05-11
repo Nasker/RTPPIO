@@ -10,26 +10,7 @@ RTPSequencer::RTPSequencer(int NScenes){
     Sequencer[i].connectNotesPlayer(_notesPlayer);
   }
 }
-
-/*void RTPSequencer::playAndMoveSequencer(){
-  for(int i=0; i<Sequencer.size(); i++){
-    for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
-      switch(Sequencer[i].getSequenceType(j)){
-        case DRUM: 
-          Sequencer[i].getPlayedNotesList().get(j)->playNoteOn();
-          Sequencer[i].getPlayedNotesList().get(j)->playNoteOff();
-          Sequencer[i].getPlayedNotesList().remove(j);
-          
-          break;
-        case MONO_SYNTH:
-          Sequencer[i].getPlayedNotesList().get(i)->playNoteOn();
-          break;
-      }
-    }
-    Sequencer[i].fordwardScene();
-  }
-}*/
-
+ 
 void RTPSequencer::playAndMoveSequencer(){
   for(int i=0; i<Sequencer.size(); i++){ 
     Sequencer[i].playScene();
@@ -40,24 +21,13 @@ void RTPSequencer::playAndMoveSequencer(){
 }
 
 void RTPSequencer::stopAndCleanSequencer(){
-  _notesPlayer.killAllNotes();
-  for(int i=0; i<Sequencer.size(); i++){
+  for(int i=0; i<Sequencer.size(); i++)
     Sequencer[i].resetScene();
-    /*
-    for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
-      Sequencer[i].getPlayedNotesList().get(j)->playNoteOff();
-      Sequencer[i].getPlayedNotesList().remove(j);
-    }*/
-  }
+  _notesPlayer.killAllNotes();
 }
 
 void RTPSequencer::pauseSequencer(){
- /* for(int i=0; i<Sequencer.size(); i++){
-    for(int j=0; j<Sequencer[i].getPlayedNotesList().size(); j++){
-      Sequencer[i].getPlayedNotesList().get(j)->playNoteOff();
-      Sequencer[i].getPlayedNotesList().remove(j);
-    }
-  }*/
+  _notesPlayer.killAllNotes();
 }
 
 void RTPSequencer::selectScene(int scene){
