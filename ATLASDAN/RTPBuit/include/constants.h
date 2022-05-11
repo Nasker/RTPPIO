@@ -1,3 +1,5 @@
+#pragma once 
+
  #include <Arduino.h>
 
 #define DEPLOY_VERSION
@@ -42,3 +44,10 @@
 #define LEFT 0
 #define CENTER 1
 #define RIGHT 2
+
+enum RTPEventNoteSequenceType{
+	DRUM,
+	BASS_SYNTH,
+	MONO_SYNTH,
+	POLY_SYNTH
+};

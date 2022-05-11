@@ -100,21 +100,34 @@ RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
 void RTPEventNoteSequence::playCurrentEventNote(){
   if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
     switch (getType()){
-      case DRUM:
+      case DRUM:{
         EventNoteSequence[_currentPosition].setLength(1);
-        break;
-      case BASS_SYNTH:
+        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        return;
+      }
+      case BASS_SYNTH:{
         EventNoteSequence[_currentPosition].setLength(4);
-        
-        break;
+        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), BASS_SYNTH);
+        EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        return;
+      }
       case MONO_SYNTH:
         EventNoteSequence[_currentPosition].setLength(4);
-        break;
+        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), MONO_SYNTH);
+        EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        return;
       case POLY_SYNTH:
         EventNoteSequence[_currentPosition].setLength(16);
-        break;
+        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), POLY_SYNTH);
+        while(_musicManager->getCurrentChordNotes().size()){
+          EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNotes().front());
+          _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+          _musicManager->getCurrentChordNotes().pop_front();
+        }
+        return;
     }
-    _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
   }
 } 
 void RTPEventNoteSequence::setMidiChannel(int midiChannel){

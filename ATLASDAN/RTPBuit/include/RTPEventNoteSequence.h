@@ -15,13 +15,6 @@ using namespace std;
 #define SEQ_BLOCK_SIZE 16
 #define SCENE_BLOCK_SIZE 16
 
-enum RTPEventNoteSequenceType{
-	DRUM,
-	BASS_SYNTH,
-	MONO_SYNTH,
-	POLY_SYNTH
-};
-
 enum SequenceParametersIndex{
 	TYPE,
 	MIDI_CHANNEL,
