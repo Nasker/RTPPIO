@@ -3,6 +3,7 @@
 #include "RTPEventNotePlus.h"
 #include "RTPParameter.hpp"
 #include "NotesPlayer.hpp"
+#include "MusicManager.hpp"
 #include "Arduino.h"
 #include <vector>
 #include "Structs.h"
@@ -31,6 +32,7 @@ class RTPEventNoteSequence{
 	vector<RTPEventNotePlus> EventNoteSequence;
 	vector<RTPParameter> sequenceParameters;
 	NotesPlayer* _notesPlayer;
+	MusicManager* _musicManager;
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
@@ -39,6 +41,7 @@ class RTPEventNoteSequence{
 public:
 	RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote);
 	void connectNotesPlayer(const NotesPlayer& notesPlayer);
+	void connectMusicManager(const MusicManager& musicManager);
 	void fordwardSequence();
 	void backwardSequence();
 	void resetSequence();

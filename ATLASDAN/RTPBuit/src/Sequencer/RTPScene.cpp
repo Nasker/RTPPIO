@@ -54,6 +54,11 @@ void RTPScene::connectNotesPlayer(const NotesPlayer& notesPlayer){
     SequencerScene[i].connectNotesPlayer(notesPlayer);
 }
 
+void RTPScene::connectMusicManager(const MusicManager& musicManager){
+  for(int i=0; i<SequencerScene.size(); i++)
+    SequencerScene[i].connectMusicManager(musicManager);
+}
+
 void RTPScene::playScene(){
   for(int i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].playCurrentEventNote();

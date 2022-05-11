@@ -14,6 +14,10 @@ void BuitDevicesManager::connectSequencer(const RTPSequencer& sequencer){
     _sequencer = (RTPSequencer*) &sequencer;
 }
 
+void BuitDevicesManager::connectMusicManager(const MusicManager& musicManager){
+    _sequencer->connectMusicManager(musicManager);
+}
+
 void BuitDevicesManager::printToScreen(String firstLine, String secondLine, String thirdLine){
     _oled.printToScreen(firstLine, secondLine, thirdLine);
 }

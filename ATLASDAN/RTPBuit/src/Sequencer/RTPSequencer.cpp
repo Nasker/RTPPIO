@@ -10,6 +10,11 @@ RTPSequencer::RTPSequencer(int NScenes){
     Sequencer[i].connectNotesPlayer(_notesPlayer);
   }
 }
+
+void RTPSequencer::connectMusicManager(const MusicManager& musicManager){
+  for(int i=0; i<Sequencer.size(); i++)
+    Sequencer[i].connectMusicManager(musicManager);
+}
  
 void RTPSequencer::playAndMoveSequencer(){
   for(int i=0; i<Sequencer.size(); i++){ 

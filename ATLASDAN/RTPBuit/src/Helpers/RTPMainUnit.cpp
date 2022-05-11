@@ -14,6 +14,7 @@ void RTPMainUnit::begin(){
   devicesManager.initSetup();
   devicesManager.connectNeoTrellis(rtpTrellis);
   devicesManager.connectSequencer(Sequencer);
+  devicesManager.connectMusicManager(musicManager);
   stateMachineManager.connectDevices(devicesManager);
 	SequencerManager.connectSequencer(Sequencer);
   devicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");

@@ -5,6 +5,7 @@
 #include "NotesPlayer.hpp"
 #include "Structs.h"
 #include <vector>
+#include "MusicManager.hpp"
 using namespace std;
 
 class RTPSequencer{
@@ -15,6 +16,7 @@ class RTPSequencer{
 
 public:
   RTPSequencer(int NScenes);
+  void connectMusicManager(const MusicManager& musicManager);
   void playAndMoveSequencer();
   void stopAndCleanSequencer();
   void pauseSequencer();

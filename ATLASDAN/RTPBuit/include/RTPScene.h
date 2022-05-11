@@ -15,6 +15,7 @@ class RTPScene{
 public:
   RTPScene(String name, int NSequences);
   void connectNotesPlayer(const NotesPlayer& notesPlayer);
+  void connectMusicManager(const MusicManager& musicManager);
   void playScene();
   void fordwardScene();
   void backwardScene();

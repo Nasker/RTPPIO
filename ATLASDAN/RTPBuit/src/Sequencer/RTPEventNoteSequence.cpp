@@ -40,6 +40,10 @@ void RTPEventNoteSequence::connectNotesPlayer(const NotesPlayer& notesPlayer){
   _notesPlayer = (NotesPlayer*) &notesPlayer;
 }
 
+void RTPEventNoteSequence::connectMusicManager(const MusicManager& musicManager){
+  _musicManager = (MusicManager*) &musicManager;
+}
+
 void RTPEventNoteSequence::fordwardSequence(){
   _currentPosition++;
   if(_currentPosition >= EventNoteSequence.size()){
@@ -101,6 +105,7 @@ void RTPEventNoteSequence::playCurrentEventNote(){
         break;
       case BASS_SYNTH:
         EventNoteSequence[_currentPosition].setLength(4);
+        
         break;
       case MONO_SYNTH:
         EventNoteSequence[_currentPosition].setLength(4);
@@ -178,7 +183,7 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
       }
       case CHANGE_CENTER:{
         //Serial.printf("CHANGE_CENTER: %d\n", command.value);
-        EventNoteSequence[_currentPosition].setLength(command.value);
+        //EventNoteSequence[_currentPosition].setLength(command.value);
         return;
       }
     } 
