@@ -38,7 +38,7 @@ void MusicManager::setCurrentSteps(int rangeReading, int type){
 }
 
 int MusicManager::getCurrentChordNote(){
-    return mControl.getCurrentChordMidiNote();
+    return mControl.getCurrentArpChordMidiNote();
 }
 
 queue<int> MusicManager::getCurrentChordNotes(){
