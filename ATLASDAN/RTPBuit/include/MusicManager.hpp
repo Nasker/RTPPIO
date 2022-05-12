@@ -2,8 +2,10 @@
 
 #include "RTPMusicController.h"
 #include "RTPSmartRange.h"
-#include <list>
+#include <queue>
 #include "constants.h"
+
+using namespace std;
 
 #define BASS_OCTAVES 3
 #define POLY_OCTAVES 4
@@ -22,5 +24,5 @@ public:
     void setCurrentHarmony(byte channel, byte control, byte value);
     void setCurrentSteps(int rangeReading, int type);
     int getCurrentChordNote();
-    std::list<int> getCurrentChordNotes();
+    queue<int> getCurrentChordNotes();
 };

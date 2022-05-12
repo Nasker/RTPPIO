@@ -41,11 +41,11 @@ int MusicManager::getCurrentChordNote(){
     return mControl.getCurrentChordMidiNote();
 }
 
-std::list<int> MusicManager::getCurrentChordNotes(){
-    std::list<int> chordNotes;
+queue<int> MusicManager::getCurrentChordNotes(){
+    queue<int> chordNotes;
     for(int i=0; i<mControl.chords.getChordSteps(); i++){
         mControl.setCurrentChordStep(i);
-        chordNotes.push_back(mControl.getCurrentChordMidiNote());
+        chordNotes.push(mControl.getCurrentChordMidiNote());
     }
     return chordNotes;
 }
