@@ -121,10 +121,11 @@ void RTPEventNoteSequence::playCurrentEventNote(){
       case POLY_SYNTH:
         EventNoteSequence[_currentPosition].setLength(16);
         _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), POLY_SYNTH);
-        while(!_musicManager->getCurrentChordNotes().empty()){
-          EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNotes().front());
+        auto chordNotes = _musicManager->getCurrentChordNotes();
+        while(!chordNotes.empty()){
+          EventNoteSequence[_currentPosition].setEventNote(chordNotes.front());
           _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
-          _musicManager->getCurrentChordNotes().pop();
+          chordNotes.pop();
         }
         return;
     }
