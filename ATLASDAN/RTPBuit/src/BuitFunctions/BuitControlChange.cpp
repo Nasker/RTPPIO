@@ -18,7 +18,7 @@ void BuitControlChanger::updateAndSend(ControlCommand command){
 }
 
 void BuitControlChanger::send(ControlCommand command){
-    usbMIDI.sendControlChange(command.commandType, command.value, _ID);
+    usbMIDI.sendControlChange(command.commandType, command.value, _ID + 1);
 }
 
 void BuitControlChanger::enable(){
