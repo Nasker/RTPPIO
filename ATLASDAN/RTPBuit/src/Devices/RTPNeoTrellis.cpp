@@ -87,6 +87,10 @@ void RTPNeoTrellis::writeTransportPage(int color){
   myTrellis.pixels.show();
 }
 
+void RTPNeoTrellis::writeBuitCCStates(RTPSequenceNoteStates buitCCStates){
+  writeSequenceStates(buitCCStates, TRANSPORT_COLOR);
+}
+
 /*
 void RTPNeoTrellis::callbackFromNeoTrellis(RTPMainUnit* mainClass){
   ControlCommand callbackCommand;

@@ -31,6 +31,9 @@ public:
     void editSequence(ControlCommand command);
     void useTransport(ControlCommand command);
     void editCurrentNote(ControlCommand command);
+
+    void editBuitCC(ControlCommand command);
+    void sendBuitCC(ControlCommand command);
 private:
     void writeSequenceToNeoTrellis(RTPSequenceNoteStates sequenceStates, int color);
     void writeSceneToNeoTrellis(RTPSequencesState sequencesState);
