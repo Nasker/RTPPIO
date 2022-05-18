@@ -3,6 +3,7 @@
 #include "RTPOled.hpp"
 #include "RTPNeoTrellis.hpp"
 #include "RTPSequencer.h"
+#include "MatrixBuitControlChanger.hpp"
 #include "Structs.h"
 #include "RTPTypeColors.h"
 
@@ -10,6 +11,7 @@ class BuitDevicesManager {
     RTPOled _oled;
     RTPNeoTrellis* _neoTrellis;
     RTPSequencer* _sequencer;
+    MatrixBuitControlChanger _matrixBuitCC;
 
 public:
     BuitDevicesManager();
@@ -26,6 +28,7 @@ public:
     void presentScene();
     void presentSequence();
     void presentTransport();
+    void presentBuitCC();
 
     void editScene(ControlCommand command);
     void editSequence(ControlCommand command);

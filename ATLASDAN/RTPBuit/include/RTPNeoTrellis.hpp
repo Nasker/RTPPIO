@@ -16,8 +16,8 @@ class RTPNeoTrellis{
     void read();
     void writeSequenceStates(RTPSequenceNoteStates seqStates, int color);
     void writeSceneStates(RTPSequencesState sceneStates);
+    void writeBuitCCStates(RTPSequencesState buitCCStates, int color);
     void writeTransportPage(int color);
-    void writeBuitCCStates(RTPSequenceNoteStates buitCCStates);
     //void callbackFromTrellis(void(*userFunc)(String,int));
     //void callbackFromNeoTrellis(RTPMainUnit*);
 };

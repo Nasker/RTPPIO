@@ -26,11 +26,11 @@ void TransportState::rotaryTurned(ControlCommand command) {
 }
 
 void TransportState::threeAxisChanged(ControlCommand command) {
-
+  _devices->sendBuitCC(command);
 }
 
 void TransportState::trellisPressed(ControlCommand command) {
-
+  _devices->editBuitCC(command);
 }
 
 void TransportState::trellisReleased(ControlCommand command) {

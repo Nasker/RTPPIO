@@ -8,25 +8,25 @@ InitState::InitState(BuitStateMachine* buitMachine){
 
 void InitState::singleClick() {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::doubleClick() {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::longClick() {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
 void InitState::rotaryTurned(ControlCommand command) {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
@@ -36,7 +36,7 @@ void InitState::threeAxisChanged(ControlCommand command) {
 
 void InitState::trellisPressed(ControlCommand command) {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 } 
 

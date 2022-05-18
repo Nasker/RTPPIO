@@ -17,8 +17,10 @@ RTPSequencesState MatrixBuitControlChanger::getBuitCCStates(){
 }
 
 void MatrixBuitControlChanger::updateAndSend(ControlCommand command){
-    for(int i=0; i < N_BUITS_CC; i++){
-        if(controlChangers[i].isEnabled())
-            controlChangers[i].updateAndSend(command);
+    if(command.commandType != CHANGE_CENTER){
+        for(int i=0; i < N_BUITS_CC; i++){
+            if(controlChangers[i].isEnabled())
+                controlChangers[i].updateAndSend(command);
+        }
     }
 }

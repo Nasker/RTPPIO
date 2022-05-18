@@ -15,7 +15,7 @@ void SceneEditState::singleClick() {
 
 void SceneEditState::doubleClick() {
   Serial.println("Going to Transport");
-  _devices->presentTransport();
+  _devices->presentBuitCC();
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 
@@ -29,6 +29,7 @@ void SceneEditState::rotaryTurned(ControlCommand command) {
 }
 
 void SceneEditState::threeAxisChanged(ControlCommand command) {
+  _devices->sendBuitCC(command);
 }
 
 void SceneEditState::trellisPressed(ControlCommand command) { 

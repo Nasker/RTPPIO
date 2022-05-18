@@ -80,6 +80,16 @@ void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
   myTrellis.pixels.show();
 }
 
+void RTPNeoTrellis::writeBuitCCStates(RTPSequencesState ccStates, int color){
+  for(int i=0; i<N_BUITS_CC; i++){
+    if(ccStates.sequenceState[i].state)
+      myTrellis.pixels.setPixelColor(convertMatrix[i], color);
+    else
+      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
+  }
+  myTrellis.pixels.show();
+}
+
 void RTPNeoTrellis::writeTransportPage(int color){
   for(int i=0; i<SCENE_BLOCK_SIZE; i++){
     myTrellis.pixels.setPixelColor(i, color);
@@ -87,9 +97,6 @@ void RTPNeoTrellis::writeTransportPage(int color){
   myTrellis.pixels.show();
 }
 
-void RTPNeoTrellis::writeBuitCCStates(RTPSequenceNoteStates buitCCStates){
-  writeSequenceStates(buitCCStates, TRANSPORT_COLOR);
-}
 
 /*
 void RTPNeoTrellis::callbackFromNeoTrellis(RTPMainUnit* mainClass){

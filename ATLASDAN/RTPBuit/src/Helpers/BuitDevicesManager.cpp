@@ -68,6 +68,11 @@ void BuitDevicesManager::presentTransport(){
     writeTransportPage();
 }
 
+void BuitDevicesManager::presentBuitCC(){
+    printToScreen("Buit CCs", "", "");
+    _neoTrellis->writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
+}
+
 void BuitDevicesManager::selectScene(ControlCommand command){
     _sequencer->selectScene(command.value);
 }
@@ -76,3 +81,11 @@ void BuitDevicesManager::selectSequence(ControlCommand command){
     _sequencer->selectSequence(command.value);
 }
 
+void BuitDevicesManager::editBuitCC(ControlCommand command){
+    _matrixBuitCC.toggleBuitCC(command.value);
+    _neoTrellis->writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
+}
+
+void BuitDevicesManager::sendBuitCC(ControlCommand command){
+    _matrixBuitCC.updateAndSend(command);
+}
