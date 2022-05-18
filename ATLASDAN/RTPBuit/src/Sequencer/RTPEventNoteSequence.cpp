@@ -158,13 +158,13 @@ int RTPEventNoteSequence::getSequenceSize(){
   return EventNoteSequence.size();
 }
 
-void RTPEventNoteSequence::editNoteInSequence(int position, bool eventState){
+void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
   if(position < EventNoteSequence.size()){
     EventNoteSequence[position].setEventState(eventState);
   }
 }
 
-bool RTPEventNoteSequence::getNoteStateInSequence(int position){
+bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
   if(position < EventNoteSequence.size()){
     return EventNoteSequence[position].eventState();
   }
@@ -173,7 +173,7 @@ bool RTPEventNoteSequence::getNoteStateInSequence(int position){
   }
 }
 
-void RTPEventNoteSequence::editNoteInSequence(int position, int note, int velocity){
+void RTPEventNoteSequence::editNoteInSequence(size_t position, int note, int velocity){
   if(position < EventNoteSequence.size()){
     EventNoteSequence[position].setEventNote(note);
     EventNoteSequence[position].setEventVelocity(velocity);
@@ -204,9 +204,9 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
   }
 }
 
-void RTPEventNoteSequence::resizeSequence(int newSize){
+void RTPEventNoteSequence::resizeSequence(size_t newSize){
   if(newSize > EventNoteSequence.size()){
-    for(int i=EventNoteSequence.size(); i < newSize; i++){
+    for(size_t i=EventNoteSequence.size(); i < newSize; i++){
       RTPEventNotePlus eventNote = RTPEventNotePlus(sequenceParameters[MIDI_CHANNEL].getValue(),false, 60, 80);
       EventNoteSequence.push_back(eventNote);
     }

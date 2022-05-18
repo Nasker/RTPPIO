@@ -12,12 +12,12 @@ RTPSequencer::RTPSequencer(int NScenes){
 }
 
 void RTPSequencer::connectMusicManager(const MusicManager& musicManager){
-  for(int i=0; i<Sequencer.size(); i++)
+  for(size_t i=0; i<Sequencer.size(); i++)
     Sequencer[i].connectMusicManager(musicManager);
 }
  
 void RTPSequencer::playAndMoveSequencer(){
-  for(int i=0; i<Sequencer.size(); i++){ 
+  for(size_t i=0; i<Sequencer.size(); i++){ 
     Sequencer[i].playScene();
     _notesPlayer.playNotes();
     Sequencer[i].fordwardScene();
@@ -26,7 +26,7 @@ void RTPSequencer::playAndMoveSequencer(){
 }
 
 void RTPSequencer::stopAndCleanSequencer(){
-  for(int i=0; i<Sequencer.size(); i++)
+  for(size_t i=0; i<Sequencer.size(); i++)
     Sequencer[i].resetScene();
   _notesPlayer.killAllNotes();
 }

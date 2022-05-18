@@ -29,7 +29,7 @@ class RTPEventNoteSequence{
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
-	int _currentPosition;
+	size_t _currentPosition;
 	int _selectedParameter;
 public:
 	RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote);
@@ -50,11 +50,11 @@ public:
 	void setType(int type);
 	int getType();
 	int getSequenceSize();
-	void editNoteInSequence(int position, bool eventState);
-	bool getNoteStateInSequence(int position);
-	void editNoteInSequence(int position, int note, int velocity);
+	void editNoteInSequence(size_t position, bool eventState);
+	bool getNoteStateInSequence(size_t position);
+	void editNoteInSequence(size_t position, int note, int velocity);
 	void editNoteInCurrentPosition(ControlCommand command);
-	void resizeSequence(int newSize);
+	void resizeSequence(size_t newSize);
 	void selectParameter(int parameterIndex);
 	void increaseParameterValue();
 	void decreaseParameterValue();

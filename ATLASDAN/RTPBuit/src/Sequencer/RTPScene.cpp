@@ -50,32 +50,32 @@ RTPScene::RTPScene(String name, int NSequences){
 }
 
 void RTPScene::connectNotesPlayer(const NotesPlayer& notesPlayer){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].connectNotesPlayer(notesPlayer);
 }
 
 void RTPScene::connectMusicManager(const MusicManager& musicManager){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].connectMusicManager(musicManager);
 }
 
 void RTPScene::playScene(){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].playCurrentEventNote();
 }
 
 void RTPScene::fordwardScene(){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].fordwardSequence();
 }
 
 void RTPScene::backwardScene(){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].backwardSequence();
 }
 
 void RTPScene::resetScene(){
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     SequencerScene[i].resetSequence();
 }
 
@@ -103,7 +103,7 @@ RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
 
 RTPSequencesState RTPScene::getSequencesState(){
   RTPSequencesState seqsState;
-  for(int i=0; i<SequencerScene.size(); i++){
+  for(size_t i=0; i<SequencerScene.size(); i++){
     seqsState.sequenceState[i].state = SequencerScene[i].isCurrentSequenceEnabled();
     seqsState.sequenceState[i].color = SequencerScene[i].getColor();
   }
