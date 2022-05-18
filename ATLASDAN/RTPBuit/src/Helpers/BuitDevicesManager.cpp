@@ -53,6 +53,18 @@ void BuitDevicesManager::editCurrentNote(ControlCommand command){
     _sequencer->editNoteInCurrentPosition(command);
 }
 
+void BuitDevicesManager::changeScene(ControlCommand command){
+    switch(command.commandType){
+        case ROTATING_RIGHT:
+            _sequencer->increaseSelectedScene();
+            break;
+        case ROTATING_LEFT:
+            _sequencer->decreaseSelectedScene();
+            break;
+    }
+    presentScene();
+}
+
 void BuitDevicesManager::presentScene(){
     printToScreen("Edit Scene","","");
     writeSceneToNeoTrellis(_sequencer->getSequencesState());

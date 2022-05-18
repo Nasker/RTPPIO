@@ -11,6 +11,7 @@
 #include "RTPSequencer.h"
 #include "RTPSequencerManager.hpp"
 #include "MusicManager.hpp"
+#include "constants.h"
   
 class RTPMainUnit{
   RTPNeoTrellis rtpTrellis;
@@ -18,7 +19,7 @@ class RTPMainUnit{
   RTPThreeAxisVL vlSensor;
   BuitDevicesManager devicesManager;
   StateMachineManager stateMachineManager;
-  RTPSequencer Sequencer{1};
+  RTPSequencer Sequencer{N_SCENES};
   RTPSequencerManager SequencerManager;
   MusicManager musicManager;
 public:

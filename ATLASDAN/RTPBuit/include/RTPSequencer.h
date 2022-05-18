@@ -21,6 +21,8 @@ public:
   void stopAndCleanSequencer();
   void pauseSequencer();
   void selectScene(int scene);
+  void increaseSelectedScene();
+  void decreaseSelectedScene();
   int getSelectScene();
   void addScene(RTPScene scene);
   void removeScene(int scene);

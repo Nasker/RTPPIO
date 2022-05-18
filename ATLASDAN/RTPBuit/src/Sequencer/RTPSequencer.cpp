@@ -39,6 +39,18 @@ void RTPSequencer::selectScene(int scene){
   _selectedScene = scene;
 }
 
+void RTPSequencer::increaseSelectedScene(){
+  _selectedScene++;
+  if(_selectedScene >= _NScenes - 1)
+    _selectedScene = _NScenes - 1;
+}
+
+void RTPSequencer::decreaseSelectedScene(){
+  _selectedScene--;
+  if(_selectedScene <= 0)
+    _selectedScene = 0;
+}
+
 int RTPSequencer::getSelectScene(){
   return _selectedScene;
 }

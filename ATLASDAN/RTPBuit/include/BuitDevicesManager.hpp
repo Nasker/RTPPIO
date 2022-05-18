@@ -35,6 +35,8 @@ public:
     void useTransport(ControlCommand command);
     void editCurrentNote(ControlCommand command);
 
+    void changeScene(ControlCommand command);
+
     void editBuitCC(ControlCommand command);
     void sendBuitCC(ControlCommand command);
 private:
