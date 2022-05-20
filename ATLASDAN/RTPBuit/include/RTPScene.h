@@ -36,4 +36,5 @@ public:
   RTPSequenceNoteStates getSequenceNoteStates();
   int getSequenceColor();
   //LinkedList<RTPEventNotePlus*>  getPlayedNotesList();
+  void dumpSequencesToJson();
 };

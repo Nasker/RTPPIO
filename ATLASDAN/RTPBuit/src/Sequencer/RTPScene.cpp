@@ -1,4 +1,5 @@
 #include <RTPScene.h>
+#include "RTPSDManager.hpp"
 
 int types[16] = {
   DRUM,
@@ -164,4 +165,12 @@ RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
 
 int RTPScene::getSequenceColor(){
   return SequencerScene[_selectedSequence].getColor();
+}
+
+void RTPScene::dumpSequencesToJson(){
+  String fileString = "";
+  for(int i=0; i<SequencerScene.size(); i++)
+    fileString += SequencerScene[i].dumpSequenceToJson();
+    fileString += "\t\n";
+  writeToFile("sequences.json", fileString);
 }

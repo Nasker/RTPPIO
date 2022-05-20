@@ -6,6 +6,7 @@
 #include "MatrixBuitControlChanger.hpp"
 #include "Structs.h"
 #include "RTPTypeColors.h"
+#include "RTPSDManager.hpp"
 
 class BuitDevicesManager {
     RTPOled _oled;
@@ -39,6 +40,8 @@ public:
 
     void editBuitCC(ControlCommand command);
     void sendBuitCC(ControlCommand command);
+
+    void dumpSequencesToJson();
 private:
     void writeSequenceToNeoTrellis(RTPSequenceNoteStates sequenceStates, int color);
     void writeSceneToNeoTrellis(RTPSequencesState sequencesState);

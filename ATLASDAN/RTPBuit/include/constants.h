@@ -4,7 +4,7 @@
 
 #define DEPLOY_VERSION
 
-#define N_SCENES 4
+#define N_SCENES 1
 
 #define TRELLIS 1
 #define ROTARY 2

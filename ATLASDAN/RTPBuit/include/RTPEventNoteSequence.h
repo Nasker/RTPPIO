@@ -9,6 +9,7 @@
 #include "Structs.h"
 #include "ControlCommand.h"
 #include "constants.h"
+#include "ArduinoJson.h"
 
 using namespace std;
 
@@ -59,4 +60,5 @@ public:
 	void increaseParameterValue();
 	void decreaseParameterValue();
 	int getParameterValue();
+	String dumpSequenceToJson();
 };
