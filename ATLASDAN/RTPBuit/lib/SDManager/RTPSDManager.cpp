@@ -10,9 +10,9 @@ void initBuitSD(){
 
 bool writeToFile(String fileName, String data){
     File file = SD.open(fileName.c_str(), FILE_WRITE);
-    if (file) {
+    if (file)
         Serial.println("File opened");
-    } else {
+    else {
         Serial.println("error opening file");
         return false;
     }
@@ -25,16 +25,15 @@ bool writeToFile(String fileName, String data){
 
 bool readFromFile(String fileName, String &data){
     File file = SD.open(fileName.c_str(), FILE_READ);
-    if (file) {
+    if (file)
         Serial.println("File opened");
-    } else {
+    else {
         Serial.println("error opening file");
         return false;
     }
     Serial.println("Reading from File");
-    while (file.available()) {
-    	data += file.read();
-    }
+    while (file.available())
+        data += file.readStringUntil('\n');     //data += file.read();
     file.close();
     Serial.println("done.");
     return true;

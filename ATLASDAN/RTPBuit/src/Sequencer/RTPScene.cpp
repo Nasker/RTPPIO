@@ -169,7 +169,7 @@ int RTPScene::getSequenceColor(){
 
 void RTPScene::dumpSequencesToJson(){
   String fileString = "";
-  for(int i=0; i<SequencerScene.size(); i++)
+  for(size_t i=0; i<SequencerScene.size(); i++)
     fileString += SequencerScene[i].dumpSequenceToJson();
     fileString += "\t\n";
   writeToFile("sequences.json", fileString);
