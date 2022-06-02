@@ -18,7 +18,8 @@ void SceneSettingsState::doubleClick() {
 }
 
 void SceneSettingsState::longClick() {
-  //Serial.println("Does nothing here!");
+  _devices->printToScreen("Dump Data", "DumpingData","");
+  _devices->dumpSequencesToJson();
 }
 
 void SceneSettingsState::rotaryTurned(ControlCommand command) {

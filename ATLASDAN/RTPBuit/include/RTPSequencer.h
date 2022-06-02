@@ -33,4 +33,5 @@ public:
   void toggleNoteInSceneInSelectedSequence(int position);
   void editNoteInCurrentPosition(ControlCommand command);
   int getSelectedSequenceColor();
+  void dumpSequencesToJson();
 };

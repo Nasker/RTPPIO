@@ -92,3 +92,8 @@ void RTPSequencer::editNoteInCurrentPosition(ControlCommand command){
 int RTPSequencer::getSelectedSequenceColor(){
   return Sequencer[_selectedScene].getSequenceColor();
 }
+
+void RTPSequencer::dumpSequencesToJson(){
+  for(size_t i=0; i<Sequencer.size(); i++)
+    Sequencer[i].dumpSequencesToJson();
+}

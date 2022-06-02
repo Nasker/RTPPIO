@@ -46,16 +46,15 @@ void RTPEventNoteSequence::connectMusicManager(const MusicManager& musicManager)
 
 void RTPEventNoteSequence::fordwardSequence(){
   _currentPosition++;
-  if(_currentPosition >= EventNoteSequence.size()){
+  if(_currentPosition >= EventNoteSequence.size())
     _currentPosition = 0;
-  }
+
 }
 
 void RTPEventNoteSequence::backwardSequence(){
   _currentPosition--;
-  if(_currentPosition < 0){
+  if(_currentPosition < 0)
     _currentPosition = EventNoteSequence.size();
-  }
 }
 
 void RTPEventNoteSequence::resetSequence(){
@@ -159,18 +158,15 @@ int RTPEventNoteSequence::getSequenceSize(){
 }
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
-  if(position < EventNoteSequence.size()){
+  if(position < EventNoteSequence.size())
     EventNoteSequence[position].setEventState(eventState);
-  }
 }
 
 bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
-  if(position < EventNoteSequence.size()){
+  if(position < EventNoteSequence.size())
     return EventNoteSequence[position].eventState();
-  }
-  else{
+  else
     return false;
-  }
 }
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, int note, int velocity){
@@ -184,7 +180,7 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
   if(command.controlType == THREE_AXIS){ 
     switch(command.commandType){
       case CHANGE_LEFT:{
-        if (getType()!=DRUM){
+        if (getType()!= DRUM){
           //Serial.printf("CHANGE_LEFT: %d\n", command.value);
           EventNoteSequence[_currentPosition].setEventRead(command.value);
         }
@@ -212,8 +208,24 @@ void RTPEventNoteSequence::resizeSequence(size_t newSize){
     }
   }
   else if(newSize < EventNoteSequence.size()){
-    while(EventNoteSequence.size() > newSize){
+    while(EventNoteSequence.size() > newSize)
       EventNoteSequence.pop_back();
-    }
   }
+}
+
+String RTPEventNoteSequence::dumpSequenceToJson(){
+  String noteSeqString;
+  StaticJsonDocument<1536> doc;
+  doc["type"] = getType();
+  doc["ch"] = getMidiChannel();
+  JsonArray seq = doc.createNestedArray("seq");
+  for (RTPEventNotePlus eventNote : EventNoteSequence){
+    JsonObject note = seq.createNestedObject();
+    note["read"] = eventNote.getEventRead();
+    note["vel"] = eventNote.eventState() ? eventNote.getEventVelocity() : 0;
+    note["len"] = eventNote.getLength();
+  }
+  serializeJsonPretty(doc, noteSeqString);
+  Serial.printf("%s\n", noteSeqString.c_str());
+  return noteSeqString;
 }

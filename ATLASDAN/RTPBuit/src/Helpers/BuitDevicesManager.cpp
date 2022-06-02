@@ -4,6 +4,7 @@ BuitDevicesManager::BuitDevicesManager(){}
 
 void BuitDevicesManager::initSetup(){
     _oled.init();
+    initBuitSD();
 }
 
 void BuitDevicesManager::connectNeoTrellis(const RTPNeoTrellis& neoTrellis){
@@ -100,4 +101,8 @@ void BuitDevicesManager::editBuitCC(ControlCommand command){
 
 void BuitDevicesManager::sendBuitCC(ControlCommand command){
     _matrixBuitCC.updateAndSend(command);
+}
+
+void BuitDevicesManager::dumpSequencesToJson(){
+    _sequencer->dumpSequencesToJson();
 }
