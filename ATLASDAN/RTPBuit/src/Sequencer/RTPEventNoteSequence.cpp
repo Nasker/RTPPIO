@@ -1,6 +1,7 @@
 #include <RTPEventNoteSequence.h>
 #include "RTPEventNotePlus.h"
 #include "RTPTypeColors.h"
+#include "ReMap.hpp"
 
 
 RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote){
@@ -105,20 +106,20 @@ void RTPEventNoteSequence::playCurrentEventNote(){
         return;
       }
       case BASS_SYNTH:{
-        EventNoteSequence[_currentPosition].setLength(4);
+        //EventNoteSequence[_currentPosition].setLength(4);
         _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), BASS_SYNTH);
         EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
         _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
         return;
       }
       case MONO_SYNTH:
-        EventNoteSequence[_currentPosition].setLength(4);
+        //EventNoteSequence[_currentPosition].setLength(4);
         _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), MONO_SYNTH);
         EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
         _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
         return;
       case POLY_SYNTH:
-        EventNoteSequence[_currentPosition].setLength(16);
+        //EventNoteSequence[_currentPosition].setLength(16);
         _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), POLY_SYNTH);
         auto chordNotes = _musicManager->getCurrentChordNotes();
         while(!chordNotes.empty()){
@@ -180,20 +181,17 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
   if(command.controlType == THREE_AXIS){ 
     switch(command.commandType){
       case CHANGE_LEFT:{
-        if (getType()!= DRUM){
-          //Serial.printf("CHANGE_LEFT: %d\n", command.value);
+        if (getType()!= DRUM)
           EventNoteSequence[_currentPosition].setEventRead(command.value);
-        }
         return;
       }
       case CHANGE_RIGHT:{
-        //Serial.printf("CHANGE_RIGHT: %d\n", command.value);
         EventNoteSequence[_currentPosition].setEventVelocity(command.value);
         return;
       }
       case CHANGE_CENTER:{
-        //Serial.printf("CHANGE_CENTER: %d\n", command.value);
-        //EventNoteSequence[_currentPosition].setLength(command.value);
+        if (getType()!= DRUM)
+          EventNoteSequence[_currentPosition].setLength(remap(command.value, 0, 127, 1, 16));
         return;
       }
     } 
