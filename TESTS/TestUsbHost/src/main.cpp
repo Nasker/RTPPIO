@@ -3,13 +3,11 @@
 #include "USBHost_t36.h"
 
 USBHost myusb;
-USBHub hub1(myusb);
-KeyboardController keyboard1(myusb);
+//USBHub hub1(myusb);
+//KeyboardController keyboard1(myusb);
 MIDIDevice midi1(myusb);
 
-
-void OnPress(int key)
-{
+void OnPress(int key){
 	Serial.print("key '");
 	Serial.print((char)key);
 	Serial.print("'  ");
@@ -21,20 +19,17 @@ void OnPress(int key)
 	//Serial.println();
 }
 
-void OnRawPress(uint8_t keycode)
-{
+void OnRawPress(uint8_t keycode){
 	Serial.print("raw key press: ");
 	Serial.println((int)keycode);
 }
 
-void OnRawRelease(uint8_t keycode)
-{
+void OnRawRelease(uint8_t keycode){
 	Serial.print("raw key release: ");
 	Serial.println((int)keycode);
 }
 
-void OnNoteOn(byte channel, byte note, byte velocity)
-{
+void OnNoteOn(byte channel, byte note, byte velocity){
 	Serial.print("Note On, ch=");
 	Serial.print(channel);
 	Serial.print(", note=");
@@ -44,8 +39,7 @@ void OnNoteOn(byte channel, byte note, byte velocity)
 	Serial.println();
 }
 
-void OnNoteOff(byte channel, byte note, byte velocity)
-{
+void OnNoteOff(byte channel, byte note, byte velocity){
 	Serial.print("Note Off, ch=");
 	Serial.print(channel);
 	Serial.print(", note=");
@@ -55,8 +49,7 @@ void OnNoteOff(byte channel, byte note, byte velocity)
 	Serial.println();
 }
 
-void OnControlChange(byte channel, byte control, byte value)
-{
+void OnControlChange(byte channel, byte control, byte value){
 	Serial.print("Control Change, ch=");
 	Serial.print(channel);
 	Serial.print(", control=");
@@ -66,23 +59,20 @@ void OnControlChange(byte channel, byte control, byte value)
 	Serial.println();
 }
 
-
-void setup()
-{
-	while (!Serial) ; // wait for Arduino Serial Monitor
+void setup(){
+	//while (!Serial) ; // wait for Arduino Serial Monitor
+	Serial.begin(115200);
 	Serial.println("USB Host Testing");
 	myusb.begin();
-	keyboard1.attachPress(OnPress);
-	keyboard1.attachRawPress(OnRawPress);
-	keyboard1.attachRawRelease(OnRawRelease);
-	midi1.setHandleNoteOff(OnNoteOff);
-	midi1.setHandleNoteOn(OnNoteOn);
+	//keyboard1.attachPress(OnPress);
+	//keyboard1.attachRawPress(OnRawPress);
+	//keyboard1.attachRawRelease(OnRawRelease);
+	//midi1.setHandleNoteOff(OnNoteOff);
+	//midi1.setHandleNoteOn(OnNoteOn);
 	midi1.setHandleControlChange(OnControlChange);
 }
 
-
-void loop()
-{
+void loop(){
 	myusb.Task();
 	midi1.read();
 }
