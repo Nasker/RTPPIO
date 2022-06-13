@@ -8,6 +8,7 @@ RTPMainUnit* RTPNeoTrellis::mainUnit;
 const int convertMatrix[16] = {0,4,8,12,1,5,9,13,2,6,10,14,3,7,11,15};
 
 RTPNeoTrellis::RTPNeoTrellis(){
+  pinMode(TRELLIS_INT_PIN, INPUT);
 }
 
 TrellisCallback RTPNeoTrellis::blink(keyEvent evt){  
@@ -54,7 +55,9 @@ void RTPNeoTrellis::begin(RTPMainUnit* _mainUnit){
 }
 
 void RTPNeoTrellis::read(){
-  myTrellis.read();
+  // myTrellis.read();
+  if(!digitalRead(TRELLIS_INT_PIN))
+    myTrellis.read(false);
 }
 
 

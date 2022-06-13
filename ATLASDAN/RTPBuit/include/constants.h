@@ -26,6 +26,7 @@
 #define TRIPLE_CLICK 2
 #define LONG_CLICK 3
 
+#define TRELLIS_INT_PIN 9
 #define BUTTON_PIN 10
 #define ROT_LEFT_PIN 11
 #define ROT_RIGHT_PIN 12
