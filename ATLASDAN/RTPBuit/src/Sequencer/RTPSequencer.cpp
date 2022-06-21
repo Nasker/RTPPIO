@@ -19,10 +19,10 @@ void RTPSequencer::connectMusicManager(const MusicManager& musicManager){
 void RTPSequencer::playAndMoveSequencer(){
   for(size_t i=0; i<Sequencer.size(); i++){ 
     Sequencer[i].playScene();
+    _notesPlayer.playNotes();
     Sequencer[i].fordwardScene();
+    _notesPlayer.decreaseTimeToLive();
   }
-  _notesPlayer.playNotes();
-  _notesPlayer.decreaseTimeToLive();
 }
 
 void RTPSequencer::stopAndCleanSequencer(){

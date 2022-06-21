@@ -127,6 +127,14 @@ void RTPScene::decselectParameterInSequece(){
   SequencerScene[_selectedSequence].decreaseParameterValue();
 }
 
+void RTPScene::incselectPageInSequence(){
+  SequencerScene[_selectedSequence].increasePage();
+}
+
+void RTPScene::decselectPageInSequence(){
+  SequencerScene[_selectedSequence].decreasePage();
+}
+
 int RTPScene::getSelectedParameterInSequeceValue(){
   return SequencerScene[_selectedSequence].getParameterValue();
 }
