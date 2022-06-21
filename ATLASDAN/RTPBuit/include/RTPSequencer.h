@@ -31,6 +31,7 @@ public:
   void selectSequence(int sequenceIndex);
   RTPSequenceNoteStates getSelectedSequenceNoteStates();
   void toggleNoteInSceneInSelectedSequence(int position);
+  void nudgePageInSelectedSequence(ControlCommand command);
   void editNoteInCurrentPosition(ControlCommand command);
   int getSelectedSequenceColor();
   void dumpSequencesToJson();

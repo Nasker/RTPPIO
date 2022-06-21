@@ -28,6 +28,8 @@ public:
   void selectParameterInSequece(int parameterIndex);
   void incselectParameterInSequece();
   void decselectParameterInSequece();
+  void incselectPageInSequence();
+  void decselectPageInSequence();
   int getSelectedParameterInSequeceValue();
   int getSequenceType(int sequenceIndex);
   void toggleSequence(int sequenceIndex);

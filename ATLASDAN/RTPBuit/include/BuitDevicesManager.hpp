@@ -37,6 +37,7 @@ public:
     void editCurrentNote(ControlCommand command);
 
     void changeScene(ControlCommand command);
+    void nudgePage(ControlCommand command);
 
     void editBuitCC(ControlCommand command);
     void sendBuitCC(ControlCommand command);

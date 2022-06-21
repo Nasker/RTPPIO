@@ -30,6 +30,8 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
   _isRecording = false;
   _isEnabled = true;
   _selectedParameter = 0;
+  _selectedPage = 0;
+  _pages = ceil(NEvents / SEQ_BLOCK_SIZE);
 
   for(int i=0; i < NEvents; i++){
     RTPEventNotePlus eventNote = RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
@@ -84,6 +86,18 @@ void RTPEventNoteSequence::increaseParameterValue(){
 
 void RTPEventNoteSequence::decreaseParameterValue(){
   sequenceParameters[_selectedParameter].decValue();
+}
+
+void RTPEventNoteSequence::increasePage(){
+  _selectedPage++;
+  if(_selectedPage >= _pages)
+    _selectedPage = _pages - 1;
+}
+
+void RTPEventNoteSequence::decreasePage(){
+  _selectedPage--;
+  if(_selectedPage < 0)
+    _selectedPage = 0;
 }
 
 int RTPEventNoteSequence::getParameterValue(){
@@ -159,11 +173,13 @@ int RTPEventNoteSequence::getSequenceSize(){
 }
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
+  position = position + pageOffset();
   if(position < EventNoteSequence.size())
     EventNoteSequence[position].setEventState(eventState);
 }
 
 bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
+  position = position + pageOffset();
   if(position < EventNoteSequence.size())
     return EventNoteSequence[position].eventState();
   else
@@ -171,6 +187,7 @@ bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
 }
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, int note, int velocity){
+  position = position + pageOffset();
   if(position < EventNoteSequence.size()){
     EventNoteSequence[position].setEventNote(note);
     EventNoteSequence[position].setEventVelocity(velocity);
@@ -209,6 +226,14 @@ void RTPEventNoteSequence::resizeSequence(size_t newSize){
     while(EventNoteSequence.size() > newSize)
       EventNoteSequence.pop_back();
   }
+}
+
+int RTPEventNoteSequence::pageOffset(){
+  return _selectedPage * SEQ_BLOCK_SIZE;
+}
+
+vector<RTPEventNotePlus> RTPEventNoteSequence::getEventNoteSequence(){
+  return EventNoteSequence;
 }
 
 String RTPEventNoteSequence::dumpSequenceToJson(){

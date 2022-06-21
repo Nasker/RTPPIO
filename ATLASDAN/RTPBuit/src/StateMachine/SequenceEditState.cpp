@@ -24,7 +24,7 @@ void SequenceEditState::longClick() {
 }
 
 void SequenceEditState::rotaryTurned(ControlCommand command) {
-  //Serial.println("Does nothing here!");
+  _devices->nudgePage(command);
 }
 
 void SequenceEditState::threeAxisChanged(ControlCommand command) {

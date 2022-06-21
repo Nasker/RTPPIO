@@ -32,6 +32,8 @@ class RTPEventNoteSequence{
 	bool _isRecording;
 	size_t _currentPosition;
 	int _selectedParameter;
+	int _pages;
+	int _selectedPage;
 public:
 	RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote);
 	void connectNotesPlayer(const NotesPlayer& notesPlayer);
@@ -59,6 +61,10 @@ public:
 	void selectParameter(int parameterIndex);
 	void increaseParameterValue();
 	void decreaseParameterValue();
+	void increasePage();
+	void decreasePage();
 	int getParameterValue();
+	vector<RTPEventNotePlus> getEventNoteSequence();
 	String dumpSequenceToJson();
+	int pageOffset();
 };
