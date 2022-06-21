@@ -45,7 +45,7 @@ RTPScene::RTPScene(String name, int NSequences){
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
     int baseNote = types[i] == DRUM ? 36 + i : 60;
-    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE, types[i], baseNote);
+    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE * N_PAGES, types[i], baseNote);
     SequencerScene.push_back(sequence);
   }
 }
@@ -126,15 +126,6 @@ void RTPScene::incselectParameterInSequece(){
 void RTPScene::decselectParameterInSequece(){
   SequencerScene[_selectedSequence].decreaseParameterValue();
 }
-
-void RTPScene::incselectPageInSequence(){
-  SequencerScene[_selectedSequence].increasePage();
-}
-
-void RTPScene::decselectPageInSequence(){
-  SequencerScene[_selectedSequence].decreasePage();
-}
-
 
 int RTPScene::getSelectedParameterInSequeceValue(){
   return SequencerScene[_selectedSequence].getParameterValue();
