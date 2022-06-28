@@ -254,7 +254,7 @@ String RTPEventNoteSequence::dumpSequenceToJson(){
 }
 
 RTPEventNotePlus RTPEventNoteSequence::getEventNote(int position){
-  list<RTPEventNotePlus>::iterator it = EventNoteSequence.begin();
+  it = EventNoteSequence.begin();
   advance(it, position);
   return *it;
 }

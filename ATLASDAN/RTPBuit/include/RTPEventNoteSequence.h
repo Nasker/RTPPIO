@@ -29,6 +29,7 @@ class RTPEventNoteSequence{
 	vector<RTPParameter> sequenceParameters;
 	NotesPlayer* _notesPlayer;
 	MusicManager* _musicManager;
+	list<RTPEventNotePlus>::iterator it;
 	int _baseNote;
 	bool _isEnabled;
 	bool _isRecording;
