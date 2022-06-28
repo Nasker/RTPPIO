@@ -6,6 +6,7 @@
 #include "MusicManager.hpp"
 #include "Arduino.h"
 #include <vector>
+#include <list>
 #include "Structs.h"
 #include "ControlCommand.h"
 #include "constants.h"
@@ -23,7 +24,8 @@ enum SequenceParametersIndex{
 };
 
 class RTPEventNoteSequence{
-	vector<RTPEventNotePlus> EventNoteSequence;
+	// vector<RTPEventNotePlus> EventNoteSequence;
+	list<RTPEventNotePlus> EventNoteSequence;
 	vector<RTPParameter> sequenceParameters;
 	NotesPlayer* _notesPlayer;
 	MusicManager* _musicManager;
@@ -64,7 +66,8 @@ public:
 	void increasePage();
 	void decreasePage();
 	int getParameterValue();
-	vector<RTPEventNotePlus> getEventNoteSequence();
+	list<RTPEventNotePlus> getEventNoteSequence();
 	String dumpSequenceToJson();
 	int pageOffset();
+	RTPEventNotePlus getEventNote(int position);
 };

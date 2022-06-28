@@ -49,7 +49,7 @@ void RTPEventNoteSequence::connectMusicManager(const MusicManager& musicManager)
 
 void RTPEventNoteSequence::fordwardSequence(){
   _currentPosition++;
-  if(_currentPosition >= EventNoteSequence.size())
+  if(_currentPosition >= getSequenceSize())
     _currentPosition = 0;
 
 }
@@ -57,7 +57,7 @@ void RTPEventNoteSequence::fordwardSequence(){
 void RTPEventNoteSequence::backwardSequence(){
   _currentPosition--;
   if(_currentPosition < 0)
-    _currentPosition = EventNoteSequence.size();
+    _currentPosition = getSequenceSize();
 }
 
 void RTPEventNoteSequence::resetSequence(){
@@ -105,40 +105,40 @@ int RTPEventNoteSequence::getParameterValue(){
 }
 
 RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
-  if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState())
-    return &EventNoteSequence[_currentPosition];
+  if(isCurrentSequenceEnabled() && getEventNote(_currentPosition).eventState())
+    return &getEventNote(_currentPosition);
   else
     return NULL;
 }
 
 void RTPEventNoteSequence::playCurrentEventNote(){
-  if(isCurrentSequenceEnabled() && EventNoteSequence[_currentPosition].eventState()){
+  if(isCurrentSequenceEnabled() && getEventNote(_currentPosition).eventState()){
     switch (getType()){
       case DRUM:{
-        EventNoteSequence[_currentPosition].setLength(1);
-        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        getEventNote(_currentPosition).setLength(1);
+        _notesPlayer->queueNote(getEventNote(_currentPosition));
         return;
       }
       case BASS_SYNTH:{
         //EventNoteSequence[_currentPosition].setLength(4);
-        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), BASS_SYNTH);
-        EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), BASS_SYNTH);
+        getEventNote(_currentPosition).setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(getEventNote(_currentPosition));
         return;
       }
       case MONO_SYNTH:
         //EventNoteSequence[_currentPosition].setLength(4);
-        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), MONO_SYNTH);
-        EventNoteSequence[_currentPosition].setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), MONO_SYNTH);
+        getEventNote(_currentPosition).setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(getEventNote(_currentPosition));
         return;
       case POLY_SYNTH:
         //EventNoteSequence[_currentPosition].setLength(16);
-        _musicManager->setCurrentSteps(EventNoteSequence[_currentPosition].getEventRead(), POLY_SYNTH);
+        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), POLY_SYNTH);
         auto chordNotes = _musicManager->getCurrentChordNotes();
         while(!chordNotes.empty()){
-          EventNoteSequence[_currentPosition].setEventNote(chordNotes.front());
-          _notesPlayer->queueNote(EventNoteSequence[_currentPosition]);
+          getEventNote(_currentPosition).setEventNote(chordNotes.front());
+          _notesPlayer->queueNote(getEventNote(_currentPosition));
           chordNotes.pop();
         }
         return;
@@ -175,13 +175,13 @@ int RTPEventNoteSequence::getSequenceSize(){
 void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
   position = position + pageOffset();
   if(position < EventNoteSequence.size())
-    EventNoteSequence[position].setEventState(eventState);
+    getEventNote(position).setEventState(eventState);
 }
 
 bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
   position = position + pageOffset();
   if(position < EventNoteSequence.size())
-    return EventNoteSequence[position].eventState();
+    return getEventNote(position).eventState();
   else
     return false;
 }
@@ -189,8 +189,8 @@ bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
 void RTPEventNoteSequence::editNoteInSequence(size_t position, int note, int velocity){
   position = position + pageOffset();
   if(position < EventNoteSequence.size()){
-    EventNoteSequence[position].setEventNote(note);
-    EventNoteSequence[position].setEventVelocity(velocity);
+    getEventNote(position).setEventNote(note);
+    getEventNote(position).setEventVelocity(velocity);
   }
 }
 
@@ -199,16 +199,16 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
     switch(command.commandType){
       case CHANGE_LEFT:{
         if (getType()!= DRUM)
-          EventNoteSequence[_currentPosition].setEventRead(command.value);
+          getEventNote(_currentPosition).setEventRead(command.value);
         return;
       }
       case CHANGE_RIGHT:{
-        EventNoteSequence[_currentPosition].setEventVelocity(command.value);
+        getEventNote(_currentPosition).setEventVelocity(command.value);
         return;
       }
       case CHANGE_CENTER:{
         if (getType()!= DRUM)
-          EventNoteSequence[_currentPosition].setLength(remap(command.value, 0, 127, 1, 16));
+          getEventNote(_currentPosition).setLength(remap(command.value, 0, 127, 1, 16));
         return;
       }
     } 
@@ -232,7 +232,7 @@ int RTPEventNoteSequence::pageOffset(){
   return _selectedPage * SEQ_BLOCK_SIZE;
 }
 
-vector<RTPEventNotePlus> RTPEventNoteSequence::getEventNoteSequence(){
+list<RTPEventNotePlus> RTPEventNoteSequence::getEventNoteSequence(){
   return EventNoteSequence;
 }
 
@@ -251,4 +251,10 @@ String RTPEventNoteSequence::dumpSequenceToJson(){
   serializeJsonPretty(doc, noteSeqString);
   Serial.printf("%s\n", noteSeqString.c_str());
   return noteSeqString;
+}
+
+RTPEventNotePlus RTPEventNoteSequence::getEventNote(int position){
+  list<RTPEventNotePlus>::iterator it = EventNoteSequence.begin();
+  advance(it, position);
+  return *it;
 }
