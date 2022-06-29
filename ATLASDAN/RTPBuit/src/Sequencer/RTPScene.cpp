@@ -93,7 +93,7 @@ int RTPScene::getSize(){
 }
 
 RTPSequenceNoteStates RTPScene::getSelectedSequenceNoteStates(){
-  for(int i=0; i<SEQ_BLOCK_SIZE; i++){
+  for(size_t i=0; i<SEQ_BLOCK_SIZE; i++){
     if(i < SequencerScene[_selectedSequence].getSequenceSize())
       _seqStates.val[i] = SequencerScene[_selectedSequence].getNoteStateInSequence(i);
     else
@@ -153,19 +153,8 @@ void RTPScene::editNoteInCurrentPosition(ControlCommand command){
   SequencerScene[_selectedSequence].editNoteInCurrentPosition(command);
 }
 
-/*
-LinkedList<RTPEventNotePlus*>  RTPScene::getPlayedNotesList(){
-  LinkedList <RTPEventNotePlus*> playedNotesList = LinkedList<RTPEventNotePlus*>();
-  for(int i=0; i<SequencerScene.size(); i++){
-    if(SequencerScene[i].getCurrentEventNote() != NULL)
-      playedNotesList.add(SequencerScene[i].getCurrentEventNote());
-
-  }
-  return playedNotesList;
-}*/
-
 RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
-  for(int i=0; i<SequencerScene[_selectedSequence].getSequenceSize(); i++){
+  for(size_t i=0; i<SequencerScene[_selectedSequence].getSequenceSize(); i++){
     _seqStates.val[i] = SequencerScene[_selectedSequence].getNoteStateInSequence(i);
   }
   return _seqStates;

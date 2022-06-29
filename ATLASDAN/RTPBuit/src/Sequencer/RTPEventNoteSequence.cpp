@@ -104,13 +104,6 @@ int RTPEventNoteSequence::getParameterValue(){
   return sequenceParameters[_selectedParameter].getValue();
 }
 
-RTPEventNotePlus* RTPEventNoteSequence::getCurrentEventNote(){
-  if(isCurrentSequenceEnabled() && getEventNote(_currentPosition).eventState())
-    return &getEventNote(_currentPosition);
-  else
-    return NULL;
-}
-
 void RTPEventNoteSequence::playCurrentEventNote(){
   if(isCurrentSequenceEnabled() && getEventNote(_currentPosition).eventState()){
     switch (getType()){
@@ -168,7 +161,7 @@ int RTPEventNoteSequence::getType(){
   return sequenceParameters[TYPE].getValue();
 }
 
-int RTPEventNoteSequence::getSequenceSize(){
+size_t RTPEventNoteSequence::getSequenceSize(){
   return EventNoteSequence.size();
 }
 
@@ -180,8 +173,11 @@ void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
 
 bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
   position = position + pageOffset();
-  if(position < EventNoteSequence.size())
-    return getEventNote(position).eventState();
+  if(position < EventNoteSequence.size()){
+    bool state = getEventNote(position).eventState();
+    Serial.printf("pos %d  state %d\n", position, state);
+    return state;
+  }
   else
     return false;
 }

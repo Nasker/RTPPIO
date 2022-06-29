@@ -5,7 +5,7 @@
 #define DEPLOY_VERSION
 
 #define N_SCENES 1
-#define N_PAGES 2
+#define N_PAGES 1
 
 #define TRELLIS 1
 #define ROTARY 2

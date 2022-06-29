@@ -47,7 +47,6 @@ public:
 	int getCurrentSequencePosition();
 	bool isCurrentSequenceEnabled();
 	void enableSequence(bool state);
-	RTPEventNotePlus* getCurrentEventNote();
 	void playCurrentEventNote();
 	void setMidiChannel(int midiChannel);
 	int getMidiChannel();
@@ -55,7 +54,7 @@ public:
 	int getColor();
 	void setType(int type);
 	int getType();
-	int getSequenceSize();
+	size_t getSequenceSize();
 	void editNoteInSequence(size_t position, bool eventState);
 	bool getNoteStateInSequence(size_t position);
 	void editNoteInSequence(size_t position, int note, int velocity);

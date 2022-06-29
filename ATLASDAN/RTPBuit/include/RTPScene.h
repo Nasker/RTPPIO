@@ -2,7 +2,6 @@
 
 #include "RTPEventNoteSequence.h"
 #include "Structs.h"
-#include "LinkedList.h"
 #include <vector>
 using namespace std;
 
@@ -37,6 +36,5 @@ public:
   void editNoteInCurrentPosition(ControlCommand command);
   RTPSequenceNoteStates getSequenceNoteStates();
   int getSequenceColor();
-  //LinkedList<RTPEventNotePlus*>  getPlayedNotesList();
   void dumpSequencesToJson();
 };

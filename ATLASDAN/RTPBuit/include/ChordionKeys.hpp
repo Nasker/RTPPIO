@@ -2,7 +2,9 @@
 
 #include "Arduino.h"
 #include "RTPMusicController.h"
-#include "LinkedList.h"
+#include <list>
+
+using namespace std;
 
 #define N_CHORDION_KEYS 4
 #define N_CHANNELS 4
@@ -23,7 +25,7 @@ class ChordionKeys{
     bool chordionArray[N_CHORDION_KEYS] = {false,false,false,false};
     InstrumentChannel instChannel[N_CHANNELS];
     RTPMusicController mController;
-    LinkedList<PlayedChord> ringingChordsList;
+    list<PlayedChord> ringingChordsList;
 public:
     ChordionKeys();
     void initSetup();
