@@ -105,33 +105,31 @@ int RTPEventNoteSequence::getParameterValue(){
 }
 
 void RTPEventNoteSequence::playCurrentEventNote(){
-  if(isCurrentSequenceEnabled() && getEventNote(_currentPosition).eventState()){
+  pointIterator(_currentPosition);
+  if(isCurrentSequenceEnabled() && it->eventState()){
     switch (getType()){
       case DRUM:{
-        getEventNote(_currentPosition).setLength(1);
-        _notesPlayer->queueNote(getEventNote(_currentPosition));
+        it->setLength(1);
+        _notesPlayer->queueNote(*it);
         return;
       }
       case BASS_SYNTH:{
-        //EventNoteSequence[_currentPosition].setLength(4);
-        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), BASS_SYNTH);
-        getEventNote(_currentPosition).setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(getEventNote(_currentPosition));
+        _musicManager->setCurrentSteps(it->getEventRead(), BASS_SYNTH);
+        it->setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(*it);
         return;
       }
       case MONO_SYNTH:
-        //EventNoteSequence[_currentPosition].setLength(4);
-        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), MONO_SYNTH);
-        getEventNote(_currentPosition).setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(getEventNote(_currentPosition));
+        _musicManager->setCurrentSteps(it->getEventRead(), MONO_SYNTH);
+        it->setEventNote(_musicManager->getCurrentChordNote());
+        _notesPlayer->queueNote(*it);
         return;
       case POLY_SYNTH:
-        //EventNoteSequence[_currentPosition].setLength(16);
-        _musicManager->setCurrentSteps(getEventNote(_currentPosition).getEventRead(), POLY_SYNTH);
+        _musicManager->setCurrentSteps(it->getEventRead(), POLY_SYNTH);
         auto chordNotes = _musicManager->getCurrentChordNotes();
         while(!chordNotes.empty()){
-          getEventNote(_currentPosition).setEventNote(chordNotes.front());
-          _notesPlayer->queueNote(getEventNote(_currentPosition));
+          it->setEventNote(chordNotes.front());
+          _notesPlayer->queueNote(*it);
           chordNotes.pop();
         }
         return;
@@ -167,26 +165,27 @@ size_t RTPEventNoteSequence::getSequenceSize(){
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, bool eventState){
   position = position + pageOffset();
-  if(position < EventNoteSequence.size())
-    getEventNote(position).setEventState(eventState);
+  if(position < EventNoteSequence.size()){
+    pointIterator(position);
+    it->setEventState(eventState);
+  }
 }
 
 bool RTPEventNoteSequence::getNoteStateInSequence(size_t position){
   position = position + pageOffset();
   if(position < EventNoteSequence.size()){
-    bool state = getEventNote(position).eventState();
-    Serial.printf("pos %d  state %d\n", position, state);
-    return state;
-  }
-  else
-    return false;
+    pointIterator(position);
+    return it->eventState();
+  } 
+  return NULL;
 }
 
 void RTPEventNoteSequence::editNoteInSequence(size_t position, int note, int velocity){
   position = position + pageOffset();
   if(position < EventNoteSequence.size()){
-    getEventNote(position).setEventNote(note);
-    getEventNote(position).setEventVelocity(velocity);
+    pointIterator(position);
+    it->setEventNote(note);
+    it->setEventVelocity(velocity);
   }
 }
 
@@ -194,18 +193,23 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
   if(command.controlType == THREE_AXIS){ 
     switch(command.commandType){
       case CHANGE_LEFT:{
-        if (getType()!= DRUM)
-          getEventNote(_currentPosition).setEventRead(command.value);
-        return;
+        if (getType()!= DRUM){
+          pointIterator(_currentPosition);
+          it->setEventRead(command.value);
+          return;
+        }
       }
       case CHANGE_RIGHT:{
-        getEventNote(_currentPosition).setEventVelocity(command.value);
+        pointIterator(_currentPosition);
+        it->setEventVelocity(command.value);
         return;
       }
       case CHANGE_CENTER:{
-        if (getType()!= DRUM)
-          getEventNote(_currentPosition).setLength(remap(command.value, 0, 127, 1, 16));
-        return;
+        if (getType()!= DRUM){
+          pointIterator(_currentPosition);
+          it->setLength(remap(command.value, 0, 127, 1, 16));
+          return;
+        }
       }
     } 
   }
@@ -249,8 +253,7 @@ String RTPEventNoteSequence::dumpSequenceToJson(){
   return noteSeqString;
 }
 
-RTPEventNotePlus RTPEventNoteSequence::getEventNote(int position){
+void RTPEventNoteSequence::pointIterator(int position){
   it = EventNoteSequence.begin();
   advance(it, position);
-  return *it;
 }

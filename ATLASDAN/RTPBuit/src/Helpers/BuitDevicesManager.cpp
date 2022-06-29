@@ -68,7 +68,7 @@ void BuitDevicesManager::changeScene(ControlCommand command){
 
 void  BuitDevicesManager::nudgePage(ControlCommand command){
     _sequencer->nudgePageInSelectedSequence(command);
-    _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+    writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
 }
 
 void BuitDevicesManager::presentScene(){
@@ -78,7 +78,7 @@ void BuitDevicesManager::presentScene(){
 
 void BuitDevicesManager::presentSequence(){
     printToScreen("Edit Sequence","","");
-    writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+    writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor()); 
 }
 
 void BuitDevicesManager::presentTransport(){

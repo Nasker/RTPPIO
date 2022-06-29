@@ -16,21 +16,15 @@ TrellisCallback RTPNeoTrellis::blink(keyEvent evt){
   ControlCommand callbackCommand;
   callbackCommand.controlType = TRELLIS;
   if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_RISING){
-    //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0xFFFFFF); //on rising
-    //Serial.printf("KEY #%d RISES\n", convertMatrix[evt.bit.NUM]);
     callbackCommand.commandType = PRESSED;
-    callbackCommand.value = convertMatrix[evt.bit.NUM];//convertMatrix[evt.bit.NUM];
+    callbackCommand.value = convertMatrix[evt.bit.NUM];
     mainUnit->actOnControlsCallback(callbackCommand);
-    //mainClass->actOnControlsCallback(callbackCommand);
   }
     
   else if(evt.bit.EDGE == SEESAW_KEYPAD_EDGE_FALLING){
-    //myTrellis.pixels.setPixelColor(evt.bit.NUM, 0); //off falling
-    //Serial.printf("KEY #%d FALLS\n", evt.bit.NUM);
     callbackCommand.commandType = RELEASED;
-    callbackCommand.value = evt.bit.NUM;//convertMatrix[evt.bit.NUM];
+    callbackCommand.value = evt.bit.NUM;
     mainUnit->actOnControlsCallback(callbackCommand);
-    //mainClass->actOnControlsCallback(callbackCommand);
   }
   myTrellis.pixels.show();
   
@@ -50,46 +44,29 @@ void RTPNeoTrellis::begin(RTPMainUnit* _mainUnit){
     myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_RISING);
     myTrellis.activateKey(i, SEESAW_KEYPAD_EDGE_FALLING);
     myTrellis.registerCallback(i, RTPNeoTrellis::blink);
-    //Serial.println(i);
   }
 }
 
 void RTPNeoTrellis::read(){
-  // myTrellis.read();
   if(!digitalRead(TRELLIS_INT_PIN))
     myTrellis.read(false);
 }
 
-
 void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int color){
-  for(int i=0; i<SEQ_BLOCK_SIZE; i++){
-    if(seqStates.val[i]){
-      myTrellis.pixels.setPixelColor(convertMatrix[i], color);
-    }
-    else{
-      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
-    }
-  }
+  for(int i=0; i<SEQ_BLOCK_SIZE; i++)
+      myTrellis.pixels.setPixelColor(convertMatrix[i], seqStates.val[i] ? color : 0);
   myTrellis.pixels.show();
 }
 
 void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
-  for(int i=0; i<SCENE_BLOCK_SIZE; i++){
-    if(sequencesState.sequenceState[i].state)
-      myTrellis.pixels.setPixelColor(convertMatrix[i], sequencesState.sequenceState[i].color);
-    else
-      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
-  }
+  for(int i=0; i<SCENE_BLOCK_SIZE; i++)
+      myTrellis.pixels.setPixelColor(convertMatrix[i], sequencesState.sequenceState[i].state ? sequencesState.sequenceState[i].color : 0);
   myTrellis.pixels.show();
 }
 
 void RTPNeoTrellis::writeBuitCCStates(RTPSequencesState ccStates, int color){
-  for(int i=0; i<N_BUITS_CC; i++){
-    if(ccStates.sequenceState[i].state)
-      myTrellis.pixels.setPixelColor(convertMatrix[i], color);
-    else
-      myTrellis.pixels.setPixelColor(convertMatrix[i], 0);
-  }
+  for(int i=0; i<N_BUITS_CC; i++)
+      myTrellis.pixels.setPixelColor(convertMatrix[i], ccStates.sequenceState[i].state ? color : 0);
   myTrellis.pixels.show();
 }
 
@@ -99,31 +76,3 @@ void RTPNeoTrellis::writeTransportPage(int color){
   }
   myTrellis.pixels.show();
 }
-
-
-/*
-void RTPNeoTrellis::callbackFromNeoTrellis(RTPMainUnit* mainClass){
-  ControlCommand callbackCommand;
-  callbackCommand.controlType = TRELLIS;
-    if (true) {
-      for (uint8_t i=0; i<numKeys; i++) {
-        if (true){//trellis.justPressed(i)) {
-          //trellis.setLED(i);
-          callbackCommand.commandType = PRESSED;
-          callbackCommand.value = convertMatrix[i];
-          mainClass->actOnControlsCallback(callbackCommand);
-          //mainClass->actOnTrellisCallback("PRESSED", convertMatrix[i]);
-          //rtpScreen->print("PRESSED", String(i));
-        }
-        if (true){//trellis.justReleased(i)) {
-          //trellis.clrLED(i);
-          callbackCommand.commandType = RELEASED;
-          callbackCommand.value = convertMatrix[i];
-          mainClass->actOnControlsCallback(callbackCommand);
-          //mainClass->actOnTrellisCallback("RELEASED", convertMatrix[i]);
-          //rtpScreen->print("DEPRESSED", String(i));
-        }
-      }
-      //trellis.pixels.show();
-    }
-}*/

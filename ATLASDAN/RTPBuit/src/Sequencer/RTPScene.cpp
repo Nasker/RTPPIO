@@ -141,7 +141,6 @@ int RTPScene::getSelectedParameterInSequeceValue(){
 
 void RTPScene::toggleSequence(int sequenceIndex){
   SequencerScene[sequenceIndex].enableSequence(!SequencerScene[sequenceIndex].isCurrentSequenceEnabled());
-  //Serial.printf("Sequence %d is %s\n", sequenceIndex, SequencerScene.get(sequenceIndex)->isCurrentSequenceEnabled() ? "enabled" : "disabled");
 }
 
 void RTPScene::toggleNoteInSequence(int position){
@@ -154,9 +153,8 @@ void RTPScene::editNoteInCurrentPosition(ControlCommand command){
 }
 
 RTPSequenceNoteStates RTPScene::getSequenceNoteStates(){
-  for(size_t i=0; i<SequencerScene[_selectedSequence].getSequenceSize(); i++){
+  for(size_t i=0; i<SEQ_BLOCK_SIZE; i++)
     _seqStates.val[i] = SequencerScene[_selectedSequence].getNoteStateInSequence(i);
-  }
   return _seqStates;
 }
 
