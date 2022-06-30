@@ -207,7 +207,7 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
       case CHANGE_CENTER:{
         if (getType()!= DRUM){
           pointIterator(_currentPosition);
-          it->setLength(remap(command.value, 0, 127, 1, 16));
+          it->setLength(constrain(remap(command.value, 0, 127, 1, 32),0,16));
           return;
         }
       }

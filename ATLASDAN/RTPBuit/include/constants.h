@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#define N_SCENES 1
+#define N_SCENES 2
 #define N_PAGES 4
 
 #define TRELLIS 1

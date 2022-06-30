@@ -12,7 +12,7 @@ class RTPScene{
   int _selectedSequence;
   RTPSequenceNoteStates _seqStates;
 public:
-  RTPScene(String name, int NSequences);
+  RTPScene(String name, int NSequences, int scene);
   void connectNotesPlayer(const NotesPlayer& notesPlayer);
   void connectMusicManager(const MusicManager& musicManager);
   void playScene();

@@ -1,51 +1,23 @@
 #include <RTPScene.h>
 #include "RTPSDManager.hpp"
 
-int types[16] = {
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  DRUM,
-  BASS_SYNTH,
-  MONO_SYNTH,
-  POLY_SYNTH,
-  POLY_SYNTH
+int types[N_SCENES][SCENE_BLOCK_SIZE] = {
+  {DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM,DRUM},
+  {BASS_SYNTH,BASS_SYNTH,BASS_SYNTH,BASS_SYNTH,MONO_SYNTH,MONO_SYNTH,MONO_SYNTH,MONO_SYNTH,MONO_SYNTH,MONO_SYNTH,POLY_SYNTH,POLY_SYNTH,POLY_SYNTH,POLY_SYNTH,POLY_SYNTH,POLY_SYNTH}
 };
 
-int midiChannels[16] = {
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  10,
-  1,
-  2,
-  3,
-  4
+int midiChannels[N_SCENES][SCENE_BLOCK_SIZE] = {
+  {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10},
+  {1,1,2,3,4,5,6,7,8,9,11,12,13,14,15,16}
 };
 
-RTPScene::RTPScene(String name, int NSequences){
+RTPScene::RTPScene(String name, int NSequences, int scene){
   _name = name;
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
-    int baseNote = types[i] == DRUM ? 36 + i : 60;
-    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[i], SEQ_BLOCK_SIZE * N_PAGES, types[i], baseNote);
+    int baseNote = types[scene][i] == DRUM ? 36 + i : 60;
+    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[scene][i], SEQ_BLOCK_SIZE * N_PAGES, types[scene][i], baseNote);
     SequencerScene.push_back(sequence);
   }
 }

@@ -5,7 +5,7 @@ RTPSequencer::RTPSequencer(int NScenes){
   _NScenes = NScenes;
   _selectedScene = 0;
   for(int i=0; i < _NScenes; i++){
-    RTPScene scene = RTPScene("Scene", SCENE_BLOCK_SIZE);
+    RTPScene scene = RTPScene("Scene", SCENE_BLOCK_SIZE, i);
     Sequencer.push_back(scene);
     Sequencer[i].connectNotesPlayer(_notesPlayer);
   }
