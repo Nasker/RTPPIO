@@ -67,6 +67,8 @@ void RTPEventNoteSequence::backwardSequence(){
 
 void RTPEventNoteSequence::resetSequence(){
   _currentPosition = 0;
+  it = EventNoteSequence.begin();
+
 }
 
 int RTPEventNoteSequence::getCurrentSequencePosition(){
