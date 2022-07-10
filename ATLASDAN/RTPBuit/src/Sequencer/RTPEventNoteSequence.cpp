@@ -51,24 +51,16 @@ void RTPEventNoteSequence::fordwardSequence(){
   _currentPosition++;
   if(_currentPosition >= getSequenceSize())
     _currentPosition = 0;
-  it++;
-  if(it == EventNoteSequence.end())
-    it = EventNoteSequence.begin();
 }
 
 void RTPEventNoteSequence::backwardSequence(){
   _currentPosition--;
   if(_currentPosition < 0)
     _currentPosition = getSequenceSize();
-  it--;
-  if(it == EventNoteSequence.begin())
-    it = EventNoteSequence.end();
 }
 
 void RTPEventNoteSequence::resetSequence(){
   _currentPosition = 0;
-  it = EventNoteSequence.begin();
-
 }
 
 int RTPEventNoteSequence::getCurrentSequencePosition(){
@@ -112,7 +104,7 @@ int RTPEventNoteSequence::getParameterValue(){
 }
 
 void RTPEventNoteSequence::playCurrentEventNote(){
-  //pointIterator(_currentPosition);
+  pointIterator(_currentPosition);
   if(isCurrentSequenceEnabled() && it->eventState()){
     switch (getType()){
       case DRUM:{
@@ -201,19 +193,19 @@ void RTPEventNoteSequence::editNoteInCurrentPosition(ControlCommand command){
     switch(command.commandType){
       case CHANGE_LEFT:{
         if (getType()!= DRUM){
-          //pointIterator(_currentPosition);
+          pointIterator(_currentPosition);
           it->setEventRead(command.value);
           return;
         }
       }
       case CHANGE_RIGHT:{
-        //pointIterator(_currentPosition);
+        pointIterator(_currentPosition);
         it->setEventVelocity(command.value);
         return;
       }
       case CHANGE_CENTER:{
         if (getType()!= DRUM){
-          //pointIterator(_currentPosition);
+          pointIterator(_currentPosition);
           it->setLength(constrain(remap(command.value, 0, 127, 1, 32),0,16));
           return;
         }
