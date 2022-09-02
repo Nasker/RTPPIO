@@ -36,3 +36,7 @@ void  GlobalSettingsState::trellisPressed(ControlCommand command) {
 void GlobalSettingsState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void GlobalSettingsState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

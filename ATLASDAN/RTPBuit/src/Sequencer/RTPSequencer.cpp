@@ -35,6 +35,10 @@ void RTPSequencer::pauseSequencer(){
   _notesPlayer.killAllNotes();
 }
 
+int RTPSequencer::getSelectedSequencePosition(){
+  Sequencer[_selectedScene].getSelectedSequenceCurrentPosition();
+}
+
 void RTPSequencer::selectScene(int scene){
   _selectedScene = scene;
 }

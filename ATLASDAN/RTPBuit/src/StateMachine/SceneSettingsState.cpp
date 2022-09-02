@@ -37,3 +37,7 @@ void SceneSettingsState::trellisPressed(ControlCommand command) {
 void SceneSettingsState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void SceneSettingsState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

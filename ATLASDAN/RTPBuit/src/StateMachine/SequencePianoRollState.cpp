@@ -36,3 +36,7 @@ void SequencePianoRollState::trellisPressed(ControlCommand command) {
 void SequencePianoRollState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void SequencePianoRollState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

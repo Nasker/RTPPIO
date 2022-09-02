@@ -11,6 +11,7 @@ void RTPMainUnit::begin(){
   vlSensor.initSetup();
   vlSensor.startContinuous();
   rtpTrellis.begin(this);
+  SequencerManager.begin(this);
   devicesManager.initSetup();
   devicesManager.connectNeoTrellis(rtpTrellis);
   devicesManager.connectSequencer(Sequencer);
@@ -32,6 +33,11 @@ void RTPMainUnit::updatePeriodically(){
 
 void RTPMainUnit::actOnControlsCallback(ControlCommand callbackCommand){
   //devicesManager.printToScreen(callbackCommand);
+  stateMachineManager.handleActions(callbackCommand);
+}
+
+void RTPMainUnit::actOnSequencerCallback(ControlCommand callbackCommand){
+  //Serial.printf("Seq Callback  TYPE: %d  VALUE: %d\n", callbackCommand.commandType, callbackCommand.value);
   stateMachineManager.handleActions(callbackCommand);
 }
 

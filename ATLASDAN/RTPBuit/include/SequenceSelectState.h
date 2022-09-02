@@ -11,4 +11,5 @@ public:
   void threeAxisChanged(ControlCommand command);
   void trellisPressed(ControlCommand command);
   void trellisReleased(ControlCommand command);
+  void sequencerCallback(ControlCommand command);
 };

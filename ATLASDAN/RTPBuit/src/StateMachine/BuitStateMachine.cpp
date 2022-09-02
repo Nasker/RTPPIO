@@ -52,6 +52,10 @@ void BuitStateMachine::trellisReleased(ControlCommand command){
   _state->trellisReleased(command);
 }
 
+void BuitStateMachine::sequencerCallback(ControlCommand command){
+  _state->sequencerCallback(command);
+}
+
 void BuitStateMachine::setState(BuitState* state){
   _state = state;
 }

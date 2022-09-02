@@ -9,6 +9,7 @@
 #define ROTARY 2
 #define THREE_AXIS 3
 #define PUSH_BUTTON 4
+#define SEQUENCER 5
 
 #define CHANGE_LEFT 0
 #define CHANGE_CENTER 1
@@ -29,6 +30,8 @@
 #define BUTTON_PIN 10
 #define ROT_LEFT_PIN 11
 #define ROT_RIGHT_PIN 12
+
+#define GRID_TICK 0
 
 #define SENSOR_1_PIN 2
 #define SENSOR_2_PIN 3

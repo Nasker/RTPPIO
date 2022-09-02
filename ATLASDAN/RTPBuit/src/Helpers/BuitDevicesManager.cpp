@@ -54,6 +54,10 @@ void BuitDevicesManager::editCurrentNote(ControlCommand command){
     _sequencer->editNoteInCurrentPosition(command);
 }
 
+void BuitDevicesManager::displayCursorInSequence(ControlCommand command){
+    Serial.printf("Display Cursor in Sequence Position: %d\n", _sequencer->getSelectedSequencePosition());
+}
+
 void BuitDevicesManager::changeScene(ControlCommand command){
     switch(command.commandType){
         case ROTATING_RIGHT:

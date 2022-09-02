@@ -1,7 +1,14 @@
 #include "RTPSequencerManager.hpp"
+#include "RTPMainUnit.hpp"
+
+RTPMainUnit* RTPSequencerManager::mainUnit;
 
 RTPSequencerManager::RTPSequencerManager(){
     resetCounter();
+}
+
+void RTPSequencerManager::begin(RTPMainUnit* _mainUnit){
+    RTPSequencerManager::mainUnit = _mainUnit;
 }
 
 void RTPSequencerManager::connectSequencer(const RTPSequencer& sequencer){
@@ -23,8 +30,15 @@ void RTPSequencerManager::handleRealTimeSystem(byte realtimebyte){
 }
 
 void RTPSequencerManager::gridClockUp(byte realtimebyte){
-    if (counter % CLOCK_GRID == 0)
+    if (counter % CLOCK_GRID == 0){
         _sequencer->playAndMoveSequencer();
+        ControlCommand callbackCommand;
+        callbackCommand.controlType = SEQUENCER;
+        callbackCommand.commandType = GRID_TICK;
+        callbackCommand.value = counter;
+        mainUnit->actOnSequencerCallback(callbackCommand);
+    }
+        
     increaseCounter();
 } 
 

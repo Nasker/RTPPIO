@@ -43,3 +43,7 @@ void InitState::trellisPressed(ControlCommand command) {
 void InitState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void InitState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

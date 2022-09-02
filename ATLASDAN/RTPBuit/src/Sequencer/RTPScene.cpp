@@ -107,6 +107,10 @@ void RTPScene::decselectPageInSequence(){
   SequencerScene[_selectedSequence].decreasePage();
 }
 
+int RTPScene::getSelectedSequenceCurrentPosition(){
+  return SequencerScene[_selectedSequence].getCurrentSequencePosition();
+}
+
 int RTPScene::getSelectedParameterInSequeceValue(){
   return SequencerScene[_selectedSequence].getParameterValue();
 }

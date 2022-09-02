@@ -13,6 +13,7 @@ public:
 	virtual void threeAxisChanged(ControlCommand command) = 0;
 	virtual void trellisPressed(ControlCommand command) = 0;
 	virtual void trellisReleased(ControlCommand command) = 0;
+	virtual void sequencerCallback(ControlCommand command) = 0;
 
 	void connectDevices(const BuitDevicesManager& outDevices) {
 		_devices = (BuitDevicesManager*) &outDevices;

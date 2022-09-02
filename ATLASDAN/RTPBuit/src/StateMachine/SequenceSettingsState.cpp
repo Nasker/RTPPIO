@@ -36,3 +36,7 @@ void SequenceSettingsState::trellisPressed(ControlCommand command) {
 void SequenceSettingsState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void SequenceSettingsState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

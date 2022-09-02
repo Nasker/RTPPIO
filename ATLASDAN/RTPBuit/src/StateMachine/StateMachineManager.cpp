@@ -44,5 +44,8 @@ void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {
             break;
         }
       break;
+    case SEQUENCER:
+      buitStateMachine.sequencerCallback(callbackControlCommand);
+      break;
   } 
 }

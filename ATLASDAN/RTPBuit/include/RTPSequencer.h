@@ -19,6 +19,7 @@ public:
   void playAndMoveSequencer();
   void stopAndCleanSequencer();
   void pauseSequencer();
+  int getSelectedSequencePosition();
   void selectScene(int scene);
   void increaseSelectedScene();
   void decreaseSelectedScene();

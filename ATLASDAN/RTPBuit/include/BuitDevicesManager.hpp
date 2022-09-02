@@ -36,6 +36,8 @@ public:
     void useTransport(ControlCommand command);
     void editCurrentNote(ControlCommand command);
 
+    void displayCursorInSequence(ControlCommand command);
+
     void changeScene(ControlCommand command);
     void nudgePage(ControlCommand command);
 

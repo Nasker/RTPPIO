@@ -29,6 +29,7 @@ public:
   void decselectParameterInSequece();
   void incselectPageInSequence();
   void decselectPageInSequence();
+  int getSelectedSequenceCurrentPosition();
   int getSelectedParameterInSequeceValue();
   int getSequenceType(int sequenceIndex);
   void toggleSequence(int sequenceIndex);

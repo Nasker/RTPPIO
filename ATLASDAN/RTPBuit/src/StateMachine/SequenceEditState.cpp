@@ -38,3 +38,7 @@ void SequenceEditState::trellisPressed(ControlCommand command) {
 void SequenceEditState::trellisReleased(ControlCommand command) {
   //Serial.println("Does nothing here!");
 }
+
+void SequenceEditState::sequencerCallback(ControlCommand command) {
+  _devices->displayCursorInSequence(command);
+}

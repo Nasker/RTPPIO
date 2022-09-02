@@ -9,11 +9,14 @@
 #define TICKS_PER_BAR 96
 #define CLOCK_GRID 6
 
+class RTPMainUnit;
 class RTPSequencerManager{
+    static RTPMainUnit* mainUnit;
     RTPSequencer* _sequencer;
     byte counter;
 public:
     RTPSequencerManager();
+    void begin(RTPMainUnit* _mainUnit);
     void connectSequencer(const RTPSequencer& sequencer);
     void handleRealTimeSystem(byte realtimebyte);
 private:

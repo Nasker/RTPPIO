@@ -40,3 +40,7 @@ void SceneEditState::trellisPressed(ControlCommand command) {
 
 void SceneEditState::trellisReleased(ControlCommand command) {
 }
+
+void SceneEditState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}

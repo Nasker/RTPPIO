@@ -36,3 +36,7 @@ void TransportState::trellisPressed(ControlCommand command) {
 void TransportState::trellisReleased(ControlCommand command) {
 
 }  
+
+void TransportState::sequencerCallback(ControlCommand command) {
+  //Serial.println("Does nothing here!");
+}
