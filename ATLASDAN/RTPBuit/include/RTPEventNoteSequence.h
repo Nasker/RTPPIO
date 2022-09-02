@@ -20,7 +20,8 @@ using namespace std;
 enum SequenceParametersIndex{
 	TYPE,
 	MIDI_CHANNEL,
-	COLOR
+	COLOR,
+	LENGTH
 };
 
 class RTPEventNoteSequence{
