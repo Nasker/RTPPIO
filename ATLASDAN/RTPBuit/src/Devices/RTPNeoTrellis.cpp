@@ -79,6 +79,6 @@ void RTPNeoTrellis::writeTransportPage(int color){
 }
 
 void RTPNeoTrellis::moveCursor(int cursorPos){
-  myTrellis.pixels.setPixelColor(cursorPos, CURSOR_COLOR);
+  myTrellis.pixels.setPixelColor(convertMatrix[cursorPos], CURSOR_COLOR);
   myTrellis.pixels.show();
 }
