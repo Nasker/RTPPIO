@@ -56,7 +56,12 @@ void BuitDevicesManager::editCurrentNote(ControlCommand command){
 
 void BuitDevicesManager::displayCursorInSequence(ControlCommand command){
     Serial.printf("Display Cursor in Sequence Position: %d\n", _sequencer->getSelectedSequencePosition());
-}
+    int cursorPos = _sequencer->getSelectedSequencePosition() - _sequencer->getSelectedSequencePageOffset();
+    if (cursorPos >= 0 && cursorPos < SEQ_BLOCK_SIZE){
+        _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor(), false);
+        _neoTrellis->moveCursor(cursorPos);
+    }
+}   
 
 void BuitDevicesManager::changeScene(ControlCommand command){
     switch(command.commandType){

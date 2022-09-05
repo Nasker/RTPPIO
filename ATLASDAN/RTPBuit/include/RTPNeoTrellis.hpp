@@ -14,10 +14,11 @@ class RTPNeoTrellis{
     void begin(RTPMainUnit* _mainUnit);
     static TrellisCallback blink(keyEvent evt);
     void read();
-    void writeSequenceStates(RTPSequenceNoteStates seqStates, int color);
+    void writeSequenceStates(RTPSequenceNoteStates seqStates, int color, boolean show=true);
     void writeSceneStates(RTPSequencesState sceneStates);
     void writeBuitCCStates(RTPSequencesState buitCCStates, int color);
     void writeTransportPage(int color);
+    void moveCursor(int cursorPos);
     //void callbackFromTrellis(void(*userFunc)(String,int));
     //void callbackFromNeoTrellis(RTPMainUnit*);
 };

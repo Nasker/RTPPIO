@@ -60,6 +60,10 @@ int RTPScene::getSelectedSequence(){
   return _selectedSequence;
 }
 
+int RTPScene::getSelectedSequencePageOffset(){
+  return SequencerScene[_selectedSequence].pageOffset();
+}
+
 int RTPScene::getSize(){
   return SequencerScene.size();
 }

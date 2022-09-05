@@ -52,10 +52,11 @@ void RTPNeoTrellis::read(){
     myTrellis.read(false);
 }
 
-void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int color){
+void RTPNeoTrellis::writeSequenceStates(RTPSequenceNoteStates seqStates, int color, bool show=true){
   for(int i=0; i<SEQ_BLOCK_SIZE; i++)
       myTrellis.pixels.setPixelColor(convertMatrix[i], seqStates.val[i] ? color : 0);
-  myTrellis.pixels.show();
+  if(show)
+    myTrellis.pixels.show();
 }
 
 void RTPNeoTrellis::writeSceneStates(RTPSequencesState sequencesState){
@@ -74,5 +75,10 @@ void RTPNeoTrellis::writeTransportPage(int color){
   for(int i=0; i<SCENE_BLOCK_SIZE; i++){
     myTrellis.pixels.setPixelColor(i, color);
   }
+  myTrellis.pixels.show();
+}
+
+void RTPNeoTrellis::moveCursor(int cursorPos){
+  myTrellis.pixels.setPixelColor(cursorPos, CURSOR_COLOR);
   myTrellis.pixels.show();
 }

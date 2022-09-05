@@ -69,7 +69,7 @@ public:
 	int getParameterValue();
 	list<RTPEventNotePlus> getEventNoteSequence();
 	String dumpSequenceToJson();
-private:
 	int pageOffset();
+private:
 	void pointIterator(int position);
 };

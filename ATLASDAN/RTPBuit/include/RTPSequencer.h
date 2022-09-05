@@ -20,6 +20,7 @@ public:
   void stopAndCleanSequencer();
   void pauseSequencer();
   int getSelectedSequencePosition();
+  int getSelectedSequencePageOffset();
   void selectScene(int scene);
   void increaseSelectedScene();
   void decreaseSelectedScene();
