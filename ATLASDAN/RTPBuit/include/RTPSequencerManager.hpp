@@ -12,12 +12,11 @@
 class RTPMainUnit;
 class RTPSequencerManager{
     static RTPMainUnit* mainUnit;
-    RTPSequencer* _sequencer;
+    RTPSequencer& _sequencer;
     byte counter;
 public:
-    RTPSequencerManager();
+    RTPSequencerManager(RTPSequencer& sequencer);
     void begin(RTPMainUnit* _mainUnit);
-    void connectSequencer(const RTPSequencer& sequencer);
     void handleRealTimeSystem(byte realtimebyte);
 private:
     void gridClockUp(byte realtimebyte);

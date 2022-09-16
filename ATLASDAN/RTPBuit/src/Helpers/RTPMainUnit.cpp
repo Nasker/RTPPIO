@@ -15,7 +15,6 @@ void RTPMainUnit::begin(){
   devicesManager.initSetup();
   devicesManager.connectMusicManager(musicManager);
   stateMachineManager.connectDevices(devicesManager);
-	SequencerManager.connectSequencer(Sequencer);
   devicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
 

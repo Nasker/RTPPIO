@@ -20,7 +20,7 @@ class RTPMainUnit{
   RTPSequencer Sequencer{N_SCENES};
   BuitDevicesManager devicesManager{rtpTrellis, Sequencer};
   StateMachineManager stateMachineManager;
-  RTPSequencerManager SequencerManager;
+  RTPSequencerManager SequencerManager{Sequencer};
   MusicManager musicManager;
 public:
   RTPMainUnit();
