@@ -1,22 +1,16 @@
 #include "BuitDevicesManager.hpp"
 
-BuitDevicesManager::BuitDevicesManager(){}
+BuitDevicesManager::BuitDevicesManager(RTPNeoTrellis& nT, RTPSequencer& seq):
+_neoTrellis(nT),
+_sequencer(seq){}
 
 void BuitDevicesManager::initSetup(){
     _oled.init();
     initBuitSD();
 }
 
-void BuitDevicesManager::connectNeoTrellis(const RTPNeoTrellis& neoTrellis){
-    _neoTrellis = (RTPNeoTrellis*) &neoTrellis;
-}
-
-void BuitDevicesManager::connectSequencer(const RTPSequencer& sequencer){
-    _sequencer = (RTPSequencer*) &sequencer;
-}
-
 void BuitDevicesManager::connectMusicManager(const MusicManager& musicManager){
-    _sequencer->connectMusicManager(musicManager);
+    _sequencer.connectMusicManager(musicManager);
 }
 
 void BuitDevicesManager::printToScreen(String firstLine, String secondLine, String thirdLine){
@@ -28,68 +22,68 @@ void BuitDevicesManager::printToScreen(ControlCommand command){
 }
 
 void BuitDevicesManager::writeSequenceToNeoTrellis(RTPSequenceNoteStates sequenceStates, int color){
-    _neoTrellis->writeSequenceStates(sequenceStates, color);
+    _neoTrellis.writeSequenceStates(sequenceStates, color);
 }
 
 void BuitDevicesManager::writeSceneToNeoTrellis(RTPSequencesState sequencesState){
-    _neoTrellis->writeSceneStates(sequencesState);
+    _neoTrellis.writeSceneStates(sequencesState);
 }
 
 void BuitDevicesManager::writeTransportPage(){
-    _neoTrellis->writeTransportPage(TRANSPORT_COLOR);
+    _neoTrellis.writeTransportPage(TRANSPORT_COLOR);
 }
 
 void BuitDevicesManager::editScene(ControlCommand command){
-    _sequencer->toggleSequence(command.value);
-    writeSceneToNeoTrellis(_sequencer->getSequencesState());
+    _sequencer.toggleSequence(command.value);
+    writeSceneToNeoTrellis(_sequencer.getSequencesState());
 }
 
 void BuitDevicesManager::editSequence(ControlCommand command){
     printToScreen("Edit Sequence", "", "");
-    _sequencer->toggleNoteInSceneInSelectedSequence(command.value);
-    _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+    _sequencer.toggleNoteInSceneInSelectedSequence(command.value);
+    _neoTrellis.writeSequenceStates(_sequencer.getSelectedSequenceNoteStates(), _sequencer.getSelectedSequenceColor());
 }
 
 void BuitDevicesManager::editCurrentNote(ControlCommand command){
-    _sequencer->editNoteInCurrentPosition(command);
+    _sequencer.editNoteInCurrentPosition(command);
 }
 
 void BuitDevicesManager::displayCursorInSequence(ControlCommand command){
-    Serial.printf("Display Cursor in Sequence Position: %d\n", _sequencer->getSelectedSequencePosition());
-    int cursorPos = _sequencer->getSelectedSequencePosition() - _sequencer->getSelectedSequencePageOffset();
+    Serial.printf("Display Cursor in Sequence Position: %d\n", _sequencer.getSelectedSequencePosition());
+    int cursorPos = _sequencer.getSelectedSequencePosition() - _sequencer.getSelectedSequencePageOffset();
     if (cursorPos >= 0 && cursorPos < SEQ_BLOCK_SIZE){
-        _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor(), false);
-        _neoTrellis->moveCursor(cursorPos);
+        _neoTrellis.writeSequenceStates(_sequencer.getSelectedSequenceNoteStates(), _sequencer.getSelectedSequenceColor(), false);
+        _neoTrellis.moveCursor(cursorPos);
     }
     else if (cursorPos == SEQ_BLOCK_SIZE)
-        _neoTrellis->writeSequenceStates(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+        _neoTrellis.writeSequenceStates(_sequencer.getSelectedSequenceNoteStates(), _sequencer.getSelectedSequenceColor());
 }   
 
 void BuitDevicesManager::changeScene(ControlCommand command){
     switch(command.commandType){
         case ROTATING_RIGHT:
-            _sequencer->increaseSelectedScene();
+            _sequencer.increaseSelectedScene();
             break;
         case ROTATING_LEFT:
-            _sequencer->decreaseSelectedScene();
+            _sequencer.decreaseSelectedScene();
             break;
     }
     presentScene();
 }
 
 void  BuitDevicesManager::nudgePage(ControlCommand command){
-    _sequencer->nudgePageInSelectedSequence(command);
-    writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor());
+    _sequencer.nudgePageInSelectedSequence(command);
+    writeSequenceToNeoTrellis(_sequencer.getSelectedSequenceNoteStates(), _sequencer.getSelectedSequenceColor());
 }
 
 void BuitDevicesManager::presentScene(){
     printToScreen("Edit Scene","","");
-    writeSceneToNeoTrellis(_sequencer->getSequencesState());
+    writeSceneToNeoTrellis(_sequencer.getSequencesState());
 }
 
 void BuitDevicesManager::presentSequence(){
     printToScreen("Edit Sequence","","");
-    writeSequenceToNeoTrellis(_sequencer->getSelectedSequenceNoteStates(), _sequencer->getSelectedSequenceColor()); 
+    writeSequenceToNeoTrellis(_sequencer.getSelectedSequenceNoteStates(), _sequencer.getSelectedSequenceColor()); 
 }
 
 void BuitDevicesManager::presentTransport(){
@@ -99,20 +93,20 @@ void BuitDevicesManager::presentTransport(){
 
 void BuitDevicesManager::presentBuitCC(){
     printToScreen("Buit CCs", "", "");
-    _neoTrellis->writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
+    _neoTrellis.writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
 }
 
 void BuitDevicesManager::selectScene(ControlCommand command){
-    _sequencer->selectScene(command.value);
+    _sequencer.selectScene(command.value);
 }
 
 void BuitDevicesManager::selectSequence(ControlCommand command){
-    _sequencer->selectSequence(command.value);
+    _sequencer.selectSequence(command.value);
 }
 
 void BuitDevicesManager::editBuitCC(ControlCommand command){
     _matrixBuitCC.toggleBuitCC(command.value);
-    _neoTrellis->writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
+    _neoTrellis.writeBuitCCStates(_matrixBuitCC.getBuitCCStates(), TRANSPORT_COLOR);
 }
 
 void BuitDevicesManager::sendBuitCC(ControlCommand command){
@@ -120,5 +114,5 @@ void BuitDevicesManager::sendBuitCC(ControlCommand command){
 }
 
 void BuitDevicesManager::dumpSequencesToJson(){
-    _sequencer->dumpSequencesToJson();
+    _sequencer.dumpSequencesToJson();
 }

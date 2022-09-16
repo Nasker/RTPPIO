@@ -10,15 +10,13 @@
 
 class BuitDevicesManager {
     RTPOled _oled;
-    RTPNeoTrellis* _neoTrellis;
-    RTPSequencer* _sequencer;
+    RTPNeoTrellis& _neoTrellis;
+    RTPSequencer& _sequencer;
     MatrixBuitControlChanger _matrixBuitCC;
 
 public:
-    BuitDevicesManager();
+    BuitDevicesManager(RTPNeoTrellis& neoTrellis, RTPSequencer& sequencer);
     void initSetup();
-    void connectNeoTrellis(const RTPNeoTrellis& neoTrellis);
-    void connectSequencer(const RTPSequencer& sequencer);
     void connectMusicManager(const MusicManager& musicManager);
     void printToScreen(String firstLine, String secondLine, String thirdLine);
     void printToScreen(ControlCommand command);

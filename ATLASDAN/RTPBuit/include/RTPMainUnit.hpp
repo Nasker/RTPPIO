@@ -17,9 +17,9 @@ class RTPMainUnit{
   RTPNeoTrellis rtpTrellis;
   RTPRotaryClickDev rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};
   RTPThreeAxisVL vlSensor;
-  BuitDevicesManager devicesManager;
-  StateMachineManager stateMachineManager;
   RTPSequencer Sequencer{N_SCENES};
+  BuitDevicesManager devicesManager{rtpTrellis, Sequencer};
+  StateMachineManager stateMachineManager;
   RTPSequencerManager SequencerManager;
   MusicManager musicManager;
 public:

@@ -13,8 +13,6 @@ void RTPMainUnit::begin(){
   rtpTrellis.begin(this);
   SequencerManager.begin(this);
   devicesManager.initSetup();
-  devicesManager.connectNeoTrellis(rtpTrellis);
-  devicesManager.connectSequencer(Sequencer);
   devicesManager.connectMusicManager(musicManager);
   stateMachineManager.connectDevices(devicesManager);
 	SequencerManager.connectSequencer(Sequencer);
