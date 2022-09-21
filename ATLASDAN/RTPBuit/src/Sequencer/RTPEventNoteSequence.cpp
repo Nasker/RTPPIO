@@ -4,7 +4,8 @@
 #include "ReMap.hpp"
 
 
-RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote){
+RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int type, int baseNote, NotesPlayer& notesPlayer, MusicManager& musicManager):
+ _notesPlayer(notesPlayer), _musicManager(musicManager){
   RTPParameter parameterType = RTPParameter(0,2,type);
   RTPParameter parameterMidiChannel = RTPParameter(1,16,midiChannel);
   RTPParameter parameterColor = RTPParameter(0,0XFFFFFF,0);
@@ -37,14 +38,6 @@ RTPEventNoteSequence::RTPEventNoteSequence(int midiChannel, int NEvents, int typ
     RTPEventNotePlus eventNote = RTPEventNotePlus(midiChannel, false, _baseNote , 80); // true, 60, 80
     EventNoteSequence.push_back(eventNote);
   }
-}
-
-void RTPEventNoteSequence::connectNotesPlayer(const NotesPlayer& notesPlayer){
-  _notesPlayer = (NotesPlayer*) &notesPlayer;
-}
-
-void RTPEventNoteSequence::connectMusicManager(const MusicManager& musicManager){
-  _musicManager = (MusicManager*) &musicManager;
 }
 
 void RTPEventNoteSequence::fordwardSequence(){
@@ -109,26 +102,26 @@ void RTPEventNoteSequence::playCurrentEventNote(){
     switch (getType()){
       case DRUM:{
         it->setLength(1);
-        _notesPlayer->queueNote(*it);
+        _notesPlayer.queueNote(*it);
         return;
       }
       case BASS_SYNTH:{
-        _musicManager->setCurrentSteps(it->getEventRead(), BASS_SYNTH);
-        it->setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(*it);
+        _musicManager.setCurrentSteps(it->getEventRead(), BASS_SYNTH);
+        it->setEventNote(_musicManager.getCurrentChordNote());
+        _notesPlayer.queueNote(*it);
         return;
       }
       case MONO_SYNTH:
-        _musicManager->setCurrentSteps(it->getEventRead(), MONO_SYNTH);
-        it->setEventNote(_musicManager->getCurrentChordNote());
-        _notesPlayer->queueNote(*it);
+        _musicManager.setCurrentSteps(it->getEventRead(), MONO_SYNTH);
+        it->setEventNote(_musicManager.getCurrentChordNote());
+        _notesPlayer.queueNote(*it);
         return;
       case POLY_SYNTH:
-        _musicManager->setCurrentSteps(it->getEventRead(), POLY_SYNTH);
-        auto chordNotes = _musicManager->getCurrentChordNotes();
+        _musicManager.setCurrentSteps(it->getEventRead(), POLY_SYNTH);
+        auto chordNotes = _musicManager.getCurrentChordNotes();
         while(!chordNotes.empty()){
           it->setEventNote(chordNotes.front());
-          _notesPlayer->queueNote(*it);
+          _notesPlayer.queueNote(*it);
           chordNotes.pop();
         }
         return;

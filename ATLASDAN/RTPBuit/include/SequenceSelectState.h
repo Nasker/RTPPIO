@@ -3,7 +3,7 @@
 class SequenceSelectState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  SequenceSelectState(BuitStateMachine* buitMachine);
+  SequenceSelectState(BuitStateMachine* buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

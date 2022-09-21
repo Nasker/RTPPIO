@@ -3,7 +3,7 @@
 class SceneSettingsState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  SceneSettingsState (BuitStateMachine* voidMachine);
+  SceneSettingsState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

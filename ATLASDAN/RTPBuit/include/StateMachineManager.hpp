@@ -7,9 +7,10 @@
 
 class StateMachineManager{
     BuitStateMachine buitStateMachine;
+    BuitDevicesManager& _devices;
  public:
-    StateMachineManager();
+    StateMachineManager(BuitDevicesManager& devices);
     ~StateMachineManager();
-    void connectDevices(const BuitDevicesManager& outDevices);
+    void setInitialState();
     void handleActions(ControlCommand callbackControlCommand);
 };

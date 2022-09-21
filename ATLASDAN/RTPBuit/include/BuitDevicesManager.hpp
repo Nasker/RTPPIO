@@ -17,7 +17,6 @@ class BuitDevicesManager {
 public:
     BuitDevicesManager(RTPNeoTrellis& neoTrellis, RTPSequencer& sequencer);
     void initSetup();
-    void connectMusicManager(const MusicManager& musicManager);
     void printToScreen(String firstLine, String secondLine, String thirdLine);
     void printToScreen(ControlCommand command);
 

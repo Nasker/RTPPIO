@@ -16,7 +16,7 @@ class BuitStateMachine{
 	BuitState* _sequenceSettingsState;
 
 public:
-	BuitStateMachine();  //, LiquidScreen& lScreen
+	BuitStateMachine(BuitDevicesManager& outDevices);  //, LiquidScreen& lScreen
 	void singleClick();
 	void doubleClick();
 	void longClick();
@@ -45,6 +45,4 @@ public:
 	BuitState* getSequenceSelectState();
 
 	BuitState* getSequenceSettingsState();
-
-	void connectDevices(const BuitDevicesManager& outDevices);
 };

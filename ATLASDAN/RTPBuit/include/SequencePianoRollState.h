@@ -3,7 +3,7 @@
 class SequencePianoRollState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  SequencePianoRollState (BuitStateMachine* voidMachine);
+  SequencePianoRollState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

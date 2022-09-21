@@ -2,7 +2,7 @@
 
 #include "GlobalSettingsState.h"
 
-GlobalSettingsState::GlobalSettingsState (BuitStateMachine* buitMachine){
+GlobalSettingsState::GlobalSettingsState (BuitStateMachine* buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
   Serial.println("GlobalSettingsState");
   _buitMachine = buitMachine;
 }
@@ -13,7 +13,7 @@ void GlobalSettingsState::singleClick() {
 
 void GlobalSettingsState::doubleClick() {
   Serial.println("Going to Transport");
-  _devices->printToScreen("Transport", "", "");
+  _devices.printToScreen("Transport", "", "");
   _buitMachine->setState(_buitMachine->getTransportState());
 }
 

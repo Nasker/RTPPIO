@@ -3,7 +3,7 @@
 class SequenceEditState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  SequenceEditState (BuitStateMachine* voidMachine);
+  SequenceEditState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

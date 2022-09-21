@@ -4,8 +4,9 @@
 
 class BuitState {
 protected:
-	BuitDevicesManager* _devices;
+	BuitDevicesManager& _devices;
 public:
+	BuitState(BuitDevicesManager& devices) : _devices(devices) {}
   	virtual void singleClick() = 0;
 	virtual void doubleClick() = 0;
 	virtual void longClick() = 0;
@@ -14,8 +15,4 @@ public:
 	virtual void trellisPressed(ControlCommand command) = 0;
 	virtual void trellisReleased(ControlCommand command) = 0;
 	virtual void sequencerCallback(ControlCommand command) = 0;
-
-	void connectDevices(const BuitDevicesManager& outDevices) {
-		_devices = (BuitDevicesManager*) &outDevices;
-	}
 };

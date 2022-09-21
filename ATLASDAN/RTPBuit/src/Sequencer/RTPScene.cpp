@@ -11,25 +11,15 @@ int midiChannels[N_SCENES][SCENE_BLOCK_SIZE] = {
   {1,1,2,3,4,5,6,7,8,9,11,12,13,14,15,16}
 };
 
-RTPScene::RTPScene(String name, int NSequences, int scene){
+RTPScene::RTPScene(String name, int NSequences, int scene, NotesPlayer& notesPlayer, MusicManager& musicManager) : _notesPlayer(notesPlayer), _musicManager(musicManager) {
   _name = name;
   _NSequences = NSequences;
   _selectedSequence = 0;
   for(int i=0; i < _NSequences; i++){
     int baseNote = types[scene][i] == DRUM ? 36 + i : 60;
-    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[scene][i], SEQ_BLOCK_SIZE * N_PAGES, types[scene][i], baseNote);
+    RTPEventNoteSequence sequence = RTPEventNoteSequence(midiChannels[scene][i], SEQ_BLOCK_SIZE * N_PAGES, types[scene][i], baseNote, _notesPlayer, _musicManager);
     SequencerScene.push_back(sequence);
   }
-}
-
-void RTPScene::connectNotesPlayer(const NotesPlayer& notesPlayer){
-  for(size_t i=0; i<SequencerScene.size(); i++)
-    SequencerScene[i].connectNotesPlayer(notesPlayer);
-}
-
-void RTPScene::connectMusicManager(const MusicManager& musicManager){
-  for(size_t i=0; i<SequencerScene.size(); i++)
-    SequencerScene[i].connectMusicManager(musicManager);
 }
 
 void RTPScene::playScene(){

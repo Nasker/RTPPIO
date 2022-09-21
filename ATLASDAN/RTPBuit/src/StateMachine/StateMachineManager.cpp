@@ -3,13 +3,12 @@
 */
 #include "StateMachineManager.hpp"
 
-StateMachineManager::StateMachineManager() {}
+StateMachineManager::StateMachineManager(BuitDevicesManager& devices):_devices(devices), buitStateMachine(devices){}
 
 StateMachineManager::~StateMachineManager() {}
 
-void StateMachineManager::connectDevices(const BuitDevicesManager& outDevices) {
+void StateMachineManager::setInitialState() {
   buitStateMachine.setState(buitStateMachine.getInitState());
-  buitStateMachine.connectDevices(outDevices);
 }
 
 void StateMachineManager::handleActions(ControlCommand callbackControlCommand) {

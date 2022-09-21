@@ -13,8 +13,6 @@ void RTPMainUnit::begin(){
   rtpTrellis.begin(this);
   SequencerManager.begin(this);
   devicesManager.initSetup();
-  devicesManager.connectMusicManager(musicManager);
-  stateMachineManager.connectDevices(devicesManager);
   devicesManager.printToScreen("Hey there!", "I'm Buit!", "FTW!");
 }
 

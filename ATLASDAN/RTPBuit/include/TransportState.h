@@ -3,7 +3,7 @@
 class TransportState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  TransportState  (BuitStateMachine* buitMachine);
+  TransportState  (BuitStateMachine* buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

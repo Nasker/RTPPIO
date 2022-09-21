@@ -3,7 +3,7 @@
 class SequenceSettingsState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  SequenceSettingsState (BuitStateMachine* buitMachine);
+  SequenceSettingsState (BuitStateMachine* buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

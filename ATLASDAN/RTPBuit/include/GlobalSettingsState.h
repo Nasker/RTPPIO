@@ -3,7 +3,7 @@
 class GlobalSettingsState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  GlobalSettingsState (BuitStateMachine* voidMachine);
+  GlobalSettingsState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

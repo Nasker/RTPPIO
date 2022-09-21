@@ -3,7 +3,7 @@
 class InitState : public BuitState{
   BuitStateMachine* _buitMachine;
 public:
-  InitState(BuitStateMachine* buitMachine);
+  InitState(BuitStateMachine* buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

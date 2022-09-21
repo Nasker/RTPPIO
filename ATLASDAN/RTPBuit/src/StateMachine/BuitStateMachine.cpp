@@ -11,17 +11,17 @@
 
 #include "Arduino.h"
 
-BuitStateMachine::BuitStateMachine(){ //, LiquidScreen& lScreen
-  _state = new InitState(this);
-	_initState = new InitState(this);
-	_transportState = new TransportState(this);
-	_globalSettingsState = new GlobalSettingsState(this);
-	_sceneEditState = new SceneEditState(this);
-	_sceneSettingsState = new SceneSettingsState(this);
-	_sequenceEditState = new SequenceEditState(this);
-	_sequencePianoRollState = new SequencePianoRollState(this);
-	_sequenceSelectState = new SequenceSelectState(this);
-	_sequenceSettingsState = new SequenceSettingsState(this);
+BuitStateMachine::BuitStateMachine(BuitDevicesManager& outDevices){ //, LiquidScreen& lScreen
+  _state = new InitState(this, outDevices);
+	_initState = new InitState(this, outDevices);
+	_transportState = new TransportState(this, outDevices);
+	_globalSettingsState = new GlobalSettingsState(this, outDevices);
+	_sceneEditState = new SceneEditState(this, outDevices);
+	_sceneSettingsState = new SceneSettingsState(this, outDevices);
+	_sequenceEditState = new SequenceEditState(this, outDevices);
+	_sequencePianoRollState = new SequencePianoRollState(this, outDevices);
+	_sequenceSelectState = new SequenceSelectState(this, outDevices);
+	_sequenceSettingsState = new SequenceSettingsState(this, outDevices);
 }
 
 void BuitStateMachine::singleClick(){
@@ -94,16 +94,4 @@ BuitState* BuitStateMachine::getSequenceSelectState(){
 
 BuitState* BuitStateMachine::getSequenceSettingsState(){
   return _sequenceSettingsState;
-}
-
-void BuitStateMachine::connectDevices(const BuitDevicesManager& outDevices){
-	_initState->connectDevices(outDevices);
-	_transportState->connectDevices(outDevices);
-	_globalSettingsState->connectDevices(outDevices);
-	_sceneEditState->connectDevices(outDevices);
-	_sceneSettingsState->connectDevices(outDevices);
-	_sequenceEditState->connectDevices(outDevices);
-	_sequencePianoRollState->connectDevices(outDevices);
-	_sequenceSelectState->connectDevices(outDevices);
-	_sequenceSettingsState->connectDevices(outDevices);
 }

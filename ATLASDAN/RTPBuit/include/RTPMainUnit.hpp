@@ -17,11 +17,12 @@ class RTPMainUnit{
   RTPNeoTrellis rtpTrellis;
   RTPRotaryClickDev rtpRotary{ROT_LEFT_PIN, ROT_RIGHT_PIN, BUTTON_PIN, LOW, true};
   RTPThreeAxisVL vlSensor;
-  RTPSequencer Sequencer{N_SCENES};
-  BuitDevicesManager devicesManager{rtpTrellis, Sequencer};
-  StateMachineManager stateMachineManager;
-  RTPSequencerManager SequencerManager{Sequencer};
   MusicManager musicManager;
+  RTPSequencer Sequencer{N_SCENES, musicManager};
+  BuitDevicesManager devicesManager{rtpTrellis, Sequencer};
+  StateMachineManager stateMachineManager{devicesManager};
+  RTPSequencerManager SequencerManager{Sequencer};
+  
 public:
   RTPMainUnit();
   void begin();

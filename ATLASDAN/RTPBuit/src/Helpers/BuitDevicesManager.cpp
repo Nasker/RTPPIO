@@ -9,10 +9,6 @@ void BuitDevicesManager::initSetup(){
     initBuitSD();
 }
 
-void BuitDevicesManager::connectMusicManager(const MusicManager& musicManager){
-    _sequencer.connectMusicManager(musicManager);
-}
-
 void BuitDevicesManager::printToScreen(String firstLine, String secondLine, String thirdLine){
     _oled.printToScreen(firstLine, secondLine, thirdLine);
 }

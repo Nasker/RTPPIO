@@ -10,11 +10,11 @@ class RTPScene{
   String _name;
   int _NSequences;
   int _selectedSequence;
+  NotesPlayer& _notesPlayer; 
+  MusicManager& _musicManager;
   RTPSequenceNoteStates _seqStates;
 public:
-  RTPScene(String name, int NSequences, int scene);
-  void connectNotesPlayer(const NotesPlayer& notesPlayer);
-  void connectMusicManager(const MusicManager& musicManager);
+  RTPScene(String name, int NSequences, int scene, NotesPlayer& notesPlayer, MusicManager& musicManager);
   void playScene();
   void fordwardScene();
   void backwardScene();

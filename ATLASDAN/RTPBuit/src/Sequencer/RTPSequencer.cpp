@@ -1,21 +1,15 @@
 #include "RTPSequencer.h"
 
-RTPSequencer::RTPSequencer(int NScenes){
+RTPSequencer::RTPSequencer(int NScenes, MusicManager& musicManager) :_musicManager(musicManager) {
   Serial.println("CREATING RTPSequencer");
   _NScenes = NScenes;
   _selectedScene = 0;
   for(int i=0; i < _NScenes; i++){
-    RTPScene scene = RTPScene("Scene", SCENE_BLOCK_SIZE, i);
+    RTPScene scene = RTPScene("Scene", SCENE_BLOCK_SIZE, i, _notesPlayer, _musicManager);
     Sequencer.push_back(scene);
-    Sequencer[i].connectNotesPlayer(_notesPlayer);
   }
 }
 
-void RTPSequencer::connectMusicManager(const MusicManager& musicManager){
-  for(size_t i=0; i<Sequencer.size(); i++)
-    Sequencer[i].connectMusicManager(musicManager);
-}
- 
 void RTPSequencer::playAndMoveSequencer(){
   for(size_t i=0; i<Sequencer.size(); i++){ 
     Sequencer[i].playScene();
@@ -36,7 +30,7 @@ void RTPSequencer::pauseSequencer(){
 }
 
 int RTPSequencer::getSelectedSequencePosition(){
-  Sequencer[_selectedScene].getSelectedSequenceCurrentPosition();
+  return Sequencer[_selectedScene].getSelectedSequenceCurrentPosition();
 }
 
 int RTPSequencer::getSelectedSequencePageOffset(){
