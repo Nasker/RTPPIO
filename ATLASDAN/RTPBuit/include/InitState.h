@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class InitState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  InitState(BuitStateMachine* buitMachine, BuitDevicesManager& devices);
+  InitState(BuitStateMachine& buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

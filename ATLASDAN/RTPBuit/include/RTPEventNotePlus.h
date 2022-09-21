@@ -27,7 +27,7 @@ class RTPEventNotePlus: public RTPEventNote{
     }
 
     void playNoteOff(){
-      usbMIDI.sendNoteOff(getEventNote(), getEventVelocity(), getMidiChannel());
+      usbMIDI.sendNoteOff(getEventNote(), 0, getMidiChannel());
     }
 
     void setLength(int length){

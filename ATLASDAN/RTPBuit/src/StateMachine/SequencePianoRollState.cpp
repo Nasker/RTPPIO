@@ -2,7 +2,7 @@
 
 #include "SequencePianoRollState.h"
 
-SequencePianoRollState::SequencePianoRollState(BuitStateMachine* buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
+SequencePianoRollState::SequencePianoRollState(BuitStateMachine& buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
   Serial.println("SequencePianoRollState");
   _buitMachine = buitMachine;
 }
@@ -14,7 +14,7 @@ void SequencePianoRollState::singleClick() {
 void SequencePianoRollState::doubleClick() {
   Serial.println("Going to Sequence Edit!");
   _devices.printToScreen("State:", "Sequence Edit!","");
-  _buitMachine->setState(_buitMachine->getSequenceEditState());
+  _buitMachine.setState(_buitMachine.getSequenceEditState());
 }
 
 void SequencePianoRollState::longClick() {

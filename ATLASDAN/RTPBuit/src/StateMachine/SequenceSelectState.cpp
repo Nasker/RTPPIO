@@ -2,7 +2,7 @@
 
 #include "SequenceSelectState.h"
 
-SequenceSelectState::SequenceSelectState(BuitStateMachine* buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
+SequenceSelectState::SequenceSelectState(BuitStateMachine& buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
   Serial.println("SequenceSelectState");
   _buitMachine = buitMachine;
 }
@@ -10,14 +10,14 @@ SequenceSelectState::SequenceSelectState(BuitStateMachine* buitMachine, BuitDevi
 void SequenceSelectState::singleClick() {
   Serial.println("Going to Sequence Edit!");
   _devices.printToScreen("State:", "Sequence Edit!","");
-  _buitMachine->setState(_buitMachine->getSequenceEditState());
+  _buitMachine.setState(_buitMachine.getSequenceEditState());
 }
 
 
 void SequenceSelectState::doubleClick() {
   Serial.println("Going to Scene Edit!");
   _devices.printToScreen("State:", "Scene Edit!","");
-  _buitMachine->setState(_buitMachine->getSceneEditState());
+  _buitMachine.setState(_buitMachine.getSceneEditState());
 }
 
 void SequenceSelectState::longClick() {
@@ -36,7 +36,7 @@ void SequenceSelectState::trellisPressed(ControlCommand command) {
   Serial.printf("Editing sequence #%d\n", command.value);
   _devices.selectSequence(command);
   _devices.presentSequence();
-  _buitMachine->setState(_buitMachine->getSequenceEditState());
+  _buitMachine.setState(_buitMachine.getSequenceEditState());
 }
 
 void SequenceSelectState::trellisReleased(ControlCommand command) {

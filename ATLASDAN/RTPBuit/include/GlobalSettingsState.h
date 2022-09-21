@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class GlobalSettingsState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  GlobalSettingsState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
+  GlobalSettingsState (BuitStateMachine& voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

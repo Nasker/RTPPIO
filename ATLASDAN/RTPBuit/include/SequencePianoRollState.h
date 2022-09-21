@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class SequencePianoRollState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  SequencePianoRollState (BuitStateMachine* voidMachine, BuitDevicesManager& devices);
+  SequencePianoRollState (BuitStateMachine& voidMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

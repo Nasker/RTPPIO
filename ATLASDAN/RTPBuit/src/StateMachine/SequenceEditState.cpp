@@ -2,7 +2,7 @@
 
 #include "SequenceEditState.h"
 
-SequenceEditState::SequenceEditState(BuitStateMachine* buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
+SequenceEditState::SequenceEditState(BuitStateMachine& buitMachine, BuitDevicesManager& devices) : BuitState(devices), _buitMachine(buitMachine) {
   Serial.println("SequenceEditState");
   _buitMachine = buitMachine;
 }
@@ -14,13 +14,13 @@ void SequenceEditState::singleClick() {
 void SequenceEditState::doubleClick() {
   Serial.println("Going to Scene Edit!");
   _devices.presentScene();
-  _buitMachine->setState(_buitMachine->getSceneEditState());
+  _buitMachine.setState(_buitMachine.getSceneEditState());
 }
 
 void SequenceEditState::longClick() {
   //Serial.println("Going to Sequence Settings!");
   _devices.printToScreen("State:", "Sequence Settings!","");
-  _buitMachine->setState(_buitMachine->getSequenceSettingsState());
+  _buitMachine.setState(_buitMachine.getSequenceSettingsState());
 }
 
 void SequenceEditState::rotaryTurned(ControlCommand command) {

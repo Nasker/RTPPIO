@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class TransportState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  TransportState  (BuitStateMachine* buitMachine, BuitDevicesManager& devices);
+  TransportState(BuitStateMachine& buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

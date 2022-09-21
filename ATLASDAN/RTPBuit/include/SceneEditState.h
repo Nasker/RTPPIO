@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class SceneEditState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  SceneEditState(BuitStateMachine* buitMachine, BuitDevicesManager& devices);
+  SceneEditState(BuitStateMachine& buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

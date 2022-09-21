@@ -1,9 +1,9 @@
 #include "BuitStateMachine.h"
 
 class SequenceSelectState : public BuitState{
-  BuitStateMachine* _buitMachine;
+  BuitStateMachine& _buitMachine;
 public:
-  SequenceSelectState(BuitStateMachine* buitMachine, BuitDevicesManager& devices);
+  SequenceSelectState(BuitStateMachine& buitMachine, BuitDevicesManager& devices);
   void singleClick();
   void doubleClick();
   void longClick();

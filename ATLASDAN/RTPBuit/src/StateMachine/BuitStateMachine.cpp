@@ -12,16 +12,16 @@
 #include "Arduino.h"
 
 BuitStateMachine::BuitStateMachine(BuitDevicesManager& outDevices){ //, LiquidScreen& lScreen
-  _state = new InitState(this, outDevices);
-	_initState = new InitState(this, outDevices);
-	_transportState = new TransportState(this, outDevices);
-	_globalSettingsState = new GlobalSettingsState(this, outDevices);
-	_sceneEditState = new SceneEditState(this, outDevices);
-	_sceneSettingsState = new SceneSettingsState(this, outDevices);
-	_sequenceEditState = new SequenceEditState(this, outDevices);
-	_sequencePianoRollState = new SequencePianoRollState(this, outDevices);
-	_sequenceSelectState = new SequenceSelectState(this, outDevices);
-	_sequenceSettingsState = new SequenceSettingsState(this, outDevices);
+  _state = new InitState(*this, outDevices);
+	_initState = new InitState(*this, outDevices);
+	_transportState = new TransportState(*this, outDevices);
+	_globalSettingsState = new GlobalSettingsState(*this, outDevices);
+	_sceneEditState = new SceneEditState(*this, outDevices);
+	_sceneSettingsState = new SceneSettingsState(*this, outDevices);
+	_sequenceEditState = new SequenceEditState(*this, outDevices);
+	_sequencePianoRollState = new SequencePianoRollState(*this, outDevices);
+	_sequenceSelectState = new SequenceSelectState(*this, outDevices);
+	_sequenceSettingsState = new SequenceSettingsState(*this, outDevices);
 }
 
 void BuitStateMachine::singleClick(){
