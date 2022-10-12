@@ -25,4 +25,5 @@ public:
     void setCurrentSteps(int rangeReading, int type);
     int getCurrentChordNote();
     queue<int> getCurrentChordNotes();
+    void printCurrentHarmony();
 };

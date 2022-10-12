@@ -10,11 +10,13 @@ void MusicManager::setCurrentHarmony(byte channel, byte control, byte value){
         bassRange.setNumberStepsInZone(mControl.chords.getChordSteps());
         synthRange.setNumberStepsInZone(mControl.chords.getChordSteps());
         polyRange.setNumberStepsInZone(mControl.chords.getChordSteps());
-
-        /*Serial.print(mControl.getCurrentRootNoteName());
-        Serial.print("\t");
-        Serial.println(mControl.getChordName());*/
     }
+}
+
+void MusicManager::printCurrentHarmony(){
+    Serial.print(mControl.getCurrentRootNoteName());
+    Serial.print("\t");
+    Serial.println(mControl.getChordName());
 }
 
 void MusicManager::setCurrentSteps(int rangeReading, int type){

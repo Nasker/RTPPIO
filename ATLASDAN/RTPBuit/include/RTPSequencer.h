@@ -12,7 +12,7 @@ class RTPSequencer{
   int _NScenes;
   int _selectedScene;
   NotesPlayer _notesPlayer;
-  MusicManager _musicManager;
+  MusicManager& _musicManager;
 
 public:
   RTPSequencer(int NScenes, MusicManager& musicManager);
