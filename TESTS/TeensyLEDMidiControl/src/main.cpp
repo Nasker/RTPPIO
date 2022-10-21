@@ -23,7 +23,6 @@ void handleNoteOff(uint8_t channel, uint8_t note, uint8_t velocity) {
   irsend.sendNEC(codeOFF, 32);
 }
 
-
 void setup() {
   Serial.begin(115200);
   irsend.begin(kIrLed);
