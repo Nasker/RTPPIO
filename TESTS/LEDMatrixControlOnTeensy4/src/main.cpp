@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include "Ticker.h"
+#include "Adafruit_GFX.h"
+
+#define TICKER_PERIOD 100
 
 bool state = false;
 
@@ -8,7 +11,7 @@ void blink() {
   state = !state;
 }
 
-Ticker ticker(blink, 500, 0, MILLIS);
+Ticker ticker(blink, TICKER_PERIOD, 0, MILLIS);
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
