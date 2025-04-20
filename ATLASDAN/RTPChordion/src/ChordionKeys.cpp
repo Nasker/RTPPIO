@@ -34,9 +34,8 @@ PlayedChord ChordionKeys::playChord(int rootNote){
     PlayedChord playedChord;
     playedChord.rootNote = rootNote;
     playedChord.chordType = 0;
-    for(int i=0;i<N_CHORDION_KEYS;i++){
+    for(int i=0;i<N_CHORDION_KEYS;i++)
         playedChord.chordType += int(chordionArray[i])*pow(2,i);
-    }
     mController.chords.setChordType(playedChord.chordType);
     ringingChordsList.add(playedChord);
     usbMIDI.sendControlChange(rootNote - BASE_NOTE - N_NOTES, playedChord.chordType, 1);
@@ -62,9 +61,7 @@ PlayedChord ChordionKeys::playChord(int rootNote){
                 usbMIDI.sendNoteOn(rootNote+mController.chords.getChordStep(i), 90, instChannel[j].midiChannel);
                 MIDI.sendNoteOn(rootNote+mController.chords.getChordStep(i), 90, instChannel[j].midiChannel);
                 //Serial.printf("CHANNEL %d\n", instChannel[j].midiChannel);
-            }
-
-            
+            }   
         }
     }
     return playedChord;
@@ -74,6 +71,8 @@ void ChordionKeys::releaseChord(int rootNote){
     for(int i=0; i<ringingChordsList.size(); i++){
         if(ringingChordsList.get(i).rootNote == rootNote){
             mController.chords.setChordType(ringingChordsList.get(i).chordType);
+            usbMIDI.sendControlChange((rootNote - BASE_NOTE - N_NOTES) + 243, ringingChordsList.get(i).chordType, 1);
+            MIDI.sendControlChange(-(rootNote - BASE_NOTE - N_NOTES), ringingChordsList.get(i).chordType, 1);
             for(int k=0; k<N_CHANNELS; k++){
                 for(int j=0; j< mController.chords.getChordSteps();j++){
                     if(instChannel[k].voices == -1 && mController.chords.getChordStep(j) < 0){

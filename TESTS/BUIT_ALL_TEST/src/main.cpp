@@ -2,8 +2,7 @@
 #include <Wire.h>
 #include "SPI.h"
 #include "Adafruit_NeoTrellis.h"
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+#include <U8g2lib.h>
 #include "RTPRotaryClick.h"
 #include "RTPThreeAxisVL.hpp"
 
@@ -22,7 +21,7 @@
 #define ROTARY_ID 6
 
 
-Adafruit_SSD1306 display{SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, SCREEN_ADDRESS};
+U8G2_SH1106_128X64_NONAME_1_HW_I2C display{U8G2_R2, /* reset=*/ U8X8_PIN_NONE};
 Adafruit_NeoTrellis trellis = Adafruit_NeoTrellis(TRELLIS_ADDRESS);
 RTPRotaryClick rotary(ROT_LEFT_PIN, ROT_RIGHT_PIN, BTN_PIN, false, true);
 RTPThreeAxisVL vlSensor;
@@ -30,9 +29,8 @@ RTPThreeAxisVL vlSensor;
 bool bState[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void printToScreen(ControlCommand command){
+  Wire.end();
   display.clearDisplay();
-  display.setTextSize(2); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
   display.println("->ID: " + String(command.controlID));
   display.setCursor(0, 20);
@@ -40,15 +38,24 @@ void printToScreen(ControlCommand command){
   display.setCursor(0, 40);
   display.println("->VAL: " + String(command.value));
   display.display();
+  Wire.begin();
 }
 
 void printToScreen(String text, int size){
-  display.clearDisplay();
-  display.setTextSize(size); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println(text);
-  display.display();      // Show initial text
+  Wire.end();
+  display.firstPage();
+  do {
+    //display.drawFrame(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    display.setCursor(calcOffsetToCenterText(firstLine), 10);
+    display.println(firstLine);
+    display.drawHLine(0, 15, SCREEN_WIDTH);
+    display.setCursor(calcOffsetToCenterText(secondLine), 30);
+    display.println(secondLine);
+    display.setCursor(calcOffsetToCenterText(thirdLine), 45);
+    display.println(thirdLine);
+  } while (display.nextPage());
+  lastLines = firstLine+secondLine+thirdLine;
+  Wire.begin();
 }
 
 uint32_t Wheel(byte WheelPos) {
@@ -133,11 +140,8 @@ void actOnRotationCallback(String callbackString, int callbackInt){
 
 void setup(){
   Serial.begin (115200);
+  display.begin();
   Wire.begin();
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop foreve
-  }
 
   if (!trellis.begin()) {
     Serial.println("Could not start trellis, check wiring?");
@@ -149,6 +153,7 @@ void setup(){
   Wire1.begin();
   vlSensor.initSetup();
   vlSensor.startContinuous();
+  display.setFont(u8g2_font_DigitalDisco_tf);
   printToScreen("BUIT DEV TEST!", 2);
 
   for(int i=0; i<NEO_TRELLIS_NUM_KEYS; i++){
